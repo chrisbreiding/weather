@@ -1,0 +1,60 @@
+import { observer } from 'mobx-react'
+import React from 'react'
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Legend,
+  ReferenceLine,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts'
+
+import YLabel from './y-label'
+import TooltipContent from './tooltip-content'
+import util from '../lib/util'
+
+const PrecipChart = observer(({ hourlyWeather }) => {
+  const { days, firstDayTimestamp, lastDayTimestamp } = hourlyWeather
+
+  return (
+    <div className='precip-chart'>
+      <AreaChart
+        width={700}
+        height={180}
+        data={hourlyWeather.chartData}
+        syncId='weather'
+      >
+        <CartesianGrid stroke='#eee' />
+        <ReferenceLine x={util.currentTimestamp()} stroke='#ccc' />
+        <XAxis
+          dataKey='time'
+          type='number'
+          domain={[firstDayTimestamp, lastDayTimestamp]}
+          tickSize={0}
+          tickFormatter={() => ''}
+          ticks={days}
+        />
+        <YAxis domain={[0, 100]} tick={<YLabel render={(value) => `${value}%`} />} />
+        <Tooltip content={<TooltipContent render={(data) => (
+          <div className='precip'>{`${data.precipProbability}%`}</div>
+        )} />} />
+        <Legend align='right' iconType='rect' iconSize={12} />
+        <Area
+          type='step'
+          name='Chance of Precip. (%)'
+          dataKey='precipProbability'
+          stroke='#0cafe2'
+          fillOpacity={0.2}
+          fill='#0cafe2'
+          dot={false}
+          activeDot={{ r: 5 }}
+          isAnimationActive={false}
+        />
+      </AreaChart>
+    </div>
+  )
+})
+
+export default PrecipChart
