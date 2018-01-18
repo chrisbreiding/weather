@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-export const CurrentWeatherModel = types.model('CurrentWeather', {
+export const CurrentlyWeather = types.model('CurrentWeather', {
   summary: types.string,
   precipProbability: types.number,
   temperature: types.number,
@@ -8,16 +8,15 @@ export const CurrentWeatherModel = types.model('CurrentWeather', {
   icon: types.string,
 })
 
-const HourModel = types.model('Hour', {
+const Hour = types.model('Hour', {
   time: types.number,
   precipProbability: types.number,
   temperature: types.number,
   apparentTemperature: types.number,
 })
 
-export const HourlyWeatherModel = types.model('HourlyWeather', {
-  summary: types.string,
-  data: types.array(HourModel),
+export const HourlyWeather = types.model('HourlyWeather', {
+  data: types.array(Hour),
 })
 .views((self) => ({
   get hours () {
@@ -62,3 +61,40 @@ export const HourlyWeatherModel = types.model('HourlyWeather', {
     return latestTime - hoursInSeconds - minutesInSeconds - secondsInSeconds - 60 * 60
   },
 }))
+
+const Day = types.model('Day', {
+  time: types.number,
+  summary: types.string,
+  icon: types.string,
+  precipProbability: types.number,
+  precipAccumulation: types.maybe(types.number),
+  precipType: types.maybe(types.string),
+  temperatureMin: types.number,
+  temperatureMax: types.number,
+})
+
+const DailyWeather = types.model('DailyWeather', {
+  data: types.array(Day),
+})
+
+const Weather = types.model('Weather', {
+  isLoading: true,
+  error: types.maybe(types.string),
+  currently: types.maybe(CurrentlyWeather),
+  hourly: types.maybe(HourlyWeather),
+  daily: types.maybe(DailyWeather),
+})
+.actions((self) => ({
+  update ({ currently, hourly, daily }) {
+    self.currently = CurrentlyWeather.create(currently)
+    self.hourly = HourlyWeather.create(hourly)
+    self.daily = DailyWeather.create(daily)
+    self.isLoading = false
+  },
+
+  setError (err) {
+    self.error = err
+  },
+}))
+
+export default Weather.create()
