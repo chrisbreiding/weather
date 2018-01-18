@@ -17,6 +17,10 @@ textarea {
   font-family: sans-serif;
 }
 
+p {
+  line-height: 1.5;
+}
+
 a {
   color: #3b6ea7;
   text-decoration: none;
@@ -49,16 +53,39 @@ a {
   }
 }
 
-.loader {
+.fullscreen-centered {
   align-items: center;
   bottom: 0;
   display: flex;
   justify-content: center;
   left: 0;
-  padding: 3em 2em;
   position: fixed;
   top: 0;
   right: 0;
+}
+
+.error {
+  @extend .fullscreen-centered;
+  justify-content: flex-start;
+  color: #b70c0c;
+  flex-direction: column;
+  padding-top: 3em;
+
+  p {
+    max-width: 36em;
+  }
+
+  .error-message {
+    background: #ffebe2;
+    border: solid 1px #b70c0c;
+    margin-top: 0.6em;
+    padding: 0.6em 1em;
+  }
+}
+
+.loader {
+  @extend .fullscreen-centered;
+  padding: 3em 2em;
 
   .icon {
     margin: 0 0.2em;

@@ -19,21 +19,21 @@ useStrict(true)
 @observer
 class App extends Component {
   render () {
+    if (weather.error) {
+      return (
+        <div className='error'>
+          <p>Could not retrieve weather data. The following error occurred:</p>
+          <p className='error-message'>{weather.error}</p>
+        </div>
+      )
+    }
+
     if (weather.isLoading) {
       return (
         <div className='loader'>
           <Icon icon={util.icons.SUN} className='icon sun' size="4x" spin />
           <Icon icon={util.icons.RAIN} className='icon rain' size="4x" />
           <Icon icon={util.icons.SNOWFLAKE} className='icon snowflake' size="4x" spin />
-        </div>
-      )
-    }
-
-    if (weather.error) {
-      return (
-        <div className='error'>
-          <p>Could not retrieve weather data. The following error occurred:</p>
-          <pre>{weather.error}</pre>
         </div>
       )
     }
