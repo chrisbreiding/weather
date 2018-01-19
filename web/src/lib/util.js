@@ -1,27 +1,15 @@
-import {
-  faSun,
-  faMoon,
-  faUmbrella,
-  faSnowflake,
-  faSchilx,
-  faMixcloud,
-  faSoundcloud,
-  faCloud,
-  faCircle,
-} from '@fortawesome/fontawesome-pro-light'
-
 const iconMap = {
-  'clear-day': faSun,
-  'clear-night': faMoon,
-  'rain': faUmbrella,
-  'snow': faSnowflake,
-  'sleet': faSchilx,
-  'wind': faMixcloud,
-  'fog': faSoundcloud,
-  'cloudy': faCloud,
-  'partly-cloudy-day': faCloud,
-  'partly-cloudy-night': faCloud,
-  'default': faCircle,
+  'clear-day': 'day-sunny',
+  'clear-night': 'night-clear',
+  'rain': 'rain',
+  'snow': 'snow',
+  'sleet': 'sleet',
+  'wind': 'strong-wind',
+  'fog': 'fog',
+  'cloudy': 'cloud',
+  'partly-cloudy-day': 'day-cloudy',
+  'partly-cloudy-night': 'night-alt-cloudy',
+  'default': 'moon-new',
 }
 
 export default {
@@ -30,7 +18,7 @@ export default {
   },
 
   getNoonFromTimestamp (timestamp) {
-    return timestamp - 12 * 60 * 60
+    return timestamp + 12 * 60 * 60
   },
 
   getShortDisplayDateFromTimestamp (timestamp) {
@@ -52,9 +40,9 @@ export default {
   },
 
   icons: {
-    SUN: faSun,
-    RAIN: faUmbrella,
-    CLOUD: faCloud,
-    SNOWFLAKE: faSnowflake,
+    SUN: 'day-sunny',
+    RAIN: 'rain',
+    CLOUD: 'cloud',
+    SNOWFLAKE: 'snow',
   },
 }

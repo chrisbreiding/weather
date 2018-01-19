@@ -1,6 +1,6 @@
 import cs from 'classnames'
 import React from 'react'
-import Icon from '@fortawesome/react-fontawesome'
+import Icon from 'react-weathericons'
 
 import util from '../lib/util'
 
@@ -17,7 +17,7 @@ const CurrentWeather = ({ currentWeather }) => {
           {Math.round(temperature)}
           <span className='degrees'>°F</span>
         </p>
-        <Icon className='icon' icon={util.getDarkSkyIcon(icon)} size="4x" />
+        <Icon className='icon' name={util.getDarkSkyIcon(icon)} size="4x" />
       </div>
       <div className='row'>
         <p className='apparent-temp'>Feels like {Math.round(apparentTemperature)}°F</p>

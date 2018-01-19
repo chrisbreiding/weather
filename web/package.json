@@ -14,9 +14,6 @@
     "zunder": "^5.6.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.2",
-    "@fortawesome/fontawesome-pro-light": "^5.0.4",
-    "@fortawesome/react-fontawesome": "0.0.17",
     "classnames": "^2.2.5",
     "fastclick": "^1.0.6",
     "mobx": "^3.4.1",
@@ -24,6 +21,8 @@
     "mobx-state-tree": "^1.3.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "recharts": "^1.0.0-beta.9"
+    "react-weathericons": "^1.0.4",
+    "recharts": "^1.0.0-beta.9",
+    "weathericons": "^2.1.0"
   }
 }

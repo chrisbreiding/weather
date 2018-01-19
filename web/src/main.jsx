@@ -2,7 +2,7 @@ import { useStrict } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import Icon from '@fortawesome/react-fontawesome'
+import Icon from 'react-weathericons'
 import FastClick from 'fastclick'
 
 import api from './lib/api'
@@ -31,9 +31,9 @@ class App extends Component {
     if (weather.isLoading) {
       return (
         <div className='loader'>
-          <Icon icon={util.icons.SUN} className='icon sun' size="4x" spin />
-          <Icon icon={util.icons.RAIN} className='icon rain' size="4x" />
-          <Icon icon={util.icons.SNOWFLAKE} className='icon snowflake' size="4x" spin />
+          <Icon name={util.icons.RAIN} className='icon rain' size="4x" />
+          <Icon name={util.icons.SUN} className='icon sun' size="4x" />
+          <Icon name={util.icons.SNOWFLAKE} className='icon snow' size="4x" />
         </div>
       )
     }
@@ -41,7 +41,7 @@ class App extends Component {
     return (
       <div className='container'>
         <CurrentWeather currentWeather={weather.currently} />
-        <Days hourlyWeather={weather.hourly} />
+        <Days hourlyWeather={weather.hourly} dailyWeather={weather.daily} />
         <TempChart hourlyWeather={weather.hourly} />
         <PrecipChart hourlyWeather={weather.hourly} />
         <p className='credit'>
