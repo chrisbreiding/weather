@@ -32,11 +32,12 @@ const TempChart = observer(({ hourlyWeather }) => {
           dataKey='time'
           type='number'
           domain={[firstDayTimestamp, lastDayTimestamp]}
+          axisLine={false}
           tickSize={0}
           tickFormatter={() => ''}
           ticks={days}
         />
-        <YAxis tick={<YLabel render={(value) => `${value}°F`} />} />
+        <YAxis tick={<YLabel render={(value) => `${value}°F`} />} axisLine={false} />
         <Tooltip content={<TooltipContent render={(data) => (
           <div>
             <div className='temp'>{`${data.temp}°F`}</div>

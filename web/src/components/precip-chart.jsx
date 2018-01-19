@@ -32,11 +32,12 @@ const PrecipChart = observer(({ hourlyWeather }) => {
           dataKey='time'
           type='number'
           domain={[firstDayTimestamp, lastDayTimestamp]}
+          axisLine={false}
           tickSize={0}
           tickFormatter={() => ''}
           ticks={days}
         />
-        <YAxis domain={[0, 100]} tick={<YLabel render={(value) => `${value}%`} />} />
+        <YAxis domain={[0, 100]} tick={<YLabel render={(value) => `${value}%`} />} axisLine={false} />
         <Tooltip content={<TooltipContent render={(data) => (
           <div className='precip'>{`${data.precipProbability}%`}</div>
         )} />} />
