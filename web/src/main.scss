@@ -164,6 +164,32 @@ a {
   .yAxis {
     display: none;
   }
+
+  .day-label {
+    padding: 0.4em 0;
+    text-align: center;
+
+    .date {
+      border-bottom: solid 1px #eee;
+      padding-bottom: 0.4em;
+    }
+
+    .details {
+      padding-top: 0.4em;
+    }
+
+    .temp-min {
+      color: #9645e8;
+    }
+
+    .temp-max {
+      color: #ff7722;
+    }
+
+    .icon {
+      padding-top: 0.8em;
+    }
+  }
 }
 
 .precip-chart {
@@ -198,6 +224,10 @@ a {
   .precip {
     color: #0cafe2;
   }
+}
+
+.y-label {
+  font-size: 0.7em;
 }
 
 .recharts-legend-wrapper {

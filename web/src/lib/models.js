@@ -76,6 +76,11 @@ const Day = types.model('Day', {
 const DailyWeather = types.model('DailyWeather', {
   data: types.array(Day),
 })
+.views((self) => ({
+  get days () {
+    return self.data.slice(0, 7)
+  },
+}))
 
 const Weather = types.model('Weather', {
   isLoading: true,
