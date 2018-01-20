@@ -1,16 +1,20 @@
 import moment from 'moment'
 
 const iconMap = {
-  'clear-day': 'day-sunny',
-  'clear-night': 'night-clear',
+  'clear-day:day': 'day-sunny',
+  'clear-day:night': 'night-clear',
+  'clear-night:day': 'day-sunny',
+  'clear-night:night': 'night-clear',
   'rain': 'rain',
   'snow': 'snow',
   'sleet': 'sleet',
   'wind': 'strong-wind',
   'fog': 'fog',
   'cloudy': 'cloud',
-  'partly-cloudy-day': 'day-cloudy',
-  'partly-cloudy-night': 'night-alt-cloudy',
+  'partly-cloudy-day:day': 'day-cloudy',
+  'partly-cloudy-day:night': 'night-alt-cloudy',
+  'partly-cloudy-night:day': 'day-cloudy',
+  'partly-cloudy-night:night': 'night-alt-cloudy',
   'default': 'moon-new',
 }
 
@@ -28,6 +32,14 @@ export default {
   },
 
   getDarkSkyIcon (icon) {
+    // make up for dark sky giving a night icon during the
+    // day and vice versa
+    if (/(day|night)/.test(icon)) {
+      const hours = moment().toObject().hours
+      const isDay = hours > 6 && hours < 20
+      icon += `:${isDay ? 'day' : 'night'}`
+    }
+
     return iconMap[icon] || iconMap.default
   },
 
