@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree'
+import moment from 'moment'
 
 export const CurrentlyWeather = types.model('CurrentWeather', {
   summary: types.string,
@@ -28,7 +29,11 @@ export const HourlyWeather = types.model('HourlyWeather', {
 
   get days () {
     return self.hours
-    .filter((hour) => new Date(hour.time * 1000).getHours() === 23)
+    .filter((hour) => {
+      return moment.unix(hour.time).isSame(
+        moment.unix(hour.time).startOf('day')
+      )
+    })
     .map((hour) => hour.time)
   },
 
@@ -45,20 +50,12 @@ export const HourlyWeather = types.model('HourlyWeather', {
 
   get firstDayTimestamp () {
     const earliestTime = Math.min(...self.data.map((hour) => hour.time))
-    const date = new Date(earliestTime * 1000)
-    const hoursInSeconds = date.getHours() * 60 * 60
-    const minutesInSeconds = date.getMinutes() * 60
-    const secondsInSeconds = date.getSeconds()
-    return earliestTime - hoursInSeconds - minutesInSeconds - secondsInSeconds
+    return moment.unix(earliestTime).startOf('day').unix()
   },
 
   get lastDayTimestamp () {
     const latestTime = Math.max(...self.data.map((hour) => hour.time))
-    const date = new Date(latestTime * 1000)
-    const hoursInSeconds = date.getHours() * 60 * 60
-    const minutesInSeconds = date.getMinutes() * 60
-    const secondsInSeconds = date.getSeconds()
-    return latestTime - hoursInSeconds - minutesInSeconds - secondsInSeconds - 60 * 60
+    return moment.unix(latestTime).startOf('day').unix()
   },
 }))
 

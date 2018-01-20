@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const iconMap = {
   'clear-day': 'day-sunny',
   'clear-night': 'night-clear',
@@ -14,19 +16,15 @@ const iconMap = {
 
 export default {
   currentTimestamp () {
-    return Math.floor(new Date().valueOf() / 1000)
+    return moment().unix()
   },
 
   getNoonFromTimestamp (timestamp) {
-    return timestamp + 12 * 60 * 60
+    return moment.unix(timestamp).startOf('day').add(12, 'hours').unix()
   },
 
   getShortDisplayDateFromTimestamp (timestamp) {
-    const date = new Date(timestamp * 1000)
-    const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()]
-    const month = date.getMonth() + 1
-    const monthDate = date.getDate()
-    return `${day} ${month}/${monthDate}`
+    return moment.unix(timestamp).format('ddd M/D')
   },
 
   getDarkSkyIcon (icon) {
@@ -34,9 +32,7 @@ export default {
   },
 
   formatTime (timestamp) {
-    const hours = new Date(timestamp * 1000).getHours()
-    const ampm = hours < 11 || hours === 23 ? 'am' : 'pm'
-    return `${hours % 12 + 1}${ampm}`
+    return moment.unix(timestamp).format('ha')
   },
 
   icons: {
