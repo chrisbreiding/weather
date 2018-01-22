@@ -79,7 +79,7 @@ const DailyWeather = types.model('DailyWeather', {
   },
 }))
 
-const Weather = types.model('Weather', {
+const WeatherStore = types.model('WeatherStore', {
   isLoading: true,
   error: types.maybe(types.string),
   currently: types.maybe(CurrentlyWeather),
@@ -94,9 +94,13 @@ const Weather = types.model('Weather', {
     self.isLoading = false
   },
 
-  setError (err) {
-    self.error = err
+  setLoading (isLoading) {
+    self.isLoading = isLoading
+  },
+
+  setError (error) {
+    self.error = error && error.message ? error.message : error
   },
 }))
 
-export default Weather.create()
+export default WeatherStore.create()

@@ -39,8 +39,160 @@ a {
   }
 }
 
-.container {
-  padding: 2em 2em 0;
+.app {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.location {
+  padding: 1em;
+  margin: 0 auto;
+  width: 49em;
+}
+
+.location-chooser {
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+
+  a, button {
+    align-items: center;
+    background: #666;
+    border: none;
+    color: #f8f8f8;
+    cursor: pointer;
+    display: flex;
+    font-size: 1em;
+    padding: 0.4em 0.6em;
+
+    &:hover {
+      background: #444;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      background: #999;
+      cursor: not-allowed;
+    }
+  }
+
+  a {
+    margin-right: 0.5em;
+  }
+
+  .user-location {
+    border-radius: 5px 0 0 5px;
+  }
+
+  .recent,
+  .chooser {
+    position: relative;
+  }
+
+  .recent {
+    display: none;
+
+    ul {
+      display: none;
+      width: 24em;
+    }
+  }
+
+  &.has-recent .recent {
+    display: flex;
+  }
+
+  button {
+    border-radius: 0 5px 5px 0;
+    margin-left: 0.5em;
+  }
+
+  input {
+    border: solid 1px #c7c7c7;
+    padding: 0.4em 0.6em;
+    font-size: 1em;
+    width: 24em;
+  }
+
+  ul {
+    background: #fff;
+    border: solid 1px #c7c7c7;
+    border-top: none;
+    box-shadow: 0 0 0.4em rgba(0, 0, 0, 0.1);
+    display: none;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1;
+
+    li {
+      border-top: solid 1px #d3d3d3;
+      display: block;
+      cursor: pointer;
+      padding: 0.4em 0.6em;
+
+      &:hover {
+        background: #f4f4f4;
+      }
+
+      &:first-child {
+        border-top: none;
+      }
+    }
+  }
+
+  .recent ul {
+    background: #666;
+    color: #f8f8f8;
+
+    li {
+      border-color: #888;
+      display: flex;
+      padding: 0;
+
+      &:hover {
+        background: none;
+      }
+
+      div {
+        cursor: pointer;
+        flex-grow: 2;
+        padding: 0.4em 0.6em;
+
+        &:hover {
+          background: #444;
+        }
+      }
+
+      a {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &.showing-recent .recent ul,
+  &.has-options .options {
+    display: block;
+  }
+
+  .loading {
+    display: none;
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+  }
+
+  &.is-loading .loading {
+    display: block;
+  }
+}
+
+.weather {
+  padding: 1em 1em 0;
   margin: 0 auto;
   width: 49em;
 }
@@ -98,7 +250,7 @@ a {
 
   .rain {
     animation: rock-left 2s infinite;
-    color: #ad00ff;
+    color: #00ccff;
   }
 
   .sun {
@@ -108,7 +260,7 @@ a {
 
   .snow {
     animation: rock-left 2s infinite;
-    color: #00ccff;
+    color: #ad00ff;
   }
 }
 
@@ -248,10 +400,10 @@ a {
 .wi-day-sunny { color: $warm; }
 .wi-night-clear { color: $cold; }
 .wi-rain { color: $precip; }
-.wi-snow { color: $cold; }
+.wi-snowflake-cold { color: $precip; }
 .wi-sleet { color: darken($precip, 10%); }
 .wi-strong-wind { color: lighten($cold, 10%); }
-.wi-fog { color: #c7c7c7; }
+.wi-fog { color: #b2b2b2; }
 .wi-cloud { color: #777; }
 .wi-day-cloudy { color: #777; }
 .wi-night-alt-cloudy { color: #777; }

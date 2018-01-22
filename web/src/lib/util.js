@@ -6,7 +6,7 @@ const iconMap = {
   'clear-night:day': 'day-sunny',
   'clear-night:night': 'night-clear',
   'rain': 'rain',
-  'snow': 'snow',
+  'snow': 'snowflake-cold',
   'sleet': 'sleet',
   'wind': 'strong-wind',
   'fog': 'fog',
@@ -18,7 +18,16 @@ const iconMap = {
   'default': 'moon-new',
 }
 
+const roundCoord = (coord) => Math.round(coord * 100)
+
 export default {
+  coordsMatch ({ lat: lat1, lng: lng1 }, { lat: lat2, lng: lng2 }) {
+    return (
+      roundCoord(lat1) - roundCoord(lat2) < 10 &&
+      roundCoord(lng1) - roundCoord(lng2) < 10
+    )
+  },
+
   currentTimestamp () {
     return moment().unix()
   },
@@ -41,6 +50,24 @@ export default {
     }
 
     return iconMap[icon] || iconMap.default
+  },
+
+  getUserLocation () {
+    return new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          })
+        },
+        (err) => {
+          // eslint-disable-next-line
+          console.log('Unable to get current position:', err)
+          resolve(false)
+        },
+      )
+    })
   },
 
   formatTime (timestamp) {
