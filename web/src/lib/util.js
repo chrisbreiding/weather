@@ -19,12 +19,19 @@ const iconMap = {
 }
 
 const roundCoord = (coord) => Math.round(coord * 100)
+const nearlyEqual = (num1, num2) => {
+  return Math.abs((Math.max(num1, num2) - Math.min(num1, num2))) < 10
+}
 
 export default {
+  nearlyEqual,
+
   coordsMatch ({ lat: lat1, lng: lng1 }, { lat: lat2, lng: lng2 }) {
+    if (lat1 == null || lat2 == null || lng1 == null || lng2 == null) return false
+
     return (
-      roundCoord(lat1) - roundCoord(lat2) < 10 &&
-      roundCoord(lng1) - roundCoord(lng2) < 10
+      nearlyEqual(roundCoord(lat1), roundCoord(lat2)) &&
+      nearlyEqual(roundCoord(lng1), roundCoord(lng2))
     )
   },
 

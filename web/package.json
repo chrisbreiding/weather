@@ -8,8 +8,10 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
+    "chai": "^4.1.2",
     "eslint": "^4.15.0",
     "eslint-plugin-cypress-dev": "^1.1.2",
+    "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-react": "^7.5.1",
     "zunder": "^5.6.1"
   },
@@ -20,6 +22,7 @@
     "classnames": "^2.2.5",
     "director": "^1.2.8",
     "fastclick": "^1.0.6",
+    "lodash.find": "^4.6.0",
     "lodash.findindex": "^4.6.0",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",

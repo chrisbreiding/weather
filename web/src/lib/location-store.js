@@ -1,3 +1,4 @@
+import find from 'lodash.find'
 import findIndex from 'lodash.findindex'
 import { getSnapshot, types } from 'mobx-state-tree'
 
@@ -20,9 +21,19 @@ const Location = types.model('Location', {
   },
 }))
 
+
+const getCache = () => {
+  return JSON.parse(localStorage.cachedLocations || '{}')
+}
+
+const getExistingFromCache = (cache, location) => {
+  return cache[location.placeId] || find(Object.values(cache), (cachedLocation) => (
+    util.coordsMatch(location, cachedLocation)
+  ))
+}
+
 const LocationStore = types.model('LocationStore', {
-  isLoadingDefault: true,
-  isLoadingDetails: false,
+  isLoading: true,
   error: types.maybe(types.string),
   _recent: types.array(Location),
   current: types.maybe(types.reference(Location)),
@@ -35,20 +46,23 @@ const LocationStore = types.model('LocationStore', {
   get recent () {
     return self._recent.filter((location) => location !== self.current)
   },
+
+  getLocationFromCache (placeIdOrLatLng) {
+    const location = placeIdOrLatLng.lat ? placeIdOrLatLng : { placeId: placeIdOrLatLng }
+    return getExistingFromCache(getCache(), location)
+  },
 }))
 .actions((self) => ({
   setCurrent (location) {
     location = Location.create(location)
     self.current = location
     self._addToRecent(location)
+    self._addToCache(location)
+    return location
   },
 
-  setLoadingDefault (isLoading) {
-    self.isLoadingDefault = isLoading
-  },
-
-  setLoadingDetails (isLoading) {
-    self.isLoadingDetails = isLoading
+  setLoading (isLoading) {
+    self.isLoading = isLoading
   },
 
   setError (error) {
@@ -70,13 +84,27 @@ const LocationStore = types.model('LocationStore', {
     self._removeFromRecent(existingIndex)
 
     self._recent.unshift(location)
-    localStorage.recentLocations = JSON.stringify(getSnapshot(self._recent))
+    self._updateRecentLocalStorage()
   },
 
   _removeFromRecent (index) {
     if (index > -1) {
       self._recent.splice(index, 1)
+      self._updateRecentLocalStorage()
     }
+  },
+
+  _addToCache (location) {
+    const cache = getCache()
+    const exists = getExistingFromCache(cache, location)
+    if (exists) return
+
+    cache[location.placeId] = getSnapshot(location)
+    localStorage.cachedLocations = JSON.stringify(cache)
+  },
+
+  _updateRecentLocalStorage () {
+    localStorage.recentLocations = JSON.stringify(getSnapshot(self._recent))
   },
 }))
 

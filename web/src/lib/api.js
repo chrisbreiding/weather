@@ -16,14 +16,21 @@ export default {
   searchLocations (query) {
     return fetch(`${BASE_URL}/location-search?query=${query}`)
     .then((response) => response.json())
+    .then(handleResponseError)
+    .then((response) => response.predictions.map((prediction) => ({
+      description: prediction.description,
+      placeId: prediction.place_id,
+    })))
     .catch((err) => {
       console.error('Getting location failed:', err.stack) // eslint-disable-line no-console
       throw err
     })
   },
 
-  getLocationDetails (placeIdOrLatLng, byLatLng = false) {
+  getLocationDetails (placeIdOrLatLng) {
     let url = `${BASE_URL}/location-details`
+
+    const byLatLng = !!placeIdOrLatLng.lat
 
     return fetch(url + (byLatLng ? `?latlng=${placeIdOrLatLng.lat},${placeIdOrLatLng.lng}` : `?placeid=${placeIdOrLatLng}`))
     .then((response) => response.json())
