@@ -46,19 +46,21 @@ const TempChart = observer(({ hourlyWeather }) => {
         )} />} />
         <Legend align='right' iconType='rect' iconSize={12} />
         <Line
-          type='monotone'
-          name='Temperature (°F)'
-          dataKey='temp'
-          stroke='#F00'
+          type='linear'
+          name='Feels Like (°F)'
+          dataKey='apparentTemp'
+          stroke='#9645e8'
+          strokeWidth={2}
           dot={false}
           activeDot={{ r: 5 }}
           isAnimationActive={false}
         />
         <Line
-          type='monotone'
-          name='Feels Like (°F)'
-          dataKey='apparentTemp'
-          stroke='#9645e8'
+          type='linear'
+          name='Temperature (°F)'
+          dataKey='temp'
+          stroke='#F00'
+          strokeWidth={2}
           dot={false}
           activeDot={{ r: 5 }}
           isAnimationActive={false}
