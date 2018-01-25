@@ -21,7 +21,6 @@ const Location = types.model('Location', {
   },
 }))
 
-
 const getCache = () => {
   return JSON.parse(localStorage.cachedLocations || '{}')
 }
@@ -69,6 +68,12 @@ const LocationStore = types.model('LocationStore', {
     self.error = error && error.message ? error.message : error
   },
 
+  updateDescription (location, description) {
+    location._description = description
+    self._updateCache(location)
+    self._updateRecentLocalStorage()
+  },
+
   removeRecent (location) {
     self._removeFromRecent(findIndex(self._recent, { placeId: location.placeId }))
   },
@@ -96,8 +101,17 @@ const LocationStore = types.model('LocationStore', {
 
   _addToCache (location) {
     const cache = getCache()
-    const exists = getExistingFromCache(cache, location)
-    if (exists) return
+    const existing = getExistingFromCache(cache, location)
+    if (existing) return
+
+    cache[location.placeId] = getSnapshot(location)
+    localStorage.cachedLocations = JSON.stringify(cache)
+  },
+
+  _updateCache (location) {
+    const cache = getCache()
+    const existing = getExistingFromCache(cache, location)
+    if (!existing) return
 
     cache[location.placeId] = getSnapshot(location)
     localStorage.cachedLocations = JSON.stringify(cache)

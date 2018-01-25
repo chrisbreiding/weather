@@ -8,17 +8,18 @@ import {
   faLocationArrow,
   faSearch,
   faSpinner,
-  faTrashAlt,
 } from '@fortawesome/fontawesome-pro-light'
 
 import data from '../lib/data'
 import eventBus from '../lib/event-bus'
 import util from '../lib/util'
 
+import RecentLocation from './recent-location'
+
 @observer
 class Location extends Component {
   @observable options = []
-  @observable query
+  @observable query = null
   @observable isSearching = false
   @observable showingRecent = false
 
@@ -29,7 +30,7 @@ class Location extends Component {
 
     return (
       <div className='location'>
-        <form
+        <div
           className={cs('location-chooser', {
             'is-loading': isLoading,
             'showing-recent': this.showingRecent,
@@ -37,32 +38,38 @@ class Location extends Component {
             'has-recent': current && !!recent.length,
             'has-error': !!error,
           })}
-          onSubmit={this._searchLocation}
         >
-          <a className='user-location' href='#' onClick={this._getUserLocation} disabled={isLoading}>
+          <button className='user-location' onClick={this._getUserLocation} disabled={isLoading}>
             <Icon icon={faLocationArrow} />
-          </a>
+          </button>
 
           <div className='recent'>
-            <a href='#' onClick={this._toggleRecent} disabled={isLoading}>
+            <button className='toggle-recent' onClick={this._toggleRecent} disabled={isLoading}>
               <Icon icon={faClock} />
-            </a>
+            </button>
             <ul>
               {recent.map((location) => (
-                <li key={location.placeId}>
-                  <div onClick={this._onLocationChosen(location)}>{location.description}</div>
-                  <a href='#' onClick={this._removeRecentLocation(location)}><Icon icon={faTrashAlt} /></a>
-                </li>
+                <RecentLocation
+                  key={location.placeId}
+                  location={location}
+                  onSelect={this._onLocationChosen(location)}
+                  onRemove={this._removeRecentLocation(location)}
+                  onEdit={this._updateRecentDescription(location)}
+                />
               ))}
             </ul>
           </div>
 
           <div className='chooser'>
-            <input
-              value={this.query || location.description}
-              onChange={this._updateSearch}
-              onFocus={this._select}
-            />
+            <form onSubmit={this._searchLocation}>
+              <input
+                className='query'
+                value={this.query != null ? this.query : location.description}
+                onChange={this._updateSearch}
+                onFocus={this._select}
+                onKeyUp={this._onEsc}
+              />
+            </form>
 
             <ul className='options'>
               {this.options.map((option) => (
@@ -79,10 +86,10 @@ class Location extends Component {
               <Icon icon={faSpinner} spin />
             </div>
           </div>
-          <button type='submit' disabled={isLoading}>
+          <button className='search' onClick={this._searchLocation} disabled={isLoading}>
             <Icon icon={faSearch} />
           </button>
-        </form>
+        </div>
       </div>
     )
   }
@@ -134,7 +141,7 @@ class Location extends Component {
     if (!query || this.isSearching) return
 
     this.isSearching = true
-    data.searchLocations(query)
+    data.searchLocations(query).then(this._setOptions)
   }
 
   @action _setOptions = (options) => {
@@ -142,16 +149,27 @@ class Location extends Component {
     this.options = options
   }
 
+  @action _onEsc = (e) => {
+    if (e.key === 'Escape') {
+      this.isSearching = false
+      this.options = []
+    }
+  }
+
   _onLocationChosen = (location) => action(() => {
     this.options = []
-    this.search = null
+    this.query = null
     this._setLocation(location.placeId, false)
   })
 
-  _removeRecentLocation = (location) => action((e) => {
-    e.preventDefault()
+  _removeRecentLocation = (location) => (e) => {
+    e.stopPropagation()
     this.props.locationStore.removeRecent(location)
-  })
+  }
+
+  _updateRecentDescription = (location) => (description) => {
+    this.props.locationStore.updateDescription(location, description)
+  }
 
   _setLocation = (placeIdOrLatLng, isGeolocated) => {
     data.setLocation(placeIdOrLatLng, isGeolocated)
