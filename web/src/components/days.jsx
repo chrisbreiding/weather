@@ -6,7 +6,6 @@ import {
   LabelList,
   XAxis,
   YAxis,
-  ReferenceArea,
 } from 'recharts'
 import Icon from 'react-weathericons'
 
@@ -30,7 +29,7 @@ const Days = ({ hourlyWeather, dailyWeather }) => {
           <span className='temp-max'>{Math.round(day.temperatureMax)}°</span>
         </div>
         <div className='icon'>
-          <Icon name={util.getDarkSkyIcon(day.icon)} size='3x' />
+          <Icon name={util.getDarkSkyIcon(day.icon, util.isToday(day.time))} size='3x' />
         </div>
       </foreignObject>
     )

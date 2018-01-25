@@ -39,6 +39,10 @@ export default {
     return moment().unix()
   },
 
+  formatTime (timestamp) {
+    return moment.unix(timestamp).format('ha')
+  },
+
   getNoonFromTimestamp (timestamp) {
     return moment.unix(timestamp).startOf('day').add(12, 'hours').unix()
   },
@@ -47,13 +51,19 @@ export default {
     return moment.unix(timestamp).format('ddd M/D')
   },
 
-  getDarkSkyIcon (icon) {
-    // make up for dark sky giving a night icon during the
-    // day and vice versa
+  getDarkSkyIcon (icon, adjustForDayNight) {
+    // dark sky specifies an icon for the worst weather of the day
+    // this normalizes it so if it's current weather or today's forecast
+    // it shows day during day and night during night
+    // for the rest of the forecast, it shows day
     if (/(day|night)/.test(icon)) {
-      const hours = moment().toObject().hours
-      const isDay = hours > 6 && hours < 20
-      icon += `:${isDay ? 'day' : 'night'}`
+      if (adjustForDayNight) {
+        const hours = moment().toObject().hours
+        const isDay = hours > 6 && hours < 20
+        icon += `:${isDay ? 'day' : 'night'}`
+      } else {
+        icon += ':day'
+      }
     }
 
     return iconMap[icon] || iconMap.default
@@ -77,14 +87,14 @@ export default {
     })
   },
 
-  formatTime (timestamp) {
-    return moment.unix(timestamp).format('ha')
-  },
-
   icons: {
     SUN: 'day-sunny',
     RAIN: 'rain',
     CLOUD: 'cloud',
     SNOWFLAKE: 'snow',
+  },
+
+  isToday (timestamp) {
+    return moment.unix(timestamp).isSame(moment(), 'day')
   },
 }
