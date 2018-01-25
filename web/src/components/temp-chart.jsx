@@ -16,7 +16,7 @@ import YLabel from './y-label'
 import util from '../lib/util'
 
 const TempChart = observer(({ hourlyWeather }) => {
-  const { days, firstDayTimestamp, lastDayTimestamp } = hourlyWeather
+  const { days, startTimestamp, endTimestamp } = hourlyWeather
 
   return (
     <div className='temp-chart'>
@@ -31,7 +31,7 @@ const TempChart = observer(({ hourlyWeather }) => {
         <XAxis
           dataKey='time'
           type='number'
-          domain={[firstDayTimestamp, lastDayTimestamp]}
+          domain={[startTimestamp, endTimestamp]}
           axisLine={false}
           tickSize={0}
           tickFormatter={() => ''}
@@ -53,7 +53,6 @@ const TempChart = observer(({ hourlyWeather }) => {
           strokeWidth={2}
           dot={false}
           activeDot={{ r: 5 }}
-          isAnimationActive={false}
         />
         <Line
           type='linear'
@@ -63,7 +62,6 @@ const TempChart = observer(({ hourlyWeather }) => {
           strokeWidth={2}
           dot={false}
           activeDot={{ r: 5 }}
-          isAnimationActive={false}
         />
       </LineChart>
     </div>

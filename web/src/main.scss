@@ -367,8 +367,19 @@ a {
   }
 
   .day-label {
+    border-left: solid 1px #eee;
+    cursor: pointer;
+    height: 100%;
     padding: 0.4em 0;
     text-align: center;
+
+    &:hover {
+      background: #f8f8f8;
+    }
+
+    &.is-focused {
+      background: #eee;
+    }
 
     .date {
       border-bottom: solid 1px #eee;
@@ -391,6 +402,10 @@ a {
     .icon {
       padding-top: 0.8em;
     }
+  }
+
+  .day-label-container:first-child .day-label {
+    border-left: none;
   }
 }
 

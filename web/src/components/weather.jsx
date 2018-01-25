@@ -26,7 +26,11 @@ const Weather = observer(({ locationStore, weatherStore }) => {
   return (
     <div className='weather'>
       <CurrentWeather currentWeather={weatherStore.currently} />
-      <Days hourlyWeather={weatherStore.hourly} dailyWeather={weatherStore.daily} />
+      <Days
+        hourlyWeather={weatherStore.hourly}
+        dailyWeather={weatherStore.daily}
+        onSelectDay={weatherStore.setFocusedDay}
+      />
       <TempChart hourlyWeather={weatherStore.hourly} />
       <PrecipChart hourlyWeather={weatherStore.hourly} />
       <p className='credit'>

@@ -1,6 +1,8 @@
 import { types } from 'mobx-state-tree'
 import moment from 'moment'
 
+import util from './util'
+
 export const CurrentlyWeather = types.model('CurrentWeather', {
   summary: types.string,
   precipProbability: types.number,
@@ -18,16 +20,19 @@ const Hour = types.model('Hour', {
 
 export const HourlyWeather = types.model('HourlyWeather', {
   data: types.array(Hour),
+  focusedDay: types.maybe(types.number),
 })
 .views((self) => ({
   get hours () {
-    const lastDayTimestamp = self.lastDayTimestamp
+    const [start, end] = [self.startTimestamp, self.endTimestamp]
     return self.data.filter((hour) => {
-      return hour.time <= lastDayTimestamp
+      return hour.time >= start && hour.time <= end
     })
   },
 
   get days () {
+    if (self.focusedDay) return []
+
     return self.hours
     .filter((hour) => {
       return moment.unix(hour.time).isSame(
@@ -38,7 +43,11 @@ export const HourlyWeather = types.model('HourlyWeather', {
   },
 
   get chartData () {
-    return self.hours.map((hour) => {
+    const [start, end] = [self.startTimestamp, self.endTimestamp]
+    const isDay = (hour) => util.isBetween(hour.time, start, end)
+    const hours = self.focusedDay ? self.hours.filter(isDay) : self.hours
+
+    return hours.map((hour) => {
       return {
         time: hour.time,
         temp: Math.round(hour.temperature),
@@ -48,14 +57,35 @@ export const HourlyWeather = types.model('HourlyWeather', {
     })
   },
 
-  get firstDayTimestamp () {
+  get startTimestamp () {
+    if (self.focusedDay) {
+      return moment.unix(self.focusedDay).startOf('day').unix()
+    }
+
+    return self.weekStartTimestamp
+  },
+
+  get endTimestamp () {
+    if (self.focusedDay) {
+      return moment.unix(self.focusedDay).endOf('day').add(1, 'millisecond').unix()
+    }
+
+    return self.weekEndTimestamp
+  },
+
+  get weekStartTimestamp () {
     const earliestTime = Math.min(...self.data.map((hour) => hour.time))
     return moment.unix(earliestTime).startOf('day').unix()
   },
 
-  get lastDayTimestamp () {
+  get weekEndTimestamp () {
     const latestTime = Math.max(...self.data.map((hour) => hour.time))
     return moment.unix(latestTime).startOf('day').unix()
+  },
+}))
+.actions((self) => ({
+  setFocusedDay (day) {
+    self.focusedDay = day.time === self.focusedDay ? null : day.time
   },
 }))
 
@@ -92,6 +122,10 @@ const WeatherStore = types.model('WeatherStore', {
     self.hourly = HourlyWeather.create(hourly)
     self.daily = DailyWeather.create(daily)
     self.isLoading = false
+  },
+
+  setFocusedDay (day) {
+    self.hourly.setFocusedDay(day)
   },
 
   setLoading (isLoading) {

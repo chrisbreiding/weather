@@ -16,7 +16,7 @@ import TooltipContent from './tooltip-content'
 import util from '../lib/util'
 
 const PrecipChart = observer(({ hourlyWeather }) => {
-  const { days, firstDayTimestamp, lastDayTimestamp } = hourlyWeather
+  const { days, startTimestamp, endTimestamp } = hourlyWeather
 
   return (
     <div className='precip-chart'>
@@ -31,7 +31,7 @@ const PrecipChart = observer(({ hourlyWeather }) => {
         <XAxis
           dataKey='time'
           type='number'
-          domain={[firstDayTimestamp, lastDayTimestamp]}
+          domain={[startTimestamp, endTimestamp]}
           axisLine={false}
           tickSize={0}
           tickFormatter={() => ''}
@@ -51,7 +51,6 @@ const PrecipChart = observer(({ hourlyWeather }) => {
           fill='#0cafe2'
           dot={false}
           activeDot={{ r: 5 }}
-          isAnimationActive={false}
         />
       </AreaChart>
     </div>

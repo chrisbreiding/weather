@@ -94,6 +94,19 @@ export default {
     SNOWFLAKE: 'snow',
   },
 
+  isBetween (timestamp, start, end) {
+    return moment.unix(timestamp).isBetween(moment.unix(start), moment.unix(end), null, '[]')
+  },
+
+  isSameDay (dayTimestamp, maybeSameDayTimestamp) {
+    const date = moment.unix(dayTimestamp)
+    const maybeSameDate = moment.unix(maybeSameDayTimestamp)
+    return (
+      date.isSame(maybeSameDate, 'day')
+      || date.endOf('day').add(2, 'hour').isSame(maybeSameDate, 'hour')
+    )
+  },
+
   isToday (timestamp) {
     return moment.unix(timestamp).isSame(moment(), 'day')
   },
