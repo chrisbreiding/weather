@@ -48,8 +48,8 @@ a {
 }
 
 .location {
-  padding: 1em;
   margin: 0 auto;
+  padding-top: 0.5em;
   width: 49em;
 }
 
@@ -230,7 +230,7 @@ a {
 }
 
 .weather {
-  padding: 1em 1em 0;
+  padding: 0 1em;
   margin: 0 auto;
   width: 49em;
 }
@@ -304,7 +304,7 @@ a {
 }
 
 .current {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   text-align: center;
 
   .row {
@@ -317,6 +317,10 @@ a {
     }
 
     p {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      line-height: 1.2;
       width: 8rem;
     }
   }
@@ -372,6 +376,7 @@ a {
     }
 
     .details {
+      font-size: 0.9rem;
       padding-top: 0.4em;
     }
 
