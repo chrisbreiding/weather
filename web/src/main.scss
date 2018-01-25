@@ -159,8 +159,9 @@ a {
       }
 
       div {
+        align-items: center;
         cursor: pointer;
-        flex-grow: 2;
+        display: flex;
         padding: 0.4em 0.6em;
 
         &:hover {
@@ -294,11 +295,15 @@ a {
     &:first-of-type {
       margin-bottom: 0.4em;
     }
+
+    p {
+      width: 8rem;
+    }
   }
 
   .temp {
     font-size: 4em;
-    margin-right: 2rem;
+    margin-right: 1rem;
 
     .degrees {
       font-size: 2rem;
@@ -309,13 +314,11 @@ a {
   }
 
   .apparent-temp {
-    color: $cold;
-    margin-right: 2rem;
-    visibility: hidden;
+    margin-right: 1rem;
   }
 
-  &.show-apparent .apparent-temp {
-    visibility: visible;
+  &.lower-apparent .apparent-temp {
+    color: $cold;
   }
 
   &.higher-apparent .apparent-temp {

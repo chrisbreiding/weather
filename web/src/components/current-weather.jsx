@@ -9,7 +9,7 @@ const CurrentWeather = ({ currentWeather }) => {
 
   return (
     <div className={cs('current', {
-      'show-apparent': temperature !== apparentTemperature,
+      'lower-apparent': apparentTemperature < temperature,
       'higher-apparent': apparentTemperature > temperature,
     })}>
       <div className='row'>
@@ -17,7 +17,9 @@ const CurrentWeather = ({ currentWeather }) => {
           {Math.round(temperature)}
           <span className='degrees'>°F</span>
         </p>
-        <Icon className='icon' name={util.getDarkSkyIcon(icon)} size="4x" />
+        <p>
+          <Icon className='icon' name={util.getDarkSkyIcon(icon, true)} size="4x" />
+        </p>
       </div>
       <div className='row'>
         <p className='apparent-temp'>Feels like {Math.round(apparentTemperature)}°F</p>
