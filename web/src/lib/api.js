@@ -41,7 +41,7 @@ export default {
       const location = result.geometry.location
       return {
         placeId: result.place_id,
-        _description: result.formatted_address.replace(', USA', ''),
+        description: result.formatted_address.replace(', USA', ''),
         lat: location.lat,
         lng: location.lng,
       }

@@ -5,17 +5,13 @@ import { getSnapshot, types } from 'mobx-state-tree'
 import util from './util'
 
 const Location = types.model('Location', {
-  _description: '',
+  description: '',
   placeId: types.identifier(types.string),
   lat: types.number,
   lng: types.number,
   isGeolocated: false,
 })
 .views((self) => ({
-  get description () {
-    return self._description || self.toString()
-  },
-
   toString () {
     return `${self.lat},${self.lng}`
   },
@@ -69,7 +65,7 @@ const LocationStore = types.model('LocationStore', {
   },
 
   updateDescription (location, description) {
-    location._description = description
+    location.description = description
     self._updateCache(location)
     self._updateRecentLocalStorage()
   },
