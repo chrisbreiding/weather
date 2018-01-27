@@ -44,7 +44,7 @@ const setLocation = (placeIdOrLatLng, isGeolocated) => {
 
 const setUserLocation = () => {
   locationStore.setLoading(true)
-  locationStore.setError(false)
+  locationStore.setError(null)
   util.getUserLocation()
   .then((latLng) => {
     setLocation(latLng, true)
