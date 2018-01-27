@@ -17,7 +17,7 @@ class RecentLocation extends Component {
     return (
       <li className={cs({ 'is-editing': this.isEditing })}>
         <form className='description' onSubmit={this._onSubmit} onClick={this._stop}>
-          <input value={location.description} onChange={this._update} onKeyUp={this._onEsc} />
+          <input ref='description' value={location.description} onChange={this._update} onKeyUp={this._onEsc} />
         </form>
         <div className='description' onClick={onSelect}>{location.description}</div>
         <button className='edit' onClick={this._toggleEditing}><Icon icon={faPen} /></button>
@@ -26,8 +26,18 @@ class RecentLocation extends Component {
     )
   }
 
+  componentDidUpdate () {
+    if (!this.wasEditing && this.isEditing) {
+      this.refs.description.focus()
+      const descriptionLength = this.props.location.description.length
+      this.refs.description.setSelectionRange(descriptionLength, descriptionLength)
+    }
+    this.wasEditing = this.isEditing
+  }
+
   @action _toggleEditing = (e) => {
     e.stopPropagation()
+
     this.isEditing = !this.isEditing
   }
 

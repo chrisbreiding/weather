@@ -48,15 +48,17 @@ a {
 }
 
 .location {
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
   padding-top: 0.5em;
-  width: 49em;
 }
 
 .location-chooser {
   display: flex;
   justify-content: center;
   padding: 0.5em;
+  max-width: 32em;
+  width: 100%;
 
   button {
     align-items: center;
@@ -89,22 +91,8 @@ a {
     border-radius: 5px 0 0 5px;
   }
 
-  .recent,
   .chooser {
     position: relative;
-  }
-
-  .recent {
-    display: none;
-
-    ul {
-      display: none;
-      width: 24em;
-    }
-  }
-
-  &.has-recent .recent {
-    display: flex;
   }
 
   .search {
@@ -112,11 +100,16 @@ a {
     margin-left: 0.5em;
   }
 
+  .chooser {
+    flex-grow: 2;
+    min-width: 12em;
+  }
+
   .query {
     border: solid 1px #c7c7c7;
     padding: 0.4em 0.6em;
     font-size: 1em;
-    width: 24em;
+    width: 100%;
   }
 
   ul {
@@ -147,12 +140,23 @@ a {
     }
   }
 
-  .recent ul {
-    background: #666;
-    color: #f8f8f8;
+  &.showing-recent .recent,
+  &.has-options .options {
+    display: block;
+  }
+
+  &.has-options .recent {
+    display: none;
+  }
+
+  .recent {
+    label {
+      color: #666;
+      font-size: 0.8em;
+      padding: 0.3em 0.4em;
+    }
 
     li {
-      border-color: #888;
       display: flex;
       padding: 0;
 
@@ -167,7 +171,7 @@ a {
         padding: 0.4em 0.6em;
 
         &:hover {
-          background: #444;
+          background: #f4f4f4;
         }
       }
 
@@ -185,19 +189,33 @@ a {
       }
 
       input {
-        background: #111;
+        background: #f8f8f8;
         border: none;
-        color: #fff;
+        border-right: solid 1px #e3e3e3;
         font-size: 1em;
+        outline: solid 1px $precip;
         padding: 0.4em 0.6em;
         width: 100%;
       }
-    }
-  }
 
-  &.showing-recent .recent ul,
-  &.has-options .options {
-    display: block;
+      button {
+        color: #333;
+
+        &,
+        &:hover {
+          background: none;
+        }
+      }
+
+      &.is-editing .edit,
+      .edit:hover {
+        color: $precip;
+      }
+
+      .remove:hover {
+        color: #c00;
+      }
+    }
   }
 
   .location-error {
@@ -231,8 +249,6 @@ a {
 
 .weather {
   padding: 0 1em;
-  margin: 0 auto;
-  width: 49em;
 }
 
 .fullscreen-centered {
@@ -357,6 +373,15 @@ a {
     margin-top: 0.1em;
     margin-bottom: 0.1em;
   }
+}
+
+.charts {
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.recharts-wrapper {
+  margin-left: -30px; // compensate for too much padding on left
 }
 
 .days {

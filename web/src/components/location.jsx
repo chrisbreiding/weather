@@ -4,7 +4,6 @@ import { observer } from 'mobx-react'
 import { action, observable } from 'mobx'
 import Icon from '@fortawesome/react-fontawesome'
 import {
-  faClock,
   faLocationArrow,
   faSearch,
   faSpinner,
@@ -33,9 +32,8 @@ class Location extends Component {
         <div
           className={cs('location-chooser', {
             'is-loading': isLoading,
-            'showing-recent': this.showingRecent,
+            'showing-recent': !!recent.length && this.showingRecent,
             'has-options': !!this.options.length,
-            'has-recent': current && !!recent.length,
             'has-error': !!error,
           })}
         >
@@ -43,11 +41,22 @@ class Location extends Component {
             <Icon icon={faLocationArrow} />
           </button>
 
-          <div className='recent'>
-            <button className='toggle-recent' onClick={this._toggleRecent} disabled={isLoading}>
-              <Icon icon={faClock} />
-            </button>
-            <ul>
+          <div className='chooser'>
+            <form onSubmit={this._searchLocation}>
+              <input
+                className='query'
+                value={this.query != null ? this.query : location.description}
+                onChange={this._updateSearch}
+                onClick={this._stop}
+                onFocus={this._onFocusQuery}
+                onKeyUp={this._onEsc}
+              />
+            </form>
+
+            <ul className='recent'>
+              <li>
+                <label>Recent Locations</label>
+              </li>
               {recent.map((location) => (
                 <RecentLocation
                   key={location.placeId}
@@ -58,18 +67,6 @@ class Location extends Component {
                 />
               ))}
             </ul>
-          </div>
-
-          <div className='chooser'>
-            <form onSubmit={this._searchLocation}>
-              <input
-                className='query'
-                value={this.query != null ? this.query : location.description}
-                onChange={this._updateSearch}
-                onFocus={this._select}
-                onKeyUp={this._onEsc}
-              />
-            </form>
 
             <ul className='options'>
               {this.options.map((option) => (
@@ -98,6 +95,10 @@ class Location extends Component {
     eventBus.on('global:click', this._onOutsideClick)
   }
 
+  _stop (e) {
+    e.stopPropagation()
+  }
+
   @action _onOutsideClick = () => {
     this.options = []
     this.showingRecent = false
@@ -105,10 +106,6 @@ class Location extends Component {
 
   @action _updateSearch = (e) => {
     this.query = e.target.value
-  }
-
-  _select = (e) => {
-    e.target.select()
   }
 
   @action _getUserLocation = (e) => {
@@ -126,11 +123,9 @@ class Location extends Component {
     }))
   }
 
-  @action _toggleRecent = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-    this.showingRecent = !this.showingRecent
+  @action _onFocusQuery = (e) => {
+    e.target.select()
+    this.showingRecent = true
   }
 
   @action _searchLocation = (e) => {
