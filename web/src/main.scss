@@ -107,9 +107,11 @@ a {
 
   .query {
     border: solid 1px #c7c7c7;
+    border-radius: 0;
     padding: 0.4em 0.6em;
     font-size: 1em;
     width: 100%;
+    -webkit-appearance: none;
   }
 
   ul {
