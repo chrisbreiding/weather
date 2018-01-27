@@ -50,7 +50,7 @@ setInterval(() => {
 }, oneDay)
 
 app.get('/location-details', (req, res) => {
-  const placeId = req.query.placeId
+  const placeId = req.query.placeid
   const key = placeId ? 'placeid' : 'latlng'
   const value = placeId || req.query.latlng
   const baseUrl = placeId ? LOCATION_DETAILS_PLACE_ID_BASE_URL : LOCATION_DETAILS_LAT_LNG_BASE_URL
