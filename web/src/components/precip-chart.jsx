@@ -6,6 +6,7 @@ import {
   CartesianGrid,
   Legend,
   ReferenceLine,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -16,13 +17,13 @@ import TooltipContent from './tooltip-content'
 import util from '../lib/util'
 
 const PrecipChart = observer(({ hourlyWeather }) => {
-  const { days, startTimestamp, endTimestamp } = hourlyWeather
+  const { days, focusedDay, startTimestamp, endTimestamp } = hourlyWeather
+
+  const minWidth = focusedDay ? 350 : 600
 
   return (
-    <div className='precip-chart'>
+    <ResponsiveContainer className='precip-chart' width='100%' minWidth={minWidth} height={120}>
       <AreaChart
-        width={700}
-        height={180}
         data={hourlyWeather.chartData}
         syncId='weather'
       >
@@ -53,7 +54,7 @@ const PrecipChart = observer(({ hourlyWeather }) => {
           activeDot={{ r: 5 }}
         />
       </AreaChart>
-    </div>
+    </ResponsiveContainer>
   )
 })
 

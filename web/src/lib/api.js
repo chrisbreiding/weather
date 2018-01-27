@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3333'
+const BASE_URL = 'http://cmba.local:3333'
 
 const handleResponseError = (response) => {
   if (!response.error) return response

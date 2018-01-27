@@ -1,3 +1,4 @@
+import cs from 'classnames'
 import React from 'react'
 import { observer } from 'mobx-react'
 
@@ -24,15 +25,19 @@ const Weather = observer(({ locationStore, weatherStore }) => {
   }
 
   return (
-    <div className='weather'>
+    <div className={cs('weather', {
+      'has-focused-day': !!weatherStore.hourly.focusedDay,
+    })}>
       <CurrentWeather currentWeather={weatherStore.currently} />
-      <Days
-        hourlyWeather={weatherStore.hourly}
-        dailyWeather={weatherStore.daily}
-        onSelectDay={weatherStore.setFocusedDay}
-      />
-      <TempChart hourlyWeather={weatherStore.hourly} />
-      <PrecipChart hourlyWeather={weatherStore.hourly} />
+      <div className='charts'>
+        <Days
+          hourlyWeather={weatherStore.hourly}
+          dailyWeather={weatherStore.daily}
+          onSelectDay={weatherStore.setFocusedDay}
+        />
+        <TempChart hourlyWeather={weatherStore.hourly} />
+        <PrecipChart hourlyWeather={weatherStore.hourly} />
+      </div>
       <p className='credit'>
         <a href='https://darksky.net/poweredby/' target='_blank' rel='noopener noreferrer'>Powered by Dark Sky</a>
       </p>

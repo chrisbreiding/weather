@@ -6,6 +6,7 @@ import {
   BarChart,
   CartesianGrid,
   LabelList,
+  ResponsiveContainer,
   XAxis,
   YAxis,
 } from 'recharts'
@@ -59,32 +60,32 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
 
   return (
     <div className='days'>
-      <BarChart
-        width={700}
-        height={120}
-        barCategoryGap={0}
-        barGap={0}
-        data={chartData}
-      >
-        <CartesianGrid stroke='#eee' />
-        <XAxis
-          dataKey='noon'
-          type='number'
-          hide={true}
-          domain={[weekStartTimestamp, weekEndTimestamp]}
-          tickSize={0}
-          tickFormatter={() => ''}
-          ticks={days}
-        />
-        <YAxis tick={false} />
-        <Bar dataKey="value" fill="rgba(255, 255, 255, 0)" isAnimationActive={false}>
-          <LabelList
-            dataKey="index"
-            position="inside"
-            content={customLabel}
+      <ResponsiveContainer width='100%' minWidth={600} height={125}>
+        <BarChart
+          barCategoryGap={0}
+          barGap={0}
+          data={chartData}
+        >
+          <CartesianGrid stroke='#eee' />
+          <XAxis
+            dataKey='noon'
+            type='number'
+            hide={true}
+            domain={[weekStartTimestamp, weekEndTimestamp]}
+            tickSize={0}
+            tickFormatter={() => ''}
+            ticks={days}
           />
-        </Bar>
-      </BarChart>
+          <YAxis tick={false} />
+          <Bar dataKey="value" fill="rgba(255, 255, 255, 0)" isAnimationActive={false}>
+            <LabelList
+              dataKey="index"
+              position="inside"
+              content={customLabel}
+            />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   )
 })

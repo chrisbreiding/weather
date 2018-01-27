@@ -247,10 +247,6 @@ a {
   }
 }
 
-.weather {
-  padding: 0 1em;
-}
-
 .fullscreen-centered {
   align-items: center;
   bottom: 0;
@@ -376,16 +372,27 @@ a {
 }
 
 .charts {
+  margin: 0 auto;
+  max-width: 800px;
   overflow-x: scroll;
+  overflow-y: hidden;
   width: 100%;
+
+  .has-focused-day & {
+    overflow-x: auto;
+  }
 }
 
 .recharts-wrapper {
-  margin-left: -30px; // compensate for too much padding on left
+  margin-left: -15px; // compensate for too much padding on left
 }
 
 .days {
   font-size: 0.8em;
+
+  .has-focused-day & {
+    overflow-x: scroll;
+  }
 
   .yAxis {
     display: none;

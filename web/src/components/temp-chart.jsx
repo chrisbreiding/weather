@@ -6,6 +6,7 @@ import {
   Line,
   LineChart,
   ReferenceLine,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -16,13 +17,13 @@ import YLabel from './y-label'
 import util from '../lib/util'
 
 const TempChart = observer(({ hourlyWeather }) => {
-  const { days, startTimestamp, endTimestamp } = hourlyWeather
+  const { days, focusedDay, startTimestamp, endTimestamp } = hourlyWeather
+
+  const minWidth = focusedDay ? 350 : 600
 
   return (
-    <div className='temp-chart'>
+    <ResponsiveContainer className='temp-chart' width='100%' minWidth={minWidth} height={120}>
       <LineChart
-        width={700}
-        height={180}
         data={hourlyWeather.chartData}
         syncId='weather'
       >
@@ -64,7 +65,7 @@ const TempChart = observer(({ hourlyWeather }) => {
           activeDot={{ r: 5 }}
         />
       </LineChart>
-    </div>
+    </ResponsiveContainer>
   )
 })
 
