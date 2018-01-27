@@ -7,7 +7,7 @@ const app = express()
 
 app.use(cors({
   origin: [
-    /^http:\/\/localhost:\d{4}$/,
+    /^http:\/\/(\w+\.)?local(host)?:\d{4}$/,
     /^https?:\/\/\w+\.crbapps\.com$/,
   ],
 }))
