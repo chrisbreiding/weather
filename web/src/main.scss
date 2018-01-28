@@ -439,7 +439,23 @@ a {
     }
 
     .icon {
-      padding-top: 0.8em;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: 5.2em;
+    }
+
+    .precip {
+      i {
+        font-size: 1.1em;
+        margin-right: 0.3em;
+        position: relative;
+        top: 2px;
+      }
+
+      &.is-snow i {
+        color: $cold;
+      }
     }
   }
 
@@ -500,6 +516,7 @@ a {
 .wi-day-sunny { color: $warm; }
 .wi-night-clear { color: $cold; }
 .wi-rain { color: $precip; }
+.wi-raindrop { color: $precip; }
 .wi-snowflake-cold { color: $precip; }
 .wi-sleet { color: darken($precip, 10%); }
 .wi-strong-wind { color: lighten($cold, 10%); }
@@ -508,11 +525,6 @@ a {
 .wi-day-cloudy { color: #777; }
 .wi-night-alt-cloudy { color: #777; }
 .wi-moon-new { color: #777; }
-
-.wi-day-cloudy,
-.wi-night-alt-cloudy {
-  margin-top: 0.2em;
-}
 
 .credit {
   text-align: center;

@@ -90,8 +90,10 @@ export default {
   icons: {
     SUN: 'day-sunny',
     RAIN: 'rain',
+    RAINDROP: 'raindrop',
     CLOUD: 'cloud',
-    SNOWFLAKE: 'snow',
+    SNOW: 'snow',
+    SNOWFLAKE: 'snowflake-cold',
   },
 
   isBetween (timestamp, start, end) {
@@ -109,5 +111,11 @@ export default {
 
   isToday (timestamp) {
     return moment.unix(timestamp).isSame(moment(), 'day')
+  },
+
+  toTenth (num) {
+    if (!num) return 0
+
+    return (num).toFixed(1).replace('.0', '')
   },
 }

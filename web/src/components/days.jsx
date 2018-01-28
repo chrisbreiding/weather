@@ -20,6 +20,7 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
 
   const customLabel = (props) => {
     const day = days[props.value]
+    const isSnow = day.precipType === 'snow'
 
     return (
       <foreignObject
@@ -44,6 +45,10 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
           <div className='icon'>
             <Icon name={util.getDarkSkyIcon(day.icon, util.isToday(day.time))} size='3x' />
           </div>
+          <div className={cs('precip', { 'is-snow': isSnow })}>
+            <Icon name={util.icons[isSnow ? 'SNOWFLAKE' : 'RAINDROP']} />
+            <span>{util.toTenth(day.precipAccumulation)} in</span>
+          </div>
         </div>
       </foreignObject>
     )
@@ -60,7 +65,7 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
 
   return (
     <div className='days'>
-      <ResponsiveContainer width='100%' minWidth={600} height={125}>
+      <ResponsiveContainer width='100%' minWidth={600} height={145}>
         <BarChart
           barCategoryGap={0}
           barGap={0}
