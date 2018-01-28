@@ -1,4 +1,8 @@
-const BASE_URL = 'http://cmba.local:3333'
+const BASE_URL = localStorage.apiUrl
+  ? localStorage.apiUrl
+  : /local/.test(location.hostname)
+    ? `http://${location.hostname}:3333`
+    : 'http://proxy.crbapps.com'
 
 const handleResponseError = (response) => {
   if (!response.error) return response
