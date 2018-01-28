@@ -318,7 +318,7 @@ a {
 }
 
 .current {
-  margin-bottom: 1em;
+  margin: 0.5em 0 1em;
   text-align: center;
 
   .row {
@@ -337,6 +337,11 @@ a {
       line-height: 1.2;
       width: 8rem;
     }
+  }
+
+  .apparent-temp,
+  .summary {
+    font-size: 0.9em;
   }
 
   .temp {
