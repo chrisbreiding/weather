@@ -379,6 +379,16 @@ a {
   }
 }
 
+@media screen and (min-width: 700px) {
+  .current {
+    margin: 2em 0;
+
+    .precip {
+      margin-top: 2em;
+    }
+  }
+}
+
 .charts {
   margin: 0 auto;
   max-width: 800px;
