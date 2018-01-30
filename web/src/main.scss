@@ -1,6 +1,7 @@
 $warm: #ff7722;
 $cold: #9645e8;
 $precip: #0cafe2;
+$wind: #002384;
 
 @import 'node_modules/weathericons/sass/weather-icons';
 
@@ -464,7 +465,8 @@ a {
   }
 }
 
-.precip-chart {
+.precip-chart,
+.wind-chart {
   margin-top: -20px;
 }
 
@@ -481,7 +483,8 @@ a {
 
   .temp,
   .apparent-temp,
-  .precip {
+  .precip,
+  .wind {
     margin-top: 0.4em;
   }
 
@@ -495,6 +498,10 @@ a {
 
   .precip {
     color: $precip;
+  }
+
+  .wind {
+    color: $wind;
   }
 }
 
@@ -519,7 +526,7 @@ a {
 .wi-raindrop { color: $precip; }
 .wi-snowflake-cold { color: $precip; }
 .wi-sleet { color: darken($precip, 10%); }
-.wi-strong-wind { color: lighten($cold, 10%); }
+.wi-strong-wind { color: $wind; }
 .wi-fog { color: #b2b2b2; }
 .wi-cloud { color: #777; }
 .wi-day-cloudy { color: #777; }

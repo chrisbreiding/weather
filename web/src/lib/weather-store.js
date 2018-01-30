@@ -16,6 +16,7 @@ const Hour = types.model('Hour', {
   precipProbability: types.number,
   temperature: types.number,
   apparentTemperature: types.number,
+  windSpeed: types.number,
 })
 
 export const HourlyWeather = types.model('HourlyWeather', {
@@ -53,6 +54,7 @@ export const HourlyWeather = types.model('HourlyWeather', {
         temp: Math.round(hour.temperature),
         apparentTemp: Math.round(hour.apparentTemperature),
         precipProbability: Math.round(hour.precipProbability * 100),
+        windSpeed: hour.windSpeed,
       }
     })
   },

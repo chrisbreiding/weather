@@ -6,6 +6,7 @@ import CurrentWeather from './current-weather'
 import Days from './days'
 import TempChart from './temp-chart'
 import PrecipChart from './precip-chart'
+import WindChart from './wind-chart'
 import Loader from './loader'
 
 const Weather = observer(({ locationStore, weatherStore }) => {
@@ -37,6 +38,7 @@ const Weather = observer(({ locationStore, weatherStore }) => {
         />
         <TempChart hourlyWeather={weatherStore.hourly} />
         <PrecipChart hourlyWeather={weatherStore.hourly} />
+        <WindChart hourlyWeather={weatherStore.hourly} />
       </div>
       <p className='credit'>
         <a href='https://darksky.net/poweredby/' target='_blank' rel='noopener noreferrer'>Powered by Dark Sky</a>
