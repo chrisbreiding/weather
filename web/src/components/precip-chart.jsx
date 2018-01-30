@@ -19,10 +19,10 @@ import util from '../lib/util'
 const PrecipChart = observer(({ hourlyWeather }) => {
   const { days, focusedDay, startTimestamp, endTimestamp } = hourlyWeather
 
-  const minWidth = focusedDay ? 350 : 600
+  const minWidth = focusedDay ? 400 : 600
 
   return (
-    <ResponsiveContainer className='precip-chart' width='100%' minWidth={minWidth} height={120}>
+    <ResponsiveContainer className='precip-chart' width='100%' minWidth={minWidth} height={170}>
       <AreaChart
         data={hourlyWeather.chartData}
         syncId='weather'
