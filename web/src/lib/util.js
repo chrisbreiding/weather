@@ -39,6 +39,10 @@ export default {
     return moment().unix()
   },
 
+  formatDateTime (timestamp) {
+    return moment.unix(timestamp).format('M/D h:mma')
+  },
+
   formatTime (timestamp) {
     return moment.unix(timestamp).format('ha')
   },

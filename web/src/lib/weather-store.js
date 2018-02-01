@@ -111,19 +111,28 @@ const DailyWeather = types.model('DailyWeather', {
   },
 }))
 
+const Alert = types.model('Alert', {
+  title: types.string,
+  description: types.string,
+  time: types.number,
+  expires: types.number,
+})
+
 const WeatherStore = types.model('WeatherStore', {
   isLoading: true,
   error: types.maybe(types.string),
   currently: types.maybe(CurrentlyWeather),
   hourly: types.maybe(HourlyWeather),
   daily: types.maybe(DailyWeather),
+  alerts: types.array(Alert),
 })
 .actions((self) => ({
-  update ({ currently, hourly, daily }) {
+  update ({ currently, hourly, daily, alerts = [] }) {
     self.currently = CurrentlyWeather.create(currently)
     self.hourly = HourlyWeather.create(hourly)
     self.daily = DailyWeather.create(daily)
     self.isLoading = false
+    self.alerts = alerts.map((alert) => Alert.create(alert))
   },
 
   setFocusedDay (day) {
@@ -139,4 +148,4 @@ const WeatherStore = types.model('WeatherStore', {
   },
 }))
 
-export default WeatherStore.create()
+export default WeatherStore.create({ alerts: [] })

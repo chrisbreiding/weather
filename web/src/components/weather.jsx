@@ -2,6 +2,7 @@ import cs from 'classnames'
 import React from 'react'
 import { observer } from 'mobx-react'
 
+import Alerts from './alerts'
 import CurrentWeather from './current-weather'
 import Days from './days'
 import TempChart from './temp-chart'
@@ -29,6 +30,7 @@ const Weather = observer(({ locationStore, weatherStore }) => {
     <div className={cs('weather', {
       'has-focused-day': !!weatherStore.hourly.focusedDay,
     })}>
+      <Alerts alerts={weatherStore.alerts} />
       <CurrentWeather currentWeather={weatherStore.currently} />
       <div className='charts'>
         <Days
