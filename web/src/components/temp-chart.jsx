@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React from 'react'
+import React, { Fragment } from 'react'
 import {
   CartesianGrid,
   Legend,
@@ -12,8 +12,10 @@ import {
   YAxis,
 } from 'recharts'
 
+import LegendContent from './legend-content'
 import TooltipContent from './tooltip-content'
 import YLabel from './y-label'
+
 import util from '../lib/util'
 
 const TempChart = observer(({ hourlyWeather }) => {
@@ -45,7 +47,18 @@ const TempChart = observer(({ hourlyWeather }) => {
             <div className='apparent-temp'>{`${data.apparentTemp}°F`}</div>
           </div>
         )} />} />
-        <Legend align='right' iconType='rect' iconSize={12} />
+        <Legend content={<LegendContent render={() => (
+          <Fragment>
+            <div className='legend-item temp'>
+              <span className='box' />
+              <span>Temperature (°F)</span>
+            </div>
+            <div className='legend-item apparent-temp'>
+              <span className='box' />
+              <span>Feels Like (°F)</span>
+            </div>
+          </Fragment>
+        )} />} />
         <Line
           type='linear'
           name='Feels Like (°F)'

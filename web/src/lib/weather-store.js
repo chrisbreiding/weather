@@ -14,6 +14,7 @@ export const CurrentlyWeather = types.model('CurrentWeather', {
 const Hour = types.model('Hour', {
   time: types.number,
   precipProbability: types.number,
+  precipType: types.maybe(types.string),
   temperature: types.number,
   apparentTemperature: types.number,
   windSpeed: types.number,
@@ -49,11 +50,16 @@ export const HourlyWeather = types.model('HourlyWeather', {
     const hours = self.focusedDay ? self.hours.filter(isDay) : self.hours
 
     return hours.map((hour) => {
+      const isSnow = hour.precipType === 'snow'
+      const precipProbability = Math.round(hour.precipProbability * 100)
+
       return {
         time: hour.time,
         temp: Math.round(hour.temperature),
         apparentTemp: Math.round(hour.apparentTemperature),
-        precipProbability: Math.round(hour.precipProbability * 100),
+        precipProbability: isSnow ? 0 : precipProbability,
+        snowProbability: isSnow ? precipProbability : 0,
+        precipSnowProbability: precipProbability,
         windSpeed: hour.windSpeed,
       }
     })

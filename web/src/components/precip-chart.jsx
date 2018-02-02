@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React from 'react'
+import React, { Fragment } from 'react'
 import {
   Area,
   AreaChart,
@@ -12,9 +12,12 @@ import {
   YAxis,
 } from 'recharts'
 
-import YLabel from './y-label'
+import LegendContent from './legend-content'
 import TooltipContent from './tooltip-content'
+import YLabel from './y-label'
+
 import util from '../lib/util'
+
 
 const PrecipChart = observer(({ hourlyWeather }) => {
   const { days, focusedDay, startTimestamp, endTimestamp } = hourlyWeather
@@ -40,18 +43,48 @@ const PrecipChart = observer(({ hourlyWeather }) => {
         />
         <YAxis domain={[0, 100]} tick={<YLabel render={(value) => `${value}%`} />} axisLine={false} />
         <Tooltip content={<TooltipContent render={(data) => (
-          <div className='precip'>{`${data.precipProbability}%`}</div>
+          <div className='precip'>{`${data.precipProbability || data.snowProbability}%`}</div>
         )} />} />
-        <Legend align='right' iconType='rect' iconSize={12} />
+        <Legend content={<LegendContent render={() => (
+          <Fragment>
+            <div className='legend-item precip-probability'>
+              <span className='box' />
+              <span>Chance of Precip. (%)</span>
+            </div>
+            <div className='legend-item snow-probability'>
+              <span className='box' />
+              <span>Chance of Snow (%)</span>
+            </div>
+          </Fragment>
+        )} />} />
+        <Area
+          type='step'
+          name=''
+          dataKey='precipSnowProbability'
+          stroke='#0cafe2'
+          fillOpacity={0}
+          dot={false}
+          activeDot={{ r: 5 }}
+        />
         <Area
           type='step'
           name='Chance of Precip. (%)'
           dataKey='precipProbability'
-          stroke='#0cafe2'
+          stroke='transparent'
           fillOpacity={0.2}
           fill='#0cafe2'
           dot={false}
-          activeDot={{ r: 5 }}
+          activeDot={false}
+        />
+        <Area
+          type='step'
+          name='Chance of Snow (%)'
+          dataKey='snowProbability'
+          stroke='transparent'
+          fillOpacity={0.2}
+          fill='#9645e8'
+          dot={false}
+          activeDot={false}
         />
       </AreaChart>
     </ResponsiveContainer>

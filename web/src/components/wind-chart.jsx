@@ -12,8 +12,10 @@ import {
   YAxis,
 } from 'recharts'
 
+import LegendContent from './legend-content'
 import TooltipContent from './tooltip-content'
 import YLabel from './y-label'
+
 import util from '../lib/util'
 
 const WindChart = observer(({ hourlyWeather }) => {
@@ -42,7 +44,12 @@ const WindChart = observer(({ hourlyWeather }) => {
         <Tooltip content={<TooltipContent render={(data) => (
           <div className='wind'>{`${data.windSpeed} mph`}</div>
         )} />} />
-        <Legend align='right' iconType='rect' iconSize={12} />
+        <Legend content={<LegendContent render={() => (
+          <div className='legend-item wind-speed'>
+            <span className='box' />
+            <span>Wind Speed (mph)</span>
+          </div>
+        )} />} />
         <Line
           type='linear'
           name='Wind Speed'

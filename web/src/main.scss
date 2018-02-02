@@ -335,7 +335,7 @@ a {
   text-align: center;
   width: 49em;
 
-  p {
+  p, pre {
     margin: 0 auto;
     max-width: 36em;
   }
@@ -344,6 +344,7 @@ a {
     background: #ffebe2;
     border: solid 1px #b70c0c;
     margin-top: 0.6em;
+    overflow: auto;
     padding: 0.6em 1em;
   }
 }
@@ -594,6 +595,47 @@ a {
   .recharts-surface {
     position: relative;
     top: -2px;
+  }
+}
+
+.legend {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+
+  .legend-item {
+    align-items: center;
+    display: flex;
+    margin-left: 1em;
+  }
+
+  .box {
+    display: block;
+    height: 0.7em;
+    margin-right: 0.4em;
+    width: 1em;
+  }
+
+  .temp .box {
+    background: #F00;
+  }
+
+  .apparent-temp .box {
+    background: #9645e8;
+  }
+
+  .precip-probability .box {
+    background: rgba(12, 175, 226, 0.2);
+    border: solid 1px #0cafe2;
+  }
+
+  .snow-probability .box {
+    background: rgba(150, 69, 232, 0.2);
+    border: solid 1px #0cafe2;
+  }
+
+  .wind-speed .box {
+    background: $wind;
   }
 }
 

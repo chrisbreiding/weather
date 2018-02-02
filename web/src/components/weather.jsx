@@ -17,7 +17,7 @@ const Weather = observer(({ locationStore, weatherStore }) => {
     return (
       <div className='weather-error'>
         <p>Could not retrieve weather data. The following error occurred:</p>
-        <p className='error-message'>{weatherStore.error}</p>
+        <pre className='error-message'>{weatherStore.error}</pre>
       </div>
     )
   }
