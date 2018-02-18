@@ -113,6 +113,10 @@ export default {
     )
   },
 
+  isStandalone () {
+    return window.navigator.standalone
+  },
+
   isToday (timestamp) {
     return moment.unix(timestamp).isSame(moment(), 'day')
   },

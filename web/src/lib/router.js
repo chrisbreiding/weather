@@ -20,4 +20,15 @@ const router = new Router({
   },
 })
 
+const oldSetRoute = router.setRoute.bind(router)
+router.setRoute = (...args) => {
+  if (window.onpopstate) {
+    oldSetRoute(...args)
+  } else {
+    setTimeout(() => {
+      router.setRoute(...args)
+    }, 10)
+  }
+}
+
 export default router

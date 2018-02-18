@@ -30,7 +30,7 @@ const setLocation = (placeIdOrLatLng, isGeolocated) => {
     const newLocation = locationStore.setCurrent(location)
 
     const path = `/forecast/${newLocation.lat}/${newLocation.lng}`
-    if (path === window.location.pathname) {
+    if (util.isStandalone() || path === window.location.pathname) {
       getWeather(newLocation)
     } else {
       router.setRoute(path)
@@ -47,7 +47,7 @@ const setDefaultLocation = () => {
     return setUserLocation()
   }
 
-  setLocation(locationStore.recent[0])
+  setLocation(locationStore.recent[0], false)
 }
 
 const setUserLocation = () => {
