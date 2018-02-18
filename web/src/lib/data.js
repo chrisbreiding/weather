@@ -42,6 +42,14 @@ const setLocation = (placeIdOrLatLng, isGeolocated) => {
   })
 }
 
+const setDefaultLocation = () => {
+  if (!locationStore.recent.length) {
+    return setUserLocation()
+  }
+
+  setLocation(locationStore.recent[0])
+}
+
 const setUserLocation = () => {
   locationStore.setLoading(true)
   locationStore.setError(null)
@@ -71,6 +79,7 @@ const getWeather = (location) => {
 export default {
   searchLocations,
   setLocation,
+  setDefaultLocation,
   setUserLocation,
   getWeather,
 }

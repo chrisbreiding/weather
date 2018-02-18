@@ -4,7 +4,7 @@ import data from './data'
 
 const router = new Router({
   '/' () {
-    data.setUserLocation()
+    data.setDefaultLocation()
   },
   '/forecast/:lat/:lng' (lat, lng) {
     [lat, lng] = [Number(lat), Number(lng)]
@@ -16,7 +16,7 @@ const router = new Router({
 }).configure({
   html5history: true,
   notfound () {
-    data.setUserLocation()
+    data.setDefaultLocation()
   },
 })
 
