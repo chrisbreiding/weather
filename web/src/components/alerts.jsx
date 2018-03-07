@@ -29,7 +29,9 @@ class Alert extends Component {
           </button>
         </div>
         <p>{util.formatDateTime(alert.time)} - {util.formatDateTime(alert.expires)}</p>
-        <p>{alert.description}</p>
+        {alert.descriptionParagraphs.map((paragraph, i) => (
+          <p key={i}>{paragraph}</p>
+        ))}
       </li>
     )
   }

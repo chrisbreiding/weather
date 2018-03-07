@@ -67,8 +67,8 @@ const getWeather = (location) => {
   weatherStore.setLoading(true)
   weatherStore.setError(null)
   api.getWeather(location.toString())
-  .then(({ currently, hourly, daily }) => {
-    weatherStore.update({ currently, hourly, daily })
+  .then((data) => {
+    weatherStore.update(data)
   })
   .catch((error) => {
     weatherStore.setError(error)

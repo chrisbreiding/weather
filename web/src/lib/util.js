@@ -40,7 +40,7 @@ export default {
   },
 
   formatDateTime (timestamp) {
-    return moment.unix(timestamp).format('M/D h:mma')
+    return moment.unix(timestamp).format('ddd M/D h:mma')
   },
 
   formatTime (timestamp) {

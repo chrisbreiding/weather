@@ -117,12 +117,22 @@ const DailyWeather = types.model('DailyWeather', {
   },
 }))
 
+const alertParagraphRegex = /(\*|\s\.\.\.|\.\.\.\s)/
+
 const Alert = types.model('Alert', {
   title: types.string,
   description: types.string,
   time: types.number,
   expires: types.number,
 })
+.views((self) => ({
+  get descriptionParagraphs () {
+    return (self.description || '')
+    .split(alertParagraphRegex)
+    .map((paragraph) => paragraph.trim().replace(/^\.\.?\.?/, ''))
+    .filter((paragraph) => !!paragraph && paragraph !== '*' && paragraph !== '...')
+  },
+}))
 
 const WeatherStore = types.model('WeatherStore', {
   isLoading: true,
