@@ -3,13 +3,18 @@ import moment from 'moment'
 
 import util from './util'
 
-export const CurrentlyWeather = types.model('CurrentWeather', {
+export const CurrentWeather = types.model('CurrentWeather', {
   summary: types.string,
   precipProbability: types.number,
   temperature: types.number,
   apparentTemperature: types.number,
   icon: types.string,
 })
+.views((self) => ({
+  get precipProbabilityPercent () {
+    return Math.round(self.precipProbability * 100)
+  },
+}))
 
 const Hour = types.model('Hour', {
   time: types.number,
@@ -137,14 +142,14 @@ const Alert = types.model('Alert', {
 const WeatherStore = types.model('WeatherStore', {
   isLoading: true,
   error: types.maybe(types.string),
-  currently: types.maybe(CurrentlyWeather),
+  currently: types.maybe(CurrentWeather),
   hourly: types.maybe(HourlyWeather),
   daily: types.maybe(DailyWeather),
   alerts: types.array(Alert),
 })
 .actions((self) => ({
   update ({ currently, hourly, daily, alerts = [] }) {
-    self.currently = CurrentlyWeather.create(currently)
+    self.currently = CurrentWeather.create(currently)
     self.hourly = HourlyWeather.create(hourly)
     self.daily = DailyWeather.create(daily)
     self.isLoading = false

@@ -5,7 +5,7 @@ import Icon from 'react-weathericons'
 import util from '../lib/util'
 
 const CurrentWeather = ({ currentWeather }) => {
-  const { temperature, apparentTemperature, icon, summary, precipProbability } = currentWeather
+  const { temperature, apparentTemperature, icon, summary, precipProbabilityPercent } = currentWeather
 
   return (
     <div className={cs('current', {
@@ -25,7 +25,7 @@ const CurrentWeather = ({ currentWeather }) => {
         <p className='apparent-temp'>Feels like {Math.round(apparentTemperature)}°F</p>
         <p className='summary'>{summary}</p>
       </div>
-      <p className='precip'>{precipProbability * 100}% chance of precipitation</p>
+      <p className='precip'>{precipProbabilityPercent}% chance of precipitation</p>
     </div>
   )
 }
