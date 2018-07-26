@@ -1,0 +1,12 @@
+{
+  "results": [{
+    "place_id": "1",
+    "formatted_address": "Philadelphia, PA, USA",
+    "geometry": {
+      "location": {
+        "lat": 1,
+        "lng": 2
+      }
+    }
+  }]
+}

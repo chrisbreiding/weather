@@ -1,0 +1,1390 @@
+{
+  "latitude": 39.9525839,
+  "longitude": -75.1652215,
+  "timezone": "America/New_York",
+  "currently": {
+    "summary": "Clear",
+    "icon": "clear-day",
+    "precipProbability": 0,
+    "temperature": 76.45,
+    "apparentTemperature": 76.78
+  },
+  "hourly": {
+    "data": [
+      {
+        "time": 1528549200,
+        "precipProbability": 0,
+        "temperature": 74.46,
+        "apparentTemperature": 74.88,
+        "windSpeed": 4.49
+      },
+      {
+        "time": 1528552800,
+        "precipProbability": 0,
+        "temperature": 77.58,
+        "apparentTemperature": 77.87,
+        "windSpeed": 5.06
+      },
+      {
+        "time": 1528556400,
+        "precipProbability": 0,
+        "temperature": 80.25,
+        "apparentTemperature": 81.39,
+        "windSpeed": 4.97
+      },
+      {
+        "time": 1528560000,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 82.52,
+        "apparentTemperature": 83.27,
+        "windSpeed": 4.13
+      },
+      {
+        "time": 1528563600,
+        "precipProbability": 0.02,
+        "precipType": "rain",
+        "temperature": 83.77,
+        "apparentTemperature": 84.47,
+        "windSpeed": 3.29
+      },
+      {
+        "time": 1528567200,
+        "precipProbability": 0.03,
+        "precipType": "rain",
+        "temperature": 84.76,
+        "apparentTemperature": 85.45,
+        "windSpeed": 2.39
+      },
+      {
+        "time": 1528570800,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 84.41,
+        "apparentTemperature": 85.23,
+        "windSpeed": 2.22
+      },
+      {
+        "time": 1528574400,
+        "precipProbability": 0.09,
+        "precipType": "rain",
+        "temperature": 83.14,
+        "apparentTemperature": 84.28,
+        "windSpeed": 3.42
+      },
+      {
+        "time": 1528578000,
+        "precipProbability": 0.14,
+        "precipType": "rain",
+        "temperature": 81.67,
+        "apparentTemperature": 83.14,
+        "windSpeed": 4.33
+      },
+      {
+        "time": 1528581600,
+        "precipProbability": 0.18,
+        "precipType": "rain",
+        "temperature": 80.57,
+        "apparentTemperature": 82.47,
+        "windSpeed": 5.11
+      },
+      {
+        "time": 1528585200,
+        "precipProbability": 0.16,
+        "precipType": "rain",
+        "temperature": 79.14,
+        "apparentTemperature": 79.73,
+        "windSpeed": 5.04
+      },
+      {
+        "time": 1528588800,
+        "precipProbability": 0.13,
+        "precipType": "rain",
+        "temperature": 76.6,
+        "apparentTemperature": 77.25,
+        "windSpeed": 4.99
+      },
+      {
+        "time": 1528592400,
+        "precipProbability": 0.11,
+        "precipType": "rain",
+        "temperature": 74.03,
+        "apparentTemperature": 74.79,
+        "windSpeed": 4.3
+      },
+      {
+        "time": 1528596000,
+        "precipProbability": 0.11,
+        "precipType": "rain",
+        "temperature": 72.45,
+        "apparentTemperature": 73.32,
+        "windSpeed": 3.87
+      },
+      {
+        "time": 1528599600,
+        "precipProbability": 0.24,
+        "precipType": "rain",
+        "temperature": 71.4,
+        "apparentTemperature": 72.22,
+        "windSpeed": 3.74
+      },
+      {
+        "time": 1528603200,
+        "precipProbability": 0.24,
+        "precipType": "rain",
+        "temperature": 70.58,
+        "apparentTemperature": 71.42,
+        "windSpeed": 3.58
+      },
+      {
+        "time": 1528606800,
+        "precipProbability": 0.29,
+        "precipType": "rain",
+        "temperature": 70.01,
+        "apparentTemperature": 70.82,
+        "windSpeed": 3.47
+      },
+      {
+        "time": 1528610400,
+        "precipProbability": 0.35,
+        "precipType": "rain",
+        "temperature": 69.37,
+        "apparentTemperature": 70.11,
+        "windSpeed": 3.44
+      },
+      {
+        "time": 1528614000,
+        "precipProbability": 0.35,
+        "precipType": "rain",
+        "temperature": 68.71,
+        "apparentTemperature": 69.37,
+        "windSpeed": 3.92
+      },
+      {
+        "time": 1528617600,
+        "precipProbability": 0.32,
+        "precipType": "rain",
+        "temperature": 68.03,
+        "apparentTemperature": 68.58,
+        "windSpeed": 5.04
+      },
+      {
+        "time": 1528621200,
+        "precipProbability": 0.31,
+        "precipType": "rain",
+        "temperature": 67.12,
+        "apparentTemperature": 67.55,
+        "windSpeed": 6.06
+      },
+      {
+        "time": 1528624800,
+        "precipProbability": 0.27,
+        "precipType": "rain",
+        "temperature": 65.76,
+        "apparentTemperature": 66.06,
+        "windSpeed": 6.76
+      },
+      {
+        "time": 1528628400,
+        "precipProbability": 0.2,
+        "precipType": "rain",
+        "temperature": 64.49,
+        "apparentTemperature": 64.64,
+        "windSpeed": 7.3
+      },
+      {
+        "time": 1528632000,
+        "precipProbability": 0.12,
+        "precipType": "rain",
+        "temperature": 64.93,
+        "apparentTemperature": 64.93,
+        "windSpeed": 7.9
+      },
+      {
+        "time": 1528635600,
+        "precipProbability": 0.06,
+        "precipType": "rain",
+        "temperature": 66.52,
+        "apparentTemperature": 66.52,
+        "windSpeed": 8.63
+      },
+      {
+        "time": 1528639200,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 68.85,
+        "apparentTemperature": 68.85,
+        "windSpeed": 9.34
+      },
+      {
+        "time": 1528642800,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 70.18,
+        "apparentTemperature": 70.18,
+        "windSpeed": 9.64
+      },
+      {
+        "time": 1528646400,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 70.28,
+        "apparentTemperature": 70.28,
+        "windSpeed": 9.88
+      },
+      {
+        "time": 1528650000,
+        "precipProbability": 0.06,
+        "precipType": "rain",
+        "temperature": 70.09,
+        "apparentTemperature": 70.09,
+        "windSpeed": 9.96
+      },
+      {
+        "time": 1528653600,
+        "precipProbability": 0.1,
+        "precipType": "rain",
+        "temperature": 69.26,
+        "apparentTemperature": 69.26,
+        "windSpeed": 9.77
+      },
+      {
+        "time": 1528657200,
+        "precipProbability": 0.13,
+        "precipType": "rain",
+        "temperature": 67.98,
+        "apparentTemperature": 67.98,
+        "windSpeed": 9.6
+      },
+      {
+        "time": 1528660800,
+        "precipProbability": 0.17,
+        "precipType": "rain",
+        "temperature": 66.72,
+        "apparentTemperature": 66.72,
+        "windSpeed": 9.3
+      },
+      {
+        "time": 1528664400,
+        "precipProbability": 0.23,
+        "precipType": "rain",
+        "temperature": 65.8,
+        "apparentTemperature": 65.8,
+        "windSpeed": 8.83
+      },
+      {
+        "time": 1528668000,
+        "precipProbability": 0.35,
+        "precipType": "rain",
+        "temperature": 65.93,
+        "apparentTemperature": 65.93,
+        "windSpeed": 8.47
+      },
+      {
+        "time": 1528671600,
+        "precipProbability": 0.45,
+        "precipType": "rain",
+        "temperature": 65.39,
+        "apparentTemperature": 65.39,
+        "windSpeed": 7.84
+      },
+      {
+        "time": 1528675200,
+        "precipProbability": 0.51,
+        "precipType": "rain",
+        "temperature": 64.46,
+        "apparentTemperature": 64.46,
+        "windSpeed": 7.42
+      },
+      {
+        "time": 1528678800,
+        "precipProbability": 0.57,
+        "precipType": "rain",
+        "temperature": 63.34,
+        "apparentTemperature": 63.34,
+        "windSpeed": 6.91
+      },
+      {
+        "time": 1528682400,
+        "precipProbability": 0.61,
+        "precipType": "rain",
+        "temperature": 62.26,
+        "apparentTemperature": 62.26,
+        "windSpeed": 6.6
+      },
+      {
+        "time": 1528686000,
+        "precipProbability": 0.65,
+        "precipType": "rain",
+        "temperature": 61.58,
+        "apparentTemperature": 61.58,
+        "windSpeed": 6.34
+      },
+      {
+        "time": 1528689600,
+        "precipProbability": 0.65,
+        "precipType": "rain",
+        "temperature": 61.28,
+        "apparentTemperature": 61.28,
+        "windSpeed": 6.26
+      },
+      {
+        "time": 1528693200,
+        "precipProbability": 0.56,
+        "precipType": "rain",
+        "temperature": 60.98,
+        "apparentTemperature": 60.98,
+        "windSpeed": 6.67
+      },
+      {
+        "time": 1528696800,
+        "precipProbability": 0.47,
+        "precipType": "rain",
+        "temperature": 60.64,
+        "apparentTemperature": 60.64,
+        "windSpeed": 6.71
+      },
+      {
+        "time": 1528700400,
+        "precipProbability": 0.44,
+        "precipType": "rain",
+        "temperature": 59.74,
+        "apparentTemperature": 59.74,
+        "windSpeed": 6.86
+      },
+      {
+        "time": 1528704000,
+        "precipProbability": 0.51,
+        "precipType": "rain",
+        "temperature": 58.83,
+        "apparentTemperature": 58.83,
+        "windSpeed": 6.87
+      },
+      {
+        "time": 1528707600,
+        "precipProbability": 0.5,
+        "precipType": "rain",
+        "temperature": 58.24,
+        "apparentTemperature": 58.24,
+        "windSpeed": 7.25
+      },
+      {
+        "time": 1528711200,
+        "precipProbability": 0.5,
+        "precipType": "rain",
+        "temperature": 57.88,
+        "apparentTemperature": 57.88,
+        "windSpeed": 7.57
+      },
+      {
+        "time": 1528714800,
+        "precipProbability": 0.51,
+        "precipType": "rain",
+        "temperature": 58.03,
+        "apparentTemperature": 58.03,
+        "windSpeed": 8.11
+      },
+      {
+        "time": 1528718400,
+        "precipProbability": 0.43,
+        "precipType": "rain",
+        "temperature": 59.29,
+        "apparentTemperature": 59.29,
+        "windSpeed": 8.47
+      },
+      {
+        "time": 1528722000,
+        "precipProbability": 0.24,
+        "precipType": "rain",
+        "temperature": 61.33,
+        "apparentTemperature": 61.33,
+        "windSpeed": 9.12
+      },
+      {
+        "time": 1528725600,
+        "precipProbability": 0.12,
+        "precipType": "rain",
+        "temperature": 63.97,
+        "apparentTemperature": 63.97,
+        "windSpeed": 9.39
+      },
+      {
+        "time": 1528729200,
+        "precipProbability": 0.09,
+        "precipType": "rain",
+        "temperature": 65.53,
+        "apparentTemperature": 65.53,
+        "windSpeed": 9.62
+      },
+      {
+        "time": 1528732800,
+        "precipProbability": 0.06,
+        "precipType": "rain",
+        "temperature": 66.48,
+        "apparentTemperature": 66.48,
+        "windSpeed": 10.17
+      },
+      {
+        "time": 1528736400,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 67.57,
+        "apparentTemperature": 67.57,
+        "windSpeed": 10.75
+      },
+      {
+        "time": 1528740000,
+        "precipProbability": 0.06,
+        "precipType": "rain",
+        "temperature": 68.91,
+        "apparentTemperature": 68.91,
+        "windSpeed": 11.1
+      },
+      {
+        "time": 1528743600,
+        "precipProbability": 0.06,
+        "precipType": "rain",
+        "temperature": 69.8,
+        "apparentTemperature": 69.8,
+        "windSpeed": 11.29
+      },
+      {
+        "time": 1528747200,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 70.1,
+        "apparentTemperature": 70.1,
+        "windSpeed": 10.71
+      },
+      {
+        "time": 1528750800,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 69.57,
+        "apparentTemperature": 69.57,
+        "windSpeed": 10.04
+      },
+      {
+        "time": 1528754400,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 69.47,
+        "apparentTemperature": 69.47,
+        "windSpeed": 9.13
+      },
+      {
+        "time": 1528758000,
+        "precipProbability": 0.04,
+        "precipType": "rain",
+        "temperature": 67.72,
+        "apparentTemperature": 67.72,
+        "windSpeed": 8.55
+      },
+      {
+        "time": 1528761600,
+        "precipProbability": 0.02,
+        "precipType": "rain",
+        "temperature": 66.03,
+        "apparentTemperature": 66.03,
+        "windSpeed": 7.9
+      },
+      {
+        "time": 1528765200,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 64,
+        "apparentTemperature": 64,
+        "windSpeed": 7.59
+      },
+      {
+        "time": 1528768800,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 62.13,
+        "apparentTemperature": 62.13,
+        "windSpeed": 7.17
+      },
+      {
+        "time": 1528772400,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 60.67,
+        "apparentTemperature": 60.67,
+        "windSpeed": 6.35
+      },
+      {
+        "time": 1528776000,
+        "precipProbability": 0,
+        "temperature": 59.52,
+        "apparentTemperature": 59.52,
+        "windSpeed": 5.8
+      },
+      {
+        "time": 1528779600,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 58.32,
+        "apparentTemperature": 58.32,
+        "windSpeed": 5.5
+      },
+      {
+        "time": 1528783200,
+        "precipProbability": 0,
+        "temperature": 56.95,
+        "apparentTemperature": 56.95,
+        "windSpeed": 5.2
+      },
+      {
+        "time": 1528786800,
+        "precipProbability": 0,
+        "temperature": 55.15,
+        "apparentTemperature": 55.15,
+        "windSpeed": 4.74
+      },
+      {
+        "time": 1528790400,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 53.76,
+        "apparentTemperature": 53.76,
+        "windSpeed": 4.98
+      },
+      {
+        "time": 1528794000,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 53.36,
+        "apparentTemperature": 53.36,
+        "windSpeed": 4.96
+      },
+      {
+        "time": 1528797600,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 53.43,
+        "apparentTemperature": 53.43,
+        "windSpeed": 4.75
+      },
+      {
+        "time": 1528801200,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 54.94,
+        "apparentTemperature": 54.94,
+        "windSpeed": 4.68
+      },
+      {
+        "time": 1528804800,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 57.49,
+        "apparentTemperature": 57.49,
+        "windSpeed": 4.81
+      },
+      {
+        "time": 1528808400,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 62.05,
+        "apparentTemperature": 62.05,
+        "windSpeed": 4.62
+      },
+      {
+        "time": 1528812000,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 66.99,
+        "apparentTemperature": 66.99,
+        "windSpeed": 5.79
+      },
+      {
+        "time": 1528815600,
+        "precipProbability": 0,
+        "temperature": 71.4,
+        "apparentTemperature": 71.4,
+        "windSpeed": 6.79
+      },
+      {
+        "time": 1528819200,
+        "precipProbability": 0,
+        "temperature": 74.46,
+        "apparentTemperature": 74.46,
+        "windSpeed": 7.42
+      },
+      {
+        "time": 1528822800,
+        "precipProbability": 0,
+        "temperature": 77.05,
+        "apparentTemperature": 77.05,
+        "windSpeed": 7.87
+      },
+      {
+        "time": 1528826400,
+        "precipProbability": 0,
+        "temperature": 78.85,
+        "apparentTemperature": 78.85,
+        "windSpeed": 8.25
+      },
+      {
+        "time": 1528830000,
+        "precipProbability": 0,
+        "temperature": 80.84,
+        "apparentTemperature": 80.84,
+        "windSpeed": 8.85
+      },
+      {
+        "time": 1528833600,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 80.51,
+        "apparentTemperature": 80.63,
+        "windSpeed": 9.3
+      },
+      {
+        "time": 1528837200,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 79.82,
+        "apparentTemperature": 79.82,
+        "windSpeed": 9.53
+      },
+      {
+        "time": 1528840800,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 78.58,
+        "apparentTemperature": 78.61,
+        "windSpeed": 9.4
+      },
+      {
+        "time": 1528844400,
+        "precipProbability": 0,
+        "temperature": 76.53,
+        "apparentTemperature": 76.64,
+        "windSpeed": 9.05
+      },
+      {
+        "time": 1528848000,
+        "precipProbability": 0,
+        "temperature": 74.35,
+        "apparentTemperature": 74.55,
+        "windSpeed": 8.71
+      },
+      {
+        "time": 1528851600,
+        "precipProbability": 0,
+        "temperature": 72.36,
+        "apparentTemperature": 72.59,
+        "windSpeed": 7.19
+      },
+      {
+        "time": 1528855200,
+        "precipProbability": 0,
+        "temperature": 70.77,
+        "apparentTemperature": 71.06,
+        "windSpeed": 6.89
+      },
+      {
+        "time": 1528858800,
+        "precipProbability": 0,
+        "temperature": 69.73,
+        "apparentTemperature": 70.09,
+        "windSpeed": 6.61
+      },
+      {
+        "time": 1528862400,
+        "precipProbability": 0,
+        "temperature": 68.88,
+        "apparentTemperature": 69.33,
+        "windSpeed": 6.31
+      },
+      {
+        "time": 1528866000,
+        "precipProbability": 0,
+        "temperature": 68.39,
+        "apparentTemperature": 68.93,
+        "windSpeed": 6.01
+      },
+      {
+        "time": 1528869600,
+        "precipProbability": 0,
+        "temperature": 67.53,
+        "apparentTemperature": 68.16,
+        "windSpeed": 5.79
+      },
+      {
+        "time": 1528873200,
+        "precipProbability": 0.03,
+        "precipType": "rain",
+        "temperature": 66.77,
+        "apparentTemperature": 67.47,
+        "windSpeed": 5.68
+      },
+      {
+        "time": 1528876800,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 66.29,
+        "apparentTemperature": 67.03,
+        "windSpeed": 5.62
+      },
+      {
+        "time": 1528880400,
+        "precipProbability": 0.07,
+        "precipType": "rain",
+        "temperature": 66.54,
+        "apparentTemperature": 67.29,
+        "windSpeed": 5.62
+      },
+      {
+        "time": 1528884000,
+        "precipProbability": 0.08,
+        "precipType": "rain",
+        "temperature": 67.01,
+        "apparentTemperature": 67.79,
+        "windSpeed": 5.61
+      },
+      {
+        "time": 1528887600,
+        "precipProbability": 0.09,
+        "precipType": "rain",
+        "temperature": 67.78,
+        "apparentTemperature": 68.59,
+        "windSpeed": 5.66
+      },
+      {
+        "time": 1528891200,
+        "precipProbability": 0.07,
+        "precipType": "rain",
+        "temperature": 69.33,
+        "apparentTemperature": 70.13,
+        "windSpeed": 5.8
+      },
+      {
+        "time": 1528894800,
+        "precipProbability": 0.04,
+        "precipType": "rain",
+        "temperature": 72.14,
+        "apparentTemperature": 72.9,
+        "windSpeed": 4.62
+      },
+      {
+        "time": 1528898400,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 75.6,
+        "apparentTemperature": 76.34,
+        "windSpeed": 5.59
+      },
+      {
+        "time": 1528902000,
+        "precipProbability": 0,
+        "temperature": 78.76,
+        "apparentTemperature": 79.51,
+        "windSpeed": 6.73
+      },
+      {
+        "time": 1528905600,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 81.68,
+        "apparentTemperature": 84.28,
+        "windSpeed": 6.32
+      },
+      {
+        "time": 1528909200,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 84.28,
+        "apparentTemperature": 87.13,
+        "windSpeed": 6.71
+      },
+      {
+        "time": 1528912800,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 86.56,
+        "apparentTemperature": 89.24,
+        "windSpeed": 9.03
+      },
+      {
+        "time": 1528916400,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 87.92,
+        "apparentTemperature": 89.86,
+        "windSpeed": 10.05
+      },
+      {
+        "time": 1528920000,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 88.49,
+        "apparentTemperature": 89.33,
+        "windSpeed": 11.34
+      },
+      {
+        "time": 1528923600,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 88.34,
+        "apparentTemperature": 88.34,
+        "windSpeed": 12.07
+      },
+      {
+        "time": 1528927200,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 86.83,
+        "apparentTemperature": 86.83,
+        "windSpeed": 11.82
+      },
+      {
+        "time": 1528930800,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 84.48,
+        "apparentTemperature": 84.48,
+        "windSpeed": 11.02
+      },
+      {
+        "time": 1528934400,
+        "precipProbability": 0,
+        "temperature": 82.12,
+        "apparentTemperature": 82.12,
+        "windSpeed": 10.25
+      },
+      {
+        "time": 1528938000,
+        "precipProbability": 0,
+        "temperature": 79.65,
+        "apparentTemperature": 79.65,
+        "windSpeed": 9.65
+      },
+      {
+        "time": 1528941600,
+        "precipProbability": 0,
+        "temperature": 77.35,
+        "apparentTemperature": 77.35,
+        "windSpeed": 9.05
+      },
+      {
+        "time": 1528945200,
+        "precipProbability": 0,
+        "temperature": 75.41,
+        "apparentTemperature": 75.41,
+        "windSpeed": 8.47
+      },
+      {
+        "time": 1528948800,
+        "precipProbability": 0,
+        "temperature": 73.7,
+        "apparentTemperature": 73.7,
+        "windSpeed": 7.98
+      },
+      {
+        "time": 1528952400,
+        "precipProbability": 0,
+        "temperature": 71.92,
+        "apparentTemperature": 71.92,
+        "windSpeed": 7.47
+      },
+      {
+        "time": 1528956000,
+        "precipProbability": 0,
+        "temperature": 70.23,
+        "apparentTemperature": 70.23,
+        "windSpeed": 6.88
+      },
+      {
+        "time": 1528959600,
+        "precipProbability": 0,
+        "temperature": 67.86,
+        "apparentTemperature": 67.86,
+        "windSpeed": 6.05
+      },
+      {
+        "time": 1528963200,
+        "precipProbability": 0,
+        "temperature": 65.43,
+        "apparentTemperature": 65.43,
+        "windSpeed": 5.15
+      },
+      {
+        "time": 1528966800,
+        "precipProbability": 0,
+        "temperature": 64.16,
+        "apparentTemperature": 64.16,
+        "windSpeed": 4.45
+      },
+      {
+        "time": 1528970400,
+        "precipProbability": 0,
+        "temperature": 65.21,
+        "apparentTemperature": 65.21,
+        "windSpeed": 4.04
+      },
+      {
+        "time": 1528974000,
+        "precipProbability": 0,
+        "temperature": 67.81,
+        "apparentTemperature": 67.81,
+        "windSpeed": 3.82
+      },
+      {
+        "time": 1528977600,
+        "precipProbability": 0,
+        "temperature": 71.17,
+        "apparentTemperature": 71.17,
+        "windSpeed": 3.89
+      },
+      {
+        "time": 1528981200,
+        "precipProbability": 0,
+        "temperature": 74.43,
+        "apparentTemperature": 74.43,
+        "windSpeed": 3.61
+      },
+      {
+        "time": 1528984800,
+        "precipProbability": 0,
+        "temperature": 78.06,
+        "apparentTemperature": 78.06,
+        "windSpeed": 4.03
+      },
+      {
+        "time": 1528988400,
+        "precipProbability": 0,
+        "temperature": 81.21,
+        "apparentTemperature": 81.21,
+        "windSpeed": 5.28
+      },
+      {
+        "time": 1528992000,
+        "precipProbability": 0,
+        "temperature": 83.57,
+        "apparentTemperature": 83.57,
+        "windSpeed": 5.76
+      },
+      {
+        "time": 1528995600,
+        "precipProbability": 0,
+        "temperature": 85.1,
+        "apparentTemperature": 85.1,
+        "windSpeed": 6.65
+      },
+      {
+        "time": 1528999200,
+        "precipProbability": 0,
+        "temperature": 86.51,
+        "apparentTemperature": 86.51,
+        "windSpeed": 9.17
+      },
+      {
+        "time": 1529002800,
+        "precipProbability": 0,
+        "temperature": 87.5,
+        "apparentTemperature": 87.5,
+        "windSpeed": 9.92
+      },
+      {
+        "time": 1529006400,
+        "precipProbability": 0,
+        "temperature": 88.02,
+        "apparentTemperature": 88.02,
+        "windSpeed": 10.49
+      },
+      {
+        "time": 1529010000,
+        "precipProbability": 0,
+        "temperature": 87.85,
+        "apparentTemperature": 87.85,
+        "windSpeed": 10.7
+      },
+      {
+        "time": 1529013600,
+        "precipProbability": 0,
+        "temperature": 86.61,
+        "apparentTemperature": 86.61,
+        "windSpeed": 10.36
+      },
+      {
+        "time": 1529017200,
+        "precipProbability": 0,
+        "temperature": 84.56,
+        "apparentTemperature": 84.56,
+        "windSpeed": 9.63
+      },
+      {
+        "time": 1529020800,
+        "precipProbability": 0,
+        "temperature": 82.48,
+        "apparentTemperature": 82.48,
+        "windSpeed": 9.05
+      },
+      {
+        "time": 1529024400,
+        "precipProbability": 0,
+        "temperature": 80.45,
+        "apparentTemperature": 80.45,
+        "windSpeed": 8.92
+      },
+      {
+        "time": 1529028000,
+        "precipProbability": 0,
+        "temperature": 78.75,
+        "apparentTemperature": 78.75,
+        "windSpeed": 8.95
+      },
+      {
+        "time": 1529031600,
+        "precipProbability": 0,
+        "temperature": 77.22,
+        "apparentTemperature": 77.22,
+        "windSpeed": 8.88
+      },
+      {
+        "time": 1529035200,
+        "precipProbability": 0,
+        "temperature": 75.95,
+        "apparentTemperature": 75.95,
+        "windSpeed": 8.59
+      },
+      {
+        "time": 1529038800,
+        "precipProbability": 0,
+        "temperature": 74.76,
+        "apparentTemperature": 74.76,
+        "windSpeed": 8.15
+      },
+      {
+        "time": 1529042400,
+        "precipProbability": 0,
+        "temperature": 73.43,
+        "apparentTemperature": 73.43,
+        "windSpeed": 7.57
+      },
+      {
+        "time": 1529046000,
+        "precipProbability": 0.02,
+        "precipType": "rain",
+        "temperature": 72.18,
+        "apparentTemperature": 72.18,
+        "windSpeed": 4.88
+      },
+      {
+        "time": 1529049600,
+        "precipProbability": 0.03,
+        "precipType": "rain",
+        "temperature": 70.51,
+        "apparentTemperature": 70.51,
+        "windSpeed": 1.9
+      },
+      {
+        "time": 1529053200,
+        "precipProbability": 0.05,
+        "precipType": "rain",
+        "temperature": 69.16,
+        "apparentTemperature": 69.29,
+        "windSpeed": 1.89
+      },
+      {
+        "time": 1529056800,
+        "precipProbability": 0.08,
+        "precipType": "rain",
+        "temperature": 68.72,
+        "apparentTemperature": 68.97,
+        "windSpeed": 1.96
+      },
+      {
+        "time": 1529060400,
+        "precipProbability": 0.11,
+        "precipType": "rain",
+        "temperature": 69.08,
+        "apparentTemperature": 69.37,
+        "windSpeed": 4.39
+      },
+      {
+        "time": 1529064000,
+        "precipProbability": 0.13,
+        "precipType": "rain",
+        "temperature": 70.12,
+        "apparentTemperature": 70.38,
+        "windSpeed": 6.56
+      },
+      {
+        "time": 1529067600,
+        "precipProbability": 0.18,
+        "precipType": "rain",
+        "temperature": 71.6,
+        "apparentTemperature": 71.75,
+        "windSpeed": 6.92
+      },
+      {
+        "time": 1529071200,
+        "precipProbability": 0.19,
+        "precipType": "rain",
+        "temperature": 72.41,
+        "apparentTemperature": 72.43,
+        "windSpeed": 6.98
+      },
+      {
+        "time": 1529074800,
+        "precipProbability": 0.15,
+        "precipType": "rain",
+        "temperature": 73.47,
+        "apparentTemperature": 73.47,
+        "windSpeed": 7
+      },
+      {
+        "time": 1529078400,
+        "precipProbability": 0.1,
+        "precipType": "rain",
+        "temperature": 74.59,
+        "apparentTemperature": 74.59,
+        "windSpeed": 7.24
+      },
+      {
+        "time": 1529082000,
+        "precipProbability": 0.06,
+        "precipType": "rain",
+        "temperature": 75.64,
+        "apparentTemperature": 75.64,
+        "windSpeed": 7.5
+      },
+      {
+        "time": 1529085600,
+        "precipProbability": 0.03,
+        "precipType": "rain",
+        "temperature": 77.37,
+        "apparentTemperature": 77.37,
+        "windSpeed": 7.72
+      },
+      {
+        "time": 1529089200,
+        "precipProbability": 0.02,
+        "precipType": "rain",
+        "temperature": 79.01,
+        "apparentTemperature": 79.01,
+        "windSpeed": 7.99
+      },
+      {
+        "time": 1529092800,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 80.32,
+        "apparentTemperature": 80.32,
+        "windSpeed": 8.27
+      },
+      {
+        "time": 1529096400,
+        "precipProbability": 0,
+        "temperature": 80.33,
+        "apparentTemperature": 80.33,
+        "windSpeed": 8.53
+      },
+      {
+        "time": 1529100000,
+        "precipProbability": 0,
+        "temperature": 79.02,
+        "apparentTemperature": 79.02,
+        "windSpeed": 8.73
+      },
+      {
+        "time": 1529103600,
+        "precipProbability": 0,
+        "temperature": 76.39,
+        "apparentTemperature": 76.39,
+        "windSpeed": 8.82
+      },
+      {
+        "time": 1529107200,
+        "precipProbability": 0,
+        "temperature": 73.96,
+        "apparentTemperature": 73.96,
+        "windSpeed": 8.76
+      },
+      {
+        "time": 1529110800,
+        "precipProbability": 0,
+        "temperature": 71.86,
+        "apparentTemperature": 71.86,
+        "windSpeed": 8.46
+      },
+      {
+        "time": 1529114400,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 70.06,
+        "apparentTemperature": 70.06,
+        "windSpeed": 8.05
+      },
+      {
+        "time": 1529118000,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 68.18,
+        "apparentTemperature": 68.18,
+        "windSpeed": 7.91
+      },
+      {
+        "time": 1529121600,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 65.93,
+        "apparentTemperature": 65.93,
+        "windSpeed": 8.27
+      },
+      {
+        "time": 1529125200,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 63.59,
+        "apparentTemperature": 63.59,
+        "windSpeed": 8.83
+      },
+      {
+        "time": 1529128800,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 61.76,
+        "apparentTemperature": 61.76,
+        "windSpeed": 9.06
+      },
+      {
+        "time": 1529132400,
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "temperature": 60.12,
+        "apparentTemperature": 60.12,
+        "windSpeed": 8.63
+      },
+      {
+        "time": 1529136000,
+        "precipProbability": 0,
+        "temperature": 59.03,
+        "apparentTemperature": 59.03,
+        "windSpeed": 7.96
+      },
+      {
+        "time": 1529139600,
+        "precipProbability": 0,
+        "temperature": 58.42,
+        "apparentTemperature": 58.42,
+        "windSpeed": 7.56
+      },
+      {
+        "time": 1529143200,
+        "precipProbability": 0,
+        "temperature": 58.93,
+        "apparentTemperature": 58.93,
+        "windSpeed": 7.7
+      },
+      {
+        "time": 1529146800,
+        "precipProbability": 0,
+        "temperature": 60.13,
+        "apparentTemperature": 60.13,
+        "windSpeed": 8.1
+      },
+      {
+        "time": 1529150400,
+        "precipProbability": 0,
+        "temperature": 62.6,
+        "apparentTemperature": 62.6,
+        "windSpeed": 8.52
+      },
+      {
+        "time": 1529154000,
+        "precipProbability": 0,
+        "temperature": 65.35,
+        "apparentTemperature": 65.35,
+        "windSpeed": 8.9
+      }
+    ]
+  },
+  "daily": {
+    "data": [
+      {
+        "time": 1528516800,
+        "summary": "Light rain starting in the afternoon, continuing until evening.",
+        "icon": "rain",
+        "precipProbability": 0.51,
+        "precipType": "rain",
+        "windSpeed": 1.68,
+        "temperatureMin": 65.74,
+        "temperatureMax": 84.76
+      },
+      {
+        "time": 1528603200,
+        "summary": "Rain starting in the evening.",
+        "icon": "rain",
+        "precipProbability": 0.97,
+        "precipType": "rain",
+        "windSpeed": 7.17,
+        "temperatureMin": 61.58,
+        "temperatureMax": 70.58
+      },
+      {
+        "time": 1528689600,
+        "summary": "Rain until evening.",
+        "icon": "rain",
+        "precipProbability": 0.92,
+        "precipType": "rain",
+        "windSpeed": 8.32,
+        "temperatureMin": 57.88,
+        "temperatureMax": 70.1
+      },
+      {
+        "time": 1528776000,
+        "summary": "Mostly cloudy throughout the day.",
+        "icon": "partly-cloudy-day",
+        "precipProbability": 0.04,
+        "precipType": "rain",
+        "windSpeed": 4.62,
+        "temperatureMin": 53.36,
+        "temperatureMax": 80.84
+      },
+      {
+        "time": 1528862400,
+        "summary": "Mostly cloudy throughout the day.",
+        "icon": "partly-cloudy-day",
+        "precipProbability": 0.13,
+        "precipType": "rain",
+        "windSpeed": 4.41,
+        "temperatureMin": 66.29,
+        "temperatureMax": 88.49
+      },
+      {
+        "time": 1528948800,
+        "summary": "Mostly cloudy throughout the day.",
+        "icon": "partly-cloudy-day",
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "windSpeed": 5.04,
+        "temperatureMin": 64.16,
+        "temperatureMax": 88.02
+      },
+      {
+        "time": 1529035200,
+        "summary": "Rain until afternoon.",
+        "icon": "rain",
+        "precipProbability": 0.5,
+        "precipType": "rain",
+        "windSpeed": 4.2,
+        "temperatureMin": 68.18,
+        "temperatureMax": 80.33
+      },
+      {
+        "time": 1529121600,
+        "summary": "Clear throughout the day.",
+        "icon": "clear-day",
+        "precipProbability": 0.01,
+        "precipType": "rain",
+        "windSpeed": 6.96,
+        "temperatureMin": 58.42,
+        "temperatureMax": 79.69
+      }
+    ]
+  }
+}

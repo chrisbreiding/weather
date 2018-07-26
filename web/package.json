@@ -4,12 +4,15 @@
   "private": true,
   "scripts": {
     "start": "zunder watch",
-    "deploy": "zunder deploy"
+    "deploy": "zunder deploy",
+    "cypress:open": "cypress open"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "chai": "^4.1.2",
+    "cypress": "^3.0.1",
     "eslint": "^4.15.0",
+    "eslint-plugin-cypress": "^2.0.1",
     "eslint-plugin-cypress-dev": "^1.1.2",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-react": "^7.5.1",
