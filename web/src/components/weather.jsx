@@ -26,9 +26,12 @@ const Weather = observer(({ locationStore, weatherStore }) => {
     return <Loader />
   }
 
+  const focusedDay = weatherStore.hourly.focusedDay
+  const minWidth = focusedDay ? 375 : 600
+
   return (
     <div className={cs('weather', {
-      'has-focused-day': !!weatherStore.hourly.focusedDay,
+      'has-focused-day': !!focusedDay,
     })}>
       <Alerts alerts={weatherStore.alerts} />
       <CurrentWeather currentWeather={weatherStore.currently} />
@@ -38,9 +41,9 @@ const Weather = observer(({ locationStore, weatherStore }) => {
           dailyWeather={weatherStore.daily}
           onSelectDay={weatherStore.setFocusedDay}
         />
-        <TempChart hourlyWeather={weatherStore.hourly} />
-        <PrecipChart hourlyWeather={weatherStore.hourly} />
-        <WindChart hourlyWeather={weatherStore.hourly} />
+        <TempChart hourlyWeather={weatherStore.hourly} minWidth={minWidth} />
+        <PrecipChart hourlyWeather={weatherStore.hourly} minWidth={minWidth} />
+        <WindChart hourlyWeather={weatherStore.hourly} minWidth={minWidth} />
       </div>
       <p className='credit'>
         <a href='https://darksky.net/poweredby/' target='_blank' rel='noopener noreferrer'>Powered by Dark Sky</a>

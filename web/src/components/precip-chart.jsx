@@ -19,10 +19,8 @@ import YLabel from './y-label'
 import util from '../lib/util'
 
 
-const PrecipChart = observer(({ hourlyWeather }) => {
-  const { days, focusedDay, startTimestamp, endTimestamp } = hourlyWeather
-
-  const minWidth = focusedDay ? 400 : 600
+const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
+  const { days, startTimestamp, endTimestamp } = hourlyWeather
 
   return (
     <ResponsiveContainer className='precip-chart' width='100%' minWidth={minWidth} height={170}>

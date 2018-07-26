@@ -18,10 +18,8 @@ import YLabel from './y-label'
 
 import util from '../lib/util'
 
-const TempChart = observer(({ hourlyWeather }) => {
-  const { days, focusedDay, startTimestamp, endTimestamp } = hourlyWeather
-
-  const minWidth = focusedDay ? 400 : 600
+const TempChart = observer(({ hourlyWeather, minWidth }) => {
+  const { days, startTimestamp, endTimestamp } = hourlyWeather
 
   return (
     <ResponsiveContainer className='temp-chart' width='100%' minWidth={minWidth} height={170}>

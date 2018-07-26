@@ -478,6 +478,7 @@ a {
 
   .has-focused-day & {
     overflow-x: scroll;
+    overflow-y: hidden;
   }
 
   .yAxis {
