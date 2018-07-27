@@ -9,6 +9,13 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 
 * {
   box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea {
+  user-select: all;
 }
 
 body {
@@ -559,7 +566,6 @@ a {
   border: solid 1px #d3d3d3;
   font-size: 0.8em;
   padding: 0.4em;
-  user-select: none;
 
   .temp,
   .apparent-temp,
@@ -587,7 +593,6 @@ a {
 
 .y-label {
   font-size: 0.7em;
-  user-select: none;
 }
 
 .recharts-legend-wrapper {
@@ -605,7 +610,6 @@ a {
   align-items: center;
   display: flex;
   justify-content: flex-end;
-  user-select: none;
 
   .legend-item {
     align-items: center;
@@ -660,5 +664,4 @@ a {
   text-align: center;
   margin-top: 4em;
   padding-bottom: 0.4em;
-  user-select: none;
 }
