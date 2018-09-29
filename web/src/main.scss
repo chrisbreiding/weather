@@ -268,19 +268,51 @@ a {
   right: 0;
 }
 
+$alert-color: #b91d1d;
+
 .alerts {
   display: flex;
   justify-content: center;
   padding: 0 0.5em;
 
-  ul {
+  ul,
+  .alerts-grouped {
     max-width: 31em;
     width: 100%;
+  }
+
+  .alerts-grouped {
+    > div {
+      background: transparentize($alert-color, 0.9);
+      border: solid 2px $alert-color;
+      border-radius: 3px;
+      color: $alert-color;
+      cursor: pointer;
+      margin-bottom: 0.4em;
+      padding: 0.6em 0.6em 0.4em;
+
+      &:hover {
+        background: transparentize($alert-color, 0.7);
+      }
+
+      svg {
+        margin-right: 0.6em;
+        width: 1em;
+      }
+    }
+                
+    ul {
+      display: none;
+    }
+
+    &.showing-alerts ul {
+      display: block;
+    }
   }
 }
 
 .alert {
-  background: #b91d1d;
+  background: $alert-color;
   border-radius: 3px;
   color: #fff;
   margin-bottom: 0.4em;

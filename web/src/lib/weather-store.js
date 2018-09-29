@@ -153,6 +153,15 @@ const WeatherStore = types.model('WeatherStore', {
     self.hourly = HourlyWeather.create(hourly)
     self.daily = DailyWeather.create(daily)
     self.isLoading = false
+    const alertIds = {}
+    // dedupe alerts
+    alerts = alerts.filter((alert) => {
+      const id = util.getAlertId(alert)
+      if (alertIds[id]) return false
+
+      alertIds[id] = true
+      return true
+    })
     self.alerts = alerts.map((alert) => Alert.create(alert))
   },
 

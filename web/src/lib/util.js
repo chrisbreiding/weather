@@ -126,4 +126,8 @@ export default {
 
     return (num).toFixed(1).replace('.0', '')
   },
+
+  getAlertId (alert) {
+    return `${alert.title}${alert.time}${alert.expires}`
+  },
 }
