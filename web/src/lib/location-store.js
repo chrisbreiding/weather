@@ -6,7 +6,7 @@ import util from './util'
 
 const Location = types.model('Location', {
   description: '',
-  placeId: types.identifier(types.string),
+  placeId: types.identifier,
   lat: types.number,
   lng: types.number,
   isGeolocated: false,
@@ -29,9 +29,9 @@ const getExistingFromCache = (cache, location) => {
 
 const LocationStore = types.model('LocationStore', {
   isLoading: true,
-  error: types.maybe(types.string),
+  error: types.maybeNull(types.string),
   _recent: types.array(Location),
-  current: types.maybe(types.reference(Location)),
+  current: types.maybeNull(types.reference(Location)),
 })
 .views((self) => ({
   get hasCurrent () {

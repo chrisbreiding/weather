@@ -19,7 +19,7 @@ export const CurrentWeather = types.model('CurrentWeather', {
 const Hour = types.model('Hour', {
   time: types.number,
   precipProbability: types.number,
-  precipType: types.maybe(types.string),
+  precipType: types.maybeNull(types.string),
   temperature: types.number,
   apparentTemperature: types.number,
   windSpeed: types.number,
@@ -27,7 +27,7 @@ const Hour = types.model('Hour', {
 
 export const HourlyWeather = types.model('HourlyWeather', {
   data: types.array(Hour),
-  focusedDay: types.maybe(types.number),
+  focusedDay: types.maybeNull(types.number),
 })
 .views((self) => ({
   get hours () {
@@ -107,8 +107,8 @@ const Day = types.model('Day', {
   summary: types.string,
   icon: types.string,
   precipProbability: types.number,
-  precipAccumulation: types.maybe(types.number),
-  precipType: types.maybe(types.string),
+  precipAccumulation: types.maybeNull(types.number),
+  precipType: types.maybeNull(types.string),
   temperatureMin: types.number,
   temperatureMax: types.number,
 })
@@ -141,10 +141,10 @@ const Alert = types.model('Alert', {
 
 const WeatherStore = types.model('WeatherStore', {
   isLoading: true,
-  error: types.maybe(types.string),
-  currently: types.maybe(CurrentWeather),
-  hourly: types.maybe(HourlyWeather),
-  daily: types.maybe(DailyWeather),
+  error: types.maybeNull(types.string),
+  currently: types.maybeNull(CurrentWeather),
+  hourly: types.maybeNull(HourlyWeather),
+  daily: types.maybeNull(DailyWeather),
   alerts: types.array(Alert),
 })
 .actions((self) => ({

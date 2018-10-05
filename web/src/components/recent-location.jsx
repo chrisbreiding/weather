@@ -2,7 +2,7 @@ import cs from 'classnames'
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { action, observable } from 'mobx'
-import Icon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import {
   faPen,
   faTrashAlt,

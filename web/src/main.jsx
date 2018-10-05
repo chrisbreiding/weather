@@ -1,4 +1,4 @@
-import { useStrict } from 'mobx'
+import { configure as configureMobx } from 'mobx'
 import { observer } from 'mobx-react'
 import React, { Component } from 'react'
 import { render } from 'react-dom'
@@ -15,7 +15,7 @@ import Location from './components/location'
 import Weather from './components/weather'
 
 new FastClick(document.body)
-useStrict(true)
+configureMobx({ enforceActions: 'always' })
 
 if (!util.isStandalone()) {
   router.init()
