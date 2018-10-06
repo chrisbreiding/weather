@@ -426,6 +426,8 @@ $alert-color: #b91d1d;
 }
 
 .current {
+  display: flex;
+  justify-content: center;
   margin: 0.5em 0 1em;
   text-align: center;
 
@@ -435,6 +437,7 @@ $alert-color: #b91d1d;
     margin-bottom: 1em;
 
     &:first-of-type {
+      margin-top: 0.4em;
       margin-bottom: 0.4em;
     }
 
@@ -443,7 +446,10 @@ $alert-color: #b91d1d;
       display: flex;
       justify-content: center;
       line-height: 1.2;
-      width: 8rem;
+    }
+
+    .summary {
+      display: none;
     }
   }
 
@@ -454,7 +460,7 @@ $alert-color: #b91d1d;
 
   .temp {
     font-size: 4em;
-    margin-right: 1rem;
+    margin-right: 0.6rem;
 
     .degrees {
       font-size: 2rem;
@@ -481,14 +487,121 @@ $alert-color: #b91d1d;
   }
 
   .icon {
-    margin-top: 0.1em;
+    font-size: 2em;
+    margin-top: 0.3em;
     margin-bottom: 0.1em;
+  }
+}
+
+.radar {
+  margin-left: 1.2em;
+  position: relative;
+
+  iframe {
+    border: none;
+    height: 10em;
+    width: 10em;
+  }
+
+  .radar-cover {
+    border: solid 1em #fff;
+    border-radius: 2em;
+    bottom: -0.7em;
+    cursor: pointer;
+    left: -0.7em;
+    position: absolute;
+    right: -0.7em;
+    top: -0.7em;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  button {
+    align-items: center;
+    background: #333;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    height: 3.5em;
+    justify-content: center;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    width: 3.7em;
+
+    &:hover {
+      background: lighten(#333, 20%);
+    }
+
+    .icon {
+      color: #fff;
+      font-size: 2em;
+    }
+  }
+
+  &.with-controls {
+    display: none;
+    margin-left: 0;
+    
+    &,
+    iframe {
+      bottom: 0;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    .radar-cover {
+      display: none;
+    }
+
+    button {
+      display: flex;
+    }
+  }
+}
+
+.showing-radar .radar.with-controls {
+  display: block;
+}
+
+@media screen and (min-width: 450px) {
+  .current {
+    .temp {
+      margin-right: 1rem;
+    }
+    
+    .icon {
+      font-size: 4em;
+      margin-top: 0.1em;
+    }
+
+    .row {
+      .summary {
+        display: flex;
+      }
+      
+      p {
+        width: 8rem;
+      }
+    }
   }
 }
 
 @media screen and (min-width: 700px) {
   .current {
     margin: 2em 0;
+
+    .row {
+      &:first-of-type {
+        margin-top: 0.2em;
+      }
+    }
 
     .precip {
       margin-top: 2em;

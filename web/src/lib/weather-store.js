@@ -141,6 +141,7 @@ const Alert = types.model('Alert', {
 
 const WeatherStore = types.model('WeatherStore', {
   isLoading: true,
+  isShowingRadar: false,
   error: types.maybeNull(types.string),
   currently: types.maybeNull(CurrentWeather),
   hourly: types.maybeNull(HourlyWeather),
@@ -171,6 +172,10 @@ const WeatherStore = types.model('WeatherStore', {
 
   setLoading (isLoading) {
     self.isLoading = isLoading
+  },
+
+  setShowingRadar (isShowingRadar) {
+    self.isShowingRadar = isShowingRadar
   },
 
   setError (error) {
