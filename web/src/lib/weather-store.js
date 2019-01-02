@@ -122,6 +122,11 @@ const Day = types.model('Day', {
   temperatureMin: types.number,
   temperatureMax: types.number,
 })
+.views((self) => ({
+  get precipProbabilityPercent () {
+    return Math.round(self.precipProbability * 100)
+  },
+}))
 
 const DailyWeather = types.model('DailyWeather', {
   data: types.array(Day),

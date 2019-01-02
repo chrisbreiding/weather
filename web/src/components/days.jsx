@@ -18,6 +18,12 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
   const { focusedDay, weekStartTimestamp, weekEndTimestamp } = hourlyWeather
   const { days } = dailyWeather
 
+  const precipDetail = (day) => {
+    return day.precipType === 'snow' ?
+      `${util.toTenth(day.precipAccumulation)} in` :
+      `${day.precipProbabilityPercent}%`
+  }
+
   const customLabel = (props) => {
     const day = days[props.value]
     const isSnow = day.precipType === 'snow'
@@ -47,7 +53,7 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
           </div>
           <div className={cs('precip', { 'is-snow': isSnow })}>
             <Icon name={util.icons[isSnow ? 'SNOWFLAKE' : 'RAINDROP']} />
-            <span>{util.toTenth(day.precipAccumulation)} in</span>
+            <span>{precipDetail(day)}</span>
           </div>
         </div>
       </foreignObject>
