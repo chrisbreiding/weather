@@ -28,7 +28,6 @@ const Weather = observer(({ locationStore, weatherStore }) => {
   }
 
   const setShowingRadar = (showingRadar) => () => {
-    console.log('set showing radar', showingRadar)
     weatherStore.setShowingRadar(showingRadar)
   }
 

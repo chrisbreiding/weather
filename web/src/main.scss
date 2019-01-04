@@ -300,7 +300,7 @@ $alert-color: #b91d1d;
         width: 1em;
       }
     }
-                
+
     ul {
       display: none;
     }
@@ -544,13 +544,13 @@ $alert-color: #b91d1d;
   &.with-controls {
     display: none;
     margin-left: 0;
-    
+
     &,
     iframe {
       bottom: 0;
       height: 100%;
       left: 0;
-      position: absolute;
+      position: fixed;
       right: 0;
       top: 0;
       width: 100%;
@@ -575,7 +575,7 @@ $alert-color: #b91d1d;
     .temp {
       margin-right: 1rem;
     }
-    
+
     .icon {
       font-size: 4em;
       margin-top: 0.1em;
@@ -585,7 +585,7 @@ $alert-color: #b91d1d;
       .summary {
         display: flex;
       }
-      
+
       p {
         width: 8rem;
       }
