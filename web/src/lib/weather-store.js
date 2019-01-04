@@ -59,10 +59,10 @@ export const HourlyWeather = types.model('HourlyWeather', {
       const isSnow = hour.precipType === 'snow'
       const precipProbability = Math.round(hour.precipProbability * 100)
 
-      const isLowIntensity = !isSnow && hour.precipIntensity < 0.02
-      const isMediumIntensity = !isSnow && (hour.precipIntensity >= 0.02 && hour.precipIntensity < 0.05)
-      const isHighIntensity = !isSnow && (hour.precipIntensity >= 0.05 && hour.precipIntensity < 0.08)
-      const isUnexpectedIntensity = !isSnow && hour.precipIntensity >= 0.08
+      const isLowIntensity = !isSnow && hour.precipIntensity < 0.07
+      const isMediumIntensity = !isSnow && (hour.precipIntensity >= 0.07 && hour.precipIntensity < 0.14)
+      const isHighIntensity = !isSnow && (hour.precipIntensity >= 0.14 && hour.precipIntensity < 0.21)
+      const isVeryHighIntensity = !isSnow && hour.precipIntensity >= 0.21
 
       return {
         time: hour.time,
@@ -72,7 +72,7 @@ export const HourlyWeather = types.model('HourlyWeather', {
         lowPrecipProbability: isLowIntensity ? precipProbability : 0,
         mediumPrecipProbability: isMediumIntensity ? precipProbability : 0,
         highPrecipProbability: isHighIntensity ? precipProbability : 0,
-        unexpectedPrecipProbability: isUnexpectedIntensity ? precipProbability : 0,
+        veryHighPrecipProbability: isVeryHighIntensity ? precipProbability : 0,
         snowProbability: isSnow ? precipProbability : 0,
         precipSnowProbability: precipProbability,
         windSpeed: hour.windSpeed,

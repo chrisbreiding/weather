@@ -97,7 +97,7 @@ const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
         <Area
           type='step'
           name='Chance of Precip. (%)'
-          dataKey='unexpectedPrecipProbability'
+          dataKey='veryHighPrecipProbability'
           stroke='transparent'
           fillOpacity={0.8}
           fill='#0cafe2'
