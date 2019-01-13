@@ -1,6 +1,6 @@
 import cs from 'classnames'
 import React from 'react'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 
 import Alerts from './alerts'
 import CurrentWeather from './current-weather'

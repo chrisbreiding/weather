@@ -1,6 +1,6 @@
 import { configure as configureMobx } from 'mobx'
-import { observer } from 'mobx-react'
-import React, { Component } from 'react'
+import { observer } from 'mobx-react-lite'
+import React, { useEffect } from 'react'
 import { render } from 'react-dom'
 import FastClick from 'fastclick'
 
@@ -21,22 +21,19 @@ if (!util.isStandalone()) {
   router.init()
 }
 
-@observer
-class App extends Component {
-  render () {
-    return (
-      <div className='app' onClick={() => eventBus.emit('global:click')}>
-        <Location locationStore={locationStore} />
-        <Weather locationStore={locationStore} weatherStore={weatherStore} />
-      </div>
-    )
-  }
-
-  componentDidMount () {
+const App = observer(() => {
+  useEffect(() => {
     if (util.isStandalone()) {
       data.setUserLocation()
     }
-  }
-}
+  }, [true])
+
+  return (
+    <div className='app' onClick={() => eventBus.emit('global:click')}>
+      <Location locationStore={locationStore} />
+      <Weather locationStore={locationStore} weatherStore={weatherStore} />
+    </div>
+  )
+})
 
 render(<App />, document.getElementById('app'))

@@ -5,6 +5,8 @@
   "scripts": {
     "start": "zunder watch",
     "deploy": "zunder deploy",
+    "lint": "eslint src/*.jsx src/**/*.js src/**/*.jsx",
+    "lint-fix": "eslint --fix src/*.jsx src/**/*.js src/**/*.jsx",
     "cypress:open": "cypress open"
   },
   "devDependencies": {

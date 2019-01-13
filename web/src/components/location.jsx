@@ -1,7 +1,7 @@
 import cs from 'classnames'
-import React, { Component } from 'react'
-import { observer } from 'mobx-react'
-import { action, observable } from 'mobx'
+import React, { useEffect } from 'react'
+import { action } from 'mobx'
+import { observer, useObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import {
   faLocationArrow,
@@ -15,160 +15,176 @@ import util from '../lib/util'
 
 import RecentLocation from './recent-location'
 
-@observer
-class Location extends Component {
-  @observable options = []
-  @observable query = null
-  @observable isSearching = false
-  @observable showingRecent = false
+const Location = observer(({ locationStore }) => {
+  const state = useObservable({
+    options: [],
+    query: null,
+    isSearching: false,
+    showingRecent: false,
 
-  render () {
-    const { current, recent, isLoading: locationLoading, error } = this.props.locationStore
-    const location = current || { description: '' }
-    const isLoading = this.isSearching || locationLoading
+    setOptions: action((options) => {
+      state.options = options
+    }),
+    setQuery: action((query) => {
+      state.query = query
+    }),
+    setSearching: action((isSearching) => {
+      state.isSearching = isSearching
+    }),
+    setShowingRecent: action((showingRecent) => {
+      state.showingRecent = showingRecent
+    }),
+  })
 
-    return (
-      <div className='location'>
-        <div
-          className={cs('location-chooser', {
-            'is-loading': isLoading,
-            'showing-recent': !!recent.length && this.showingRecent,
-            'has-options': !!this.options.length,
-            'has-error': !!error,
-          })}
-        >
-          <button className='user-location' onClick={this._getUserLocation} disabled={isLoading}>
-            <Icon icon={faLocationArrow} />
-          </button>
+  const { current, recent, isLoading: locationLoading, error } = locationStore
+  const location = current || { description: '' }
+  const isLoading = state.isSearching || locationLoading
 
-          <div className='chooser'>
-            <form onSubmit={this._searchLocation}>
-              <input
-                className='query'
-                value={this.query != null ? this.query : location.description}
-                onChange={this._updateSearch}
-                onClick={this._stop}
-                onFocus={this._onFocusQuery}
-                onKeyUp={this._onEsc}
-              />
-            </form>
-
-            <ul className='recent'>
-              <li>
-                <label>Recent Locations</label>
-              </li>
-              {recent.map((location) => (
-                <RecentLocation
-                  key={location.placeId}
-                  location={location}
-                  onSelect={this._onLocationChosen(location)}
-                  onRemove={this._removeRecentLocation(location)}
-                  onEdit={this._updateRecentDescription(location)}
-                />
-              ))}
-            </ul>
-
-            <ul className='options'>
-              {this.options.map((option) => (
-                <li key={option.placeId} onClick={this._onLocationChosen(option)}>{option.description}</li>
-              ))}
-            </ul>
-
-            <div className='location-error'>
-              An error occurred:
-              {error}
-            </div>
-
-            <div className='loading'>
-              <Icon icon={faSpinner} spin />
-            </div>
-          </div>
-          <button className='search' onClick={this._searchLocation} disabled={isLoading}>
-            <Icon icon={faSearch} />
-          </button>
-        </div>
-      </div>
-    )
+  const onOutsideClick = () => {
+    state.setOptions([])
+    state.setShowingRecent(false)
   }
 
-  componentDidMount () {
-    eventBus.on('global:click', this._onOutsideClick)
-  }
+  useEffect(() => {
+    eventBus.on('global:click', onOutsideClick)
 
-  _stop (e) {
+    return () => {
+      eventBus.off('global:click', onOutsideClick)
+    }
+  }, [true])
+
+  const stop = (e) => {
     e.stopPropagation()
   }
 
-  @action _onOutsideClick = () => {
-    this.options = []
-    this.showingRecent = false
+  const updateSearch = (e) => {
+    state.setQuery(e.target.value)
   }
 
-  @action _updateSearch = (e) => {
-    this.query = e.target.value
+  const setLocation = (placeIdOrLatLng, isGeolocated) => {
+    data.setLocation(placeIdOrLatLng, isGeolocated)
   }
 
-  @action _getUserLocation = (e) => {
+  const getUserLocation = (e) => {
     e.preventDefault()
     e.stopPropagation()
 
-    if (this.isSearching) return
+    if (state.isSearching) return
 
-    this.options = []
+    state.setOptions([])
+    state.setSearching(true)
 
-    this.isSearching = true
     util.getUserLocation().then(action((latLng) => {
-      this.isSearching = false
-      this._setLocation(latLng, true)
+      state.setSearching(false)
+      setLocation(latLng, true)
     }))
   }
 
-  @action _onFocusQuery = (e) => {
+  const onFocusQuery = (e) => {
     e.target.select()
-    this.showingRecent = true
+    state.setShowingRecent(true)
   }
 
-  @action _searchLocation = (e) => {
+  const setOptions = (options) => {
+    state.setSearching(false)
+    state.setOptions(options)
+  }
+
+  const searchLocation = (e) => {
     e.preventDefault()
     e.stopPropagation()
 
-    const query = (this.query || '').trim()
-    if (!query || this.isSearching) return
+    const query = (state.query || '').trim()
+    if (!query || state.isSearching) return
 
-    this.isSearching = true
-    data.searchLocations(query).then(this._setOptions)
+    state.setSearching(true)
+    data.searchLocations(query).then(setOptions)
   }
 
-  @action _setOptions = (options) => {
-    this.isSearching = false
-    this.options = options
-  }
-
-  @action _onEsc = (e) => {
+  const onEsc = (e) => {
     if (e.key === 'Escape') {
-      this.isSearching = false
-      this.options = []
+      state.setSearching(false)
+      state.setOptions([])
     }
   }
 
-  _onLocationChosen = (location) => action(() => {
-    this.options = []
-    this.query = null
-    this._setLocation(location.placeId, false)
-  })
+  const onLocationChosen = (location) => () => {
+    state.setOptions([])
+    state.setQuery(null)
+    setLocation(location.placeId, false)
+  }
 
-  _removeRecentLocation = (location) => (e) => {
+  const removeRecentLocation = (location) => (e) => {
     e.stopPropagation()
-    this.props.locationStore.removeRecent(location)
+    locationStore.removeRecent(location)
   }
 
-  _updateRecentDescription = (location) => (description) => {
-    this.props.locationStore.updateDescription(location, description)
+  const updateRecentDescription = (location) => (description) => {
+    locationStore.updateDescription(location, description)
   }
 
-  _setLocation = (placeIdOrLatLng, isGeolocated) => {
-    data.setLocation(placeIdOrLatLng, isGeolocated)
-  }
-}
+  return (
+    <div className='location'>
+      <div
+        className={cs('location-chooser', {
+          'is-loading': isLoading,
+          'showing-recent': !!recent.length && state.showingRecent,
+          'has-options': !!state.options.length,
+          'has-error': !!error,
+        })}
+      >
+        <button className='user-location' onClick={getUserLocation} disabled={isLoading}>
+          <Icon icon={faLocationArrow} />
+        </button>
+
+        <div className='chooser'>
+          <form onSubmit={searchLocation}>
+            <input
+              className='query'
+              value={state.query != null ? state.query : location.description}
+              onChange={updateSearch}
+              onClick={stop}
+              onFocus={onFocusQuery}
+              onKeyUp={onEsc}
+            />
+          </form>
+
+          <ul className='recent'>
+            <li>
+              <label>Recent Locations</label>
+            </li>
+            {recent.map((location) => (
+              <RecentLocation
+                key={location.placeId}
+                location={location}
+                onSelect={onLocationChosen(location)}
+                onRemove={removeRecentLocation(location)}
+                onEdit={updateRecentDescription(location)}
+              />
+            ))}
+          </ul>
+
+          <ul className='options'>
+            {state.options.map((option) => (
+              <li key={option.placeId} onClick={onLocationChosen(option)}>{option.description}</li>
+            ))}
+          </ul>
+
+          <div className='location-error'>
+            An error occurred:
+            {error}
+          </div>
+
+          <div className='loading'>
+            <Icon icon={faSpinner} spin />
+          </div>
+        </div>
+        <button className='search' onClick={searchLocation} disabled={isLoading}>
+          <Icon icon={faSearch} />
+        </button>
+      </div>
+    </div>
+  )
+})
 
 export default Location
