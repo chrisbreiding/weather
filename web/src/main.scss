@@ -807,7 +807,12 @@ $alert-color: #b91d1d;
 .wi-moon-new { color: #777; }
 
 .credit {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
   margin-top: 4em;
-  padding-bottom: 0.4em;
+  padding: 4em 1em 0.4em;
+
+  .reload .icon {
+    margin-right: 0.2em;
+  }
 }

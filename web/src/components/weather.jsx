@@ -1,7 +1,8 @@
 import cs from 'classnames'
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+import { faRedo } from '@fortawesome/fontawesome-pro-light'
 import Alerts from './alerts'
 import CurrentWeather from './current-weather'
 import Days from './days'
@@ -10,6 +11,11 @@ import PrecipChart from './precip-chart'
 import WindChart from './wind-chart'
 import Loader from './loader'
 import Radar from './radar'
+
+const reload = (e) => {
+  e.preventDefault()
+  window.location.reload(true)
+}
 
 const Weather = observer(({ locationStore, weatherStore }) => {
   if (!locationStore.hasCurrent) return null
@@ -57,6 +63,9 @@ const Weather = observer(({ locationStore, weatherStore }) => {
       </div>
       <p className='credit'>
         <a href='https://darksky.net/poweredby/' target='_blank' rel='noopener noreferrer'>Powered by Dark Sky</a>
+        <a className='reload' onClick={reload} href='#'>
+          <Icon className='icon' icon={faRedo} /> Reload Page
+        </a>
       </p>
       <Radar
         controls={true}
