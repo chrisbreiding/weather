@@ -3,6 +3,7 @@ import React from 'react'
 import WeatherIcon from 'react-weathericons'
 
 import Radar from './radar'
+import data from '../lib/data'
 import util from '../lib/util'
 
 const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar }) => {
@@ -20,7 +21,11 @@ const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar }) => {
             <span className='degrees'>°F</span>
           </p>
           <p>
-            <WeatherIcon className='icon' name={util.getDarkSkyIcon(icon, true)} />
+            <WeatherIcon
+              className='icon'
+              name={util.getDarkSkyIcon(icon, true)}
+              onClick={data.refreshWeather}
+            />
           </p>
         </div>
         <div className='row'>

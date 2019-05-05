@@ -25,6 +25,15 @@ const App = observer(() => {
   useEffect(() => {
     if (util.isStandalone()) {
       data.setUserLocation()
+
+      document.addEventListener('visibilitychange', () => {
+        // when a home screen iOS Safari app is brought back into focus
+        // it no longer reloads the page, so we need to 'manually'
+        // refresh the weather data
+        if (!document.hidden) {
+          data.refreshWeather()
+        }
+      })
     }
   }, [true])
 

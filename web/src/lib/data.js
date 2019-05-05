@@ -76,10 +76,15 @@ const getWeather = (location) => {
   })
 }
 
+const refreshWeather = () => {
+  setLocation(locationStore.current)
+}
+
 export default {
   searchLocations,
   setLocation,
   setDefaultLocation,
   setUserLocation,
   getWeather,
+  refreshWeather,
 }
