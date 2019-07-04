@@ -31,7 +31,7 @@ const App = observer(() => {
         // it no longer reloads the page, so we need to 'manually'
         // refresh the weather data
         if (!document.hidden) {
-          data.refreshWeather()
+          data.setUserLocation()
         }
       })
     }
