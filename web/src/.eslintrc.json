@@ -1,9 +1,11 @@
 {
   "extends": [
-    "plugin:cypress-dev/general",
-    "plugin:cypress-dev/react",
-    "plugin:cypress-dev/tests"
+    "plugin:crb/general",
+    "plugin:crb/react"
   ],
+  "rules": {
+    "padding-line-between-statements": "off"
+  },
   "globals": {
     "Promise": true
   }
