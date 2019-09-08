@@ -1,5 +1,5 @@
 import cs from 'classnames'
-import React, { useEffect } from 'react'
+import React, { createRef, useEffect } from 'react'
 import { action } from 'mobx'
 import { observer, useObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
@@ -7,6 +7,7 @@ import {
   faLocationArrow,
   faSearch,
   faSpinner,
+  faTimes,
 } from '@fortawesome/fontawesome-pro-light'
 
 import data from '../lib/data'
@@ -16,6 +17,8 @@ import util from '../lib/util'
 import RecentLocation from './recent-location'
 
 const Location = observer(({ locationStore }) => {
+  const searchRef = createRef()
+
   const state = useObservable({
     options: [],
     query: null,
@@ -42,6 +45,7 @@ const Location = observer(({ locationStore }) => {
 
   const onOutsideClick = () => {
     state.setOptions([])
+    state.setQuery(null)
     state.setShowingRecent(false)
   }
 
@@ -53,8 +57,9 @@ const Location = observer(({ locationStore }) => {
     }
   }, [true])
 
-  const stop = (e) => {
+  const onClick = (e) => {
     e.stopPropagation()
+    state.setShowingRecent(true)
   }
 
   const updateSearch = (e) => {
@@ -104,7 +109,10 @@ const Location = observer(({ locationStore }) => {
   const onEsc = (e) => {
     if (e.key === 'Escape') {
       state.setSearching(false)
+      state.setQuery(null)
       state.setOptions([])
+      state.setShowingRecent(false)
+      searchRef.current.blur()
     }
   }
 
@@ -121,6 +129,13 @@ const Location = observer(({ locationStore }) => {
 
   const updateRecentDescription = (location) => (description) => {
     locationStore.updateDescription(location, description)
+  }
+
+  const clearSearch = (e) => {
+    e.stopPropagation()
+    state.setQuery('')
+    searchRef.current.focus()
+    state.setShowingRecent(false)
   }
 
   return (
@@ -141,12 +156,16 @@ const Location = observer(({ locationStore }) => {
           <form onSubmit={searchLocation}>
             <input
               className='query'
+              ref={searchRef}
               value={state.query != null ? state.query : location.description}
               onChange={updateSearch}
-              onClick={stop}
+              onClick={onClick}
               onFocus={onFocusQuery}
               onKeyUp={onEsc}
             />
+            <button className='clear' onClick={clearSearch}>
+              <Icon icon={faTimes} />
+            </button>
           </form>
 
           <ul className='recent'>

@@ -100,17 +100,22 @@ a {
   }
 
   .chooser {
+    flex-grow: 2;
+    min-width: 12em;
     position: relative;
+
+    .clear {
+      background: none;
+      color: #666;
+      position: absolute;
+      right: 2px;
+      top: 2px;
+    }
   }
 
   .search {
     border-radius: 0 5px 5px 0;
     margin-left: 0.5em;
-  }
-
-  .chooser {
-    flex-grow: 2;
-    min-width: 12em;
   }
 
   .query {
