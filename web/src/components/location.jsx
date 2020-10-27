@@ -8,7 +8,7 @@ import {
   faSearch,
   faSpinner,
   faTimes,
-} from '@fortawesome/fontawesome-pro-light'
+} from '@fortawesome/pro-light-svg-icons'
 
 import data from '../lib/data'
 import eventBus from '../lib/event-bus'

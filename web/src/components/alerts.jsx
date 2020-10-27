@@ -3,7 +3,7 @@ import React from 'react'
 import { action, observable } from 'mobx'
 import { observer, useObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faExclamationTriangle, faTimes, faCaretRight, faCaretDown } from '@fortawesome/fontawesome-pro-light'
+import { faExclamationTriangle, faTimes, faCaretRight, faCaretDown } from '@fortawesome/pro-light-svg-icons'
 
 import util from '../lib/util'
 

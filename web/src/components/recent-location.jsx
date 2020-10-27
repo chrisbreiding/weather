@@ -6,7 +6,7 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import {
   faPen,
   faTrashAlt,
-} from '@fortawesome/fontawesome-pro-light'
+} from '@fortawesome/pro-light-svg-icons'
 
 const stop = (e) => {
   e.stopPropagation()
