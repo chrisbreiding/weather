@@ -44,7 +44,7 @@ export const HourlyWeather = types.model('HourlyWeather', {
     return self.hours
     .filter((hour) => {
       return moment.unix(hour.time).isSame(
-        moment.unix(hour.time).startOf('day')
+        moment.unix(hour.time).startOf('day'),
       )
     })
     .map((hour) => hour.time)
@@ -114,7 +114,6 @@ export const HourlyWeather = types.model('HourlyWeather', {
 
 const Day = types.model('Day', {
   time: types.number,
-  summary: types.string,
   icon: types.string,
   precipProbability: types.number,
   precipAccumulation: types.maybeNull(types.number),
