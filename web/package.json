@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "build-dev": "zunder build-dev",
+    "build-prod": "zunder build-prod",
     "start": "zunder watch --port 8002",
     "deploy": "zunder deploy",
     "lint": "eslint src/*.jsx src/**/*.js src/**/*.jsx",
@@ -18,7 +20,7 @@
     "eslint-plugin-cypress-dev": "^3.0.2",
     "eslint-plugin-mocha": "^6.1.0",
     "eslint-plugin-react": "^7.14.3",
-    "zunder": "^6.4.2"
+    "zunder": "^6.4.6"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
