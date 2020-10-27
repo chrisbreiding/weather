@@ -85,8 +85,7 @@ const Location = observer(({ locationStore }) => {
     }))
   }
 
-  const onFocusQuery = (e) => {
-    e.target.select()
+  const onFocusQuery = () => {
     state.setShowingRecent(true)
   }
 
@@ -163,9 +162,9 @@ const Location = observer(({ locationStore }) => {
               onFocus={onFocusQuery}
               onKeyUp={onEsc}
             />
-            <button className='clear' onClick={clearSearch}>
+            <div className='clear' onClick={clearSearch}>
               <Icon icon={faTimes} />
-            </button>
+            </div>
           </form>
 
           <ul className='recent'>

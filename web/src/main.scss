@@ -15,7 +15,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 
 input,
 textarea {
-  user-select: all;
+  user-select: text;
 }
 
 body {
@@ -105,12 +105,17 @@ a {
     position: relative;
 
     .clear {
-      background: none;
       color: #666;
+      cursor: pointer;
+      padding: 0.4em 0.6em;
       position: absolute;
       right: 2px;
       top: 2px;
     }
+  }
+
+  &.is-loading .clear {
+    display: none;
   }
 
   .search {
