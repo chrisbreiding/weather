@@ -55,6 +55,18 @@ a {
   top: 0;
 }
 
+.debug-logs {
+  background: #f8f8f8;
+  border: solid 1px #d3d3d3;
+  font-family: monospace;
+  margin: 1em;
+  padding: 1em;
+
+  li {
+    margin: 0.2em 0;
+  }
+}
+
 .location {
   display: flex;
   justify-content: center;
@@ -835,7 +847,7 @@ $alert-color: #b91d1d;
 .wi-night-alt-cloudy { color: #777; }
 .wi-moon-new { color: #777; }
 
-.credit {
+.footer {
   display: flex;
   justify-content: space-between;
   margin-top: 4em;

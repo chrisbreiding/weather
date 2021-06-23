@@ -2,10 +2,14 @@ import cs from 'classnames'
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faRedo } from '@fortawesome/pro-light-svg-icons'
+import { faBug, faRedo } from '@fortawesome/pro-light-svg-icons'
+
+import util from '../lib/util'
+
 import Alerts from './alerts'
 import CurrentWeather from './current-weather'
 import Days from './days'
+import { debugStore } from './debug'
 import TempChart from './temp-chart'
 import PrecipChart from './precip-chart'
 import WindChart from './wind-chart'
@@ -15,6 +19,10 @@ import Radar from './radar'
 const reload = (e) => {
   e.preventDefault()
   window.location.reload(true)
+}
+const toggleDebug = (e) => {
+  e.preventDefault()
+  debugStore.toggle()
 }
 
 const Weather = observer(({ locationStore, weatherStore }) => {
@@ -61,8 +69,13 @@ const Weather = observer(({ locationStore, weatherStore }) => {
         <PrecipChart hourlyWeather={weatherStore.hourly} minWidth={minWidth} />
         <WindChart hourlyWeather={weatherStore.hourly} minWidth={minWidth} />
       </div>
-      <p className='credit'>
+      <p className='footer'>
         <a href='https://darksky.net/poweredby/' target='_blank' rel='noopener noreferrer'>Powered by Dark Sky</a>
+        {util.isStandalone() &&
+          <a className='debug' onClick={toggleDebug} href='#'>
+            <Icon className='icon' icon={faBug} /> {debugStore.active ? 'Disable' : 'Enable'} Debugging
+          </a>
+        }
         <a className='reload' onClick={reload} href='#'>
           <Icon className='icon' icon={faRedo} /> Reload Page
         </a>

@@ -11,6 +11,7 @@ import locationStore from './lib/location-store'
 import weatherStore from './lib/weather-store'
 import util from './lib/util'
 
+import { DebugLogs, debugStore } from './components/debug'
 import Location from './components/location'
 import Weather from './components/weather'
 
@@ -18,7 +19,10 @@ new FastClick(document.body)
 configureMobx({ enforceActions: 'always' })
 
 if (util.isStandalone()) {
+  debugStore.log('is standalone')
+
   window.__onMessage = (message) => {
+    debugStore.log(`got message: ${message}`)
     if (message === 'didBecomeActive') {
       data.setUserLocation()
     }
@@ -31,6 +35,7 @@ if (util.isStandalone()) {
 
 setInterval(() => {
   if (locationStore.hasCurrent) {
+    debugStore.log('refresh weather')
     data.getWeather(locationStore.current)
   }
 }, 1000 * 60) // 1 minute
@@ -39,6 +44,7 @@ const App = observer(() => (
   <div className='app' onClick={() => eventBus.emit('global:click')}>
     <Location locationStore={locationStore} />
     <Weather locationStore={locationStore} weatherStore={weatherStore} />
+    <DebugLogs />
   </div>
 ))
 
