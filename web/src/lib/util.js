@@ -114,7 +114,7 @@ export default {
   },
 
   isStandalone () {
-    return window.navigator.standalone
+    return location.pathname === '/standalone' || window.navigator.standalone
   },
 
   isToday (timestamp) {

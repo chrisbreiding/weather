@@ -64,7 +64,6 @@ const setUserLocation = () => {
 }
 
 const getWeather = (location) => {
-  weatherStore.setLoading(true)
   weatherStore.setError(null)
   api.getWeather(location.toString())
   .then((data) => {
