@@ -47,6 +47,10 @@ a {
   }
 }
 
+button {
+  cursor: pointer;
+}
+
 .app {
   bottom: 0;
   right: 0;
@@ -85,7 +89,6 @@ a {
     background: #666;
     border: none;
     color: #fff;
-    cursor: pointer;
     display: flex;
     font-size: 1em;
     outline: none;
@@ -383,7 +386,6 @@ $alert-color: #b91d1d;
       border: none;
       border-left: solid 1px darken(#c00, 10%);
       color: #fff;
-      cursor: pointer;
       font-size: 1em;
       outline: none;
 
@@ -574,7 +576,6 @@ $alert-color: #b91d1d;
     align-items: center;
     background: #333;
     border-radius: 50%;
-    cursor: pointer;
     display: none;
     height: 3.5em;
     justify-content: center;
@@ -862,7 +863,20 @@ $alert-color: #b91d1d;
   display: flex;
   justify-content: space-between;
   margin-top: 4em;
-  padding: 4em 1em 0.4em;
+  padding: 4em 1em 1em;
+
+  button {
+    background: none;
+    border: none;
+    color: #3b6ea7;
+    font-size: 1em;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: lighten(#3b6ea7, 20%);
+    }
+  }
 
   .reload .icon {
     margin-right: 0.2em;

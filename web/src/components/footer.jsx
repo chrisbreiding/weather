@@ -6,28 +6,26 @@ import { faBug, faRedo } from '@fortawesome/pro-light-svg-icons'
 import { debugStore } from './debug'
 import util from '../lib/util'
 
-const toggleDebug = (e) => {
-  e.preventDefault()
+const toggleDebug = () => {
   debugStore.toggle()
 }
 
-const reload = (e) => {
-  e.preventDefault()
+const reload = () => {
   window.location.reload(true)
 }
 
 const Footer = observer(() => (
-  <p className='footer'>
+  <div className='footer'>
     {util.isStandalone() &&
-      <a className='debug' onClick={toggleDebug} href='#'>
+      <button className='debug' onClick={toggleDebug} href='#'>
         <Icon className='icon' icon={faBug} /> {debugStore.active ? 'Disable' : 'Enable'} Debugging
-      </a>
+      </button>
     }
     <div role='spacer' />
-    <a className='reload' onClick={reload} href='#'>
+    <button className='reload' onClick={reload} href='#'>
       <Icon className='icon' icon={faRedo} /> Reload Page
-    </a>
-  </p>
+    </button>
+  </div>
 ))
 
 export default Footer
