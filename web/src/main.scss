@@ -536,18 +536,24 @@ $alert-color: #b91d1d;
 }
 
 .radar {
+  height: 10em;
   margin-left: 1.2em;
+  overflow: hidden;
   position: relative;
+  width: 10em;
 
   iframe {
     border: none;
-    height: 10em;
-    width: 10em;
+    height: 30em;
+    left: -10em;
+    position: absolute;
+    top: -10em;
+    width: 30em;
   }
 
   .radar-cover {
     border: solid 1em #fff;
-    border-radius: 2em;
+    border-radius: 1.5em;
     bottom: -0.7em;
     cursor: pointer;
     left: -0.7em;
