@@ -82,6 +82,6 @@ class WebViewController: UIViewController {
     @objc func didBecomeActive(notification: NSNotification) {
         print("got onActive notification")
 
-        webView.evaluateJavaScript("if (window.__onMessage) window.__onMessage('didBecomeActivective')")
+        webView.evaluateJavaScript("if (window.__onMessage) window.__onMessage('didBecomeActive')")
     }
 }
