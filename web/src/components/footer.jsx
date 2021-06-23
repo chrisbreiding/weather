@@ -14,18 +14,19 @@ const reload = () => {
   window.location.reload(true)
 }
 
-const Footer = observer(() => (
-  <div className='footer'>
-    {util.isStandalone() &&
+const Footer = observer(() => {
+  if (!util.isStandalone()) return null
+
+  return (
+    <div className='footer'>
       <button className='debug' onClick={toggleDebug} href='#'>
         <Icon className='icon' icon={faBug} /> {debugStore.active ? 'Disable' : 'Enable'} Debugging
       </button>
-    }
-    <div role='spacer' />
-    <button className='reload' onClick={reload} href='#'>
-      <Icon className='icon' icon={faRedo} /> Reload Page
-    </button>
-  </div>
-))
+      <button className='reload' onClick={reload} href='#'>
+        <Icon className='icon' icon={faRedo} /> Reload Page
+      </button>
+    </div>
+  )
+})
 
 export default Footer
