@@ -26,4 +26,8 @@ class MainViewController: UIViewController {
             webView.topAnchor.constraint(equalTo: guide.topAnchor)
         ])
     }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
 }
