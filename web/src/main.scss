@@ -536,11 +536,15 @@ $alert-color: #b91d1d;
 }
 
 .radar {
-  height: 10em;
   margin-left: 1.2em;
-  overflow: hidden;
   position: relative;
-  width: 10em;
+
+  .radar-container {
+    height: 10em;
+    overflow: hidden;
+    position: relative;
+    width: 10em;
+  }
 
   iframe {
     border: none;
@@ -594,6 +598,7 @@ $alert-color: #b91d1d;
     margin-left: 0;
 
     &,
+    .radar-container,
     iframe {
       bottom: 0;
       height: 100%;

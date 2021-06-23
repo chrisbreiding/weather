@@ -8,7 +8,9 @@ const Radar = ({ location, onOpen, onClose, controls = false, zoom = 6 }) => {
 
   return (
     <div className={cs('radar', { 'with-controls': controls })}>
-      <iframe src={src} />
+      <div className='radar-container'>
+        <iframe src={src} />
+      </div>
       <div className='radar-cover' onClick={onOpen} />
       <button className='radar-close' onClick={onClose}>
         <Icon className='icon' icon={faTimes} />
