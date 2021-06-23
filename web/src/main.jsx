@@ -12,6 +12,7 @@ import weatherStore from './lib/weather-store'
 import util from './lib/util'
 
 import { DebugLogs, debugStore } from './components/debug'
+import Footer from './components/footer'
 import Location from './components/location'
 import Weather from './components/weather'
 
@@ -44,6 +45,7 @@ const App = observer(() => (
   <div className='app' onClick={() => eventBus.emit('global:click')}>
     <Location locationStore={locationStore} />
     <Weather locationStore={locationStore} weatherStore={weatherStore} />
+    <Footer />
     <DebugLogs />
   </div>
 ))
