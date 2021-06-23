@@ -45,7 +45,7 @@ const App = observer(() => (
   <div className='app' onClick={() => eventBus.emit('global:click')}>
     <Location locationStore={locationStore} />
     <Weather locationStore={locationStore} weatherStore={weatherStore} />
-    <Footer />
+    {!weatherStore.isLoading && <Footer />}
     <DebugLogs />
   </div>
 ))
