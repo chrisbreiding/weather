@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { debugStore } from '../components/debug'
 
 const iconMap = {
   'clear-day:day': 'day-sunny',
@@ -21,6 +22,53 @@ const iconMap = {
 const roundCoord = (coord) => Math.round(coord * 100)
 const nearlyEqual = (num1, num2) => {
   return Math.abs((Math.max(num1, num2) - Math.min(num1, num2))) < 10
+}
+
+const getWebUserLocation = () => {
+  debugStore.log('get web user location')
+
+  return new Promise((resolve) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        })
+      },
+      (err) => {
+        // eslint-disable-next-line
+        console.log('Unable to get current position:', err)
+        resolve(false)
+      },
+    )
+  })
+}
+
+const getNativeUserLocation = () => {
+  debugStore.log('get native user location')
+
+  return new Promise((resolve) => {
+    window.__onUserLocation = (location) => {
+      window.__onUserLocation = undefined
+
+      if (!location) {
+        debugStore.log('getting location failed')
+
+        resolve(false)
+
+        return
+      }
+
+      debugStore.log(`user location: ${location.latitude},${location.longitude}`)
+
+      resolve({
+        lat: location.latitude,
+        lng: location.longitude,
+      })
+    }
+
+    window.webkit.messageHandlers.bus.postMessage('get:user:location')
+  })
 }
 
 export default {
@@ -74,21 +122,11 @@ export default {
   },
 
   getUserLocation () {
-    return new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          resolve({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          })
-        },
-        (err) => {
-          // eslint-disable-next-line
-          console.log('Unable to get current position:', err)
-          resolve(false)
-        },
-      )
-    })
+    if (window.webkit?.messageHandlers?.bus) {
+      return getNativeUserLocation()
+    }
+
+    return getWebUserLocation()
   },
 
   icons: {

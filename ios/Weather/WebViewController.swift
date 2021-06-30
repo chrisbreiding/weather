@@ -1,5 +1,7 @@
 import SwiftUI
 import WebKit
+import MapKit
+import CoreLocation
 
 class WebViewHelper: NSObject, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -9,20 +11,9 @@ class WebViewHelper: NSObject, WKNavigationDelegate {
     }
 }
 
-//class MessageHandler: NSObject, WKScriptMessageHandler {
-//    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-//        guard let dict = message.body as? [String : AnyObject] else {
-//            return
-//        }
-//
-//        print(dict)
-//    }
-//}
-
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, CLLocationManagerDelegate, WKScriptMessageHandler {
     let navigationHelper = WebViewHelper()
     var progressView: UIActivityIndicatorView?
-//    let messageHandler = MessageHandler()
 
     let url = URL(string: "SET ME")
 
@@ -54,9 +45,7 @@ class WebViewController: UIViewController {
         ])
 
         webView.navigationDelegate = navigationHelper
-
-//        let contentController = webView.configuration.userContentController
-//        contentController.add(messageHandler, name: "bus")
+        webView.configuration.userContentController.add(self, name: "bus")
 
         print("start navigation")
         let progressView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -83,5 +72,50 @@ class WebViewController: UIViewController {
         print("got onActive notification")
 
         webView.evaluateJavaScript("if (window.__onMessage) window.__onMessage('didBecomeActive')")
+    }
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive scriptMessage: WKScriptMessage) {
+        guard let message = scriptMessage.body as? String else {
+            return
+        }
+
+        print("received webview message: \(message)")
+
+        if message == "get:user:location" {
+            getUserLocation()
+        }
+    }
+
+    func getUserLocation() {
+        let locationManager = CLLocationManager()
+        locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            print("get user location")
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestLocation()
+        } else {
+            print("location services not enabled - cannot get user location")
+            sendLocation(nil)
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("user location: \(location.latitude) \(location.longitude)")
+
+        sendLocation(location)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("getting user location failed: \(error)")
+        sendLocation(nil)
+    }
+
+    func sendLocation(_ location: CLLocationCoordinate2D?) {
+        let arg = location == nil ? "false" : "{ latitude: '\(location!.latitude)', longitude: '\(location!.longitude)' }"
+
+        webView.evaluateJavaScript("if (window.__onUserLocation) window.__onUserLocation(\(arg))")
     }
 }
