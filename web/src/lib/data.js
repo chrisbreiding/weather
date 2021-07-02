@@ -18,6 +18,8 @@ const getLocationDetails = (placeIdOrLatLng) => {
 }
 
 const setLocation = (placeIdOrLatLng, isGeolocated) => {
+  if (!placeIdOrLatLng) return
+
   locationStore.setLoading(true)
   locationStore.setError(null)
   getLocationDetails(placeIdOrLatLng)
