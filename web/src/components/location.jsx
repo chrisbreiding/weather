@@ -113,7 +113,7 @@ const Location = observer(({ locationStore }) => {
     e.stopPropagation()
     state.setQuery('')
     searchRef.current.focus()
-    state.setShowingRecent(false)
+    state.setShowingRecent(true)
   }
 
   return (

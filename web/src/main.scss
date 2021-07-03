@@ -59,29 +59,60 @@ button {
   top: 0;
 }
 
-.debug-logs {
-  background: #f8f8f8;
-  border: solid 1px #d3d3d3;
-  font-family: monospace;
-  margin: 1em;
-  padding: 1em;
+$alert-color: #b91d1d;
 
-  li {
-    margin: 0.2em 0;
+header {
+  margin: 0 auto;
+  max-width: 32em;
+  padding-top: 0.5em;
+}
+
+.location-alerts {
+  display: flex;
+  flex-grow: 2;
+  padding: 0.5em;
+}
+
+.alerts-badge {
+  align-items: center;
+  display: none;
+  margin-left: 0.5em;
+
+  .has-alerts & {
+    display: flex;
   }
+
+  button {
+    align-items: center;
+    background: $alert-color;
+    border-radius: 50%;
+    border: none;
+    color: #fff;
+    display: flex;
+    height: 2em;
+    justify-content: center;
+    transition: all 0.25s ease-in-out;
+    width: 2em;
+
+    &:hover,
+    &:active {
+      background: darken($alert-color, 10%);
+    }
+  }
+}
+
+.showing-alerts .alerts-badge button {
+  border-bottom-left-radius: 0;
 }
 
 .location {
   display: flex;
-  justify-content: center;
-  padding-top: 0.5em;
+  flex-grow: 2;
 }
 
 .location-chooser {
   display: flex;
   justify-content: center;
-  padding: 0.5em;
-  max-width: 32em;
   width: 100%;
 
   button {
@@ -312,68 +343,30 @@ button {
   }
 }
 
-.fullscreen-centered {
-  align-items: center;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  top: 0;
-  right: 0;
-}
-
-$alert-color: #b91d1d;
-
 .alerts {
-  display: flex;
+  display: none;
   justify-content: center;
   padding: 0 0.5em;
 
-  ul,
-  .alerts-grouped {
-    max-width: 31em;
-    width: 100%;
+  .showing-alerts & {
+    display: flex;
   }
 
-  .alerts-grouped {
-    > div {
-      background: transparentize($alert-color, 0.9);
-      border: solid 2px $alert-color;
-      border-radius: 3px;
-      color: $alert-color;
-      cursor: pointer;
-      margin-bottom: 0.4em;
-      padding: 0.6em 0.6em 0.4em;
-
-      &:hover {
-        background: transparentize($alert-color, 0.7);
-      }
-
-      svg {
-        margin-right: 0.6em;
-        width: 1em;
-      }
-    }
-
-    ul {
-      display: none;
-    }
-
-    &.showing-alerts ul {
-      display: block;
-    }
+  ul {
+    max-width: 31em;
+    width: 100%;
   }
 }
 
 .alert {
-  background: $alert-color;
+  border: solid 1px $alert-color;
   border-radius: 3px;
-  color: #fff;
   margin-bottom: 0.4em;
   width: 100%;
 
-  > div {
+  .alert-title {
+    background: $alert-color;
+    color: #fff;
     align-items: stretch;
     display: flex;
 
@@ -411,14 +404,33 @@ $alert-color: #b91d1d;
   }
 
   p {
-    border-top: solid 1px darken(#c00, 10%);
+    color: #333;
     display: none;
-    padding: 0.4em 0.6em;
+    padding: 0.4em 1em;
+
+    &:first-of-type {
+      padding-top: 0.8em;
+    }
+
+    &:last-of-type {
+      padding-bottom: 0.8em;
+    }
   }
 
   &.is-open p {
     display: block;
   }
+}
+
+.fullscreen-centered {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 .weather-error {
@@ -891,5 +903,17 @@ $alert-color: #b91d1d;
 
   .reload .icon {
     margin-right: 0.2em;
+  }
+}
+
+.debug-logs {
+  background: #f8f8f8;
+  border: solid 1px #d3d3d3;
+  font-family: monospace;
+  margin: 1em;
+  padding: 1em;
+
+  li {
+    margin: 0.2em 0;
   }
 }

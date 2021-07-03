@@ -2,7 +2,6 @@ import cs from 'classnames'
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 
-import Alerts from './alerts'
 import CurrentWeather from './current-weather'
 import Days from './days'
 import TempChart from './temp-chart'
@@ -39,7 +38,6 @@ const Weather = observer(({ locationStore, weatherStore }) => {
       'has-focused-day': !!focusedDay,
       'showing-radar': weatherStore.isShowingRadar,
     })}>
-      <Alerts alerts={weatherStore.alerts} />
       <CurrentWeather
         currentLocation={locationStore.current}
         currentWeather={weatherStore.currently}

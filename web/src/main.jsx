@@ -13,7 +13,7 @@ import util from './lib/util'
 
 import { DebugLogs, debugStore } from './components/debug'
 import Footer from './components/footer'
-import Location from './components/location'
+import Header from './components/header'
 import Weather from './components/weather'
 
 new FastClick(document.body)
@@ -43,7 +43,7 @@ setInterval(() => {
 
 const App = observer(() => (
   <div className='app' onClick={() => eventBus.emit('global:click')}>
-    <Location locationStore={locationStore} />
+    <Header locationStore={locationStore} weatherStore={weatherStore} />
     <Weather locationStore={locationStore} weatherStore={weatherStore} />
     {!weatherStore.isLoading && <Footer />}
     <DebugLogs />
