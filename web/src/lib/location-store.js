@@ -28,12 +28,23 @@ const getExistingFromCache = (cache, location) => {
 }
 
 const LocationStore = types.model('LocationStore', {
-  isLoading: true,
+  isLoadingLocationDetails: false,
+  isLoadingUserLocation: false,
+  isSearchingLocations: false,
+  ignoreNextLocation: false,
   error: types.maybeNull(types.string),
   _recent: types.array(Location),
   current: types.maybeNull(types.reference(Location)),
 })
 .views((self) => ({
+  get isLoading () {
+    return (
+      self.isLoadingLocationDetails
+      || self.isLoadingUserLocation
+      || self.isSearchingLocations
+    )
+  },
+
   get hasCurrent () {
     return !!self.current
   },
@@ -56,8 +67,16 @@ const LocationStore = types.model('LocationStore', {
     return location
   },
 
-  setLoading (isLoading) {
-    self.isLoading = isLoading
+  setLoadingLocationDetails (isLoadingLocationDetails) {
+    self.isLoadingLocationDetails = isLoadingLocationDetails
+  },
+
+  setLoadingUserLocation (isLoadingUserLocation) {
+    self.isLoadingUserLocation = isLoadingUserLocation
+  },
+
+  setSearchingLocations (isSearchingLocations) {
+    self.isSearchingLocations = isSearchingLocations
   },
 
   setError (error) {

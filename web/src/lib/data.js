@@ -4,10 +4,16 @@ import locationStore from './location-store'
 import weatherStore from './weather-store'
 import util from './util'
 
-const searchLocations = (query) => {
-  return api.searchLocations(query).catch((error) => {
+export const searchLocations = (query) => {
+  locationStore.setSearchingLocations(true)
+
+  return api.searchLocations(query)
+  .catch((error) => {
     locationStore.setError(error)
     return []
+  })
+  .finally(() => {
+    locationStore.setSearchingLocations(false)
   })
 }
 
@@ -17,10 +23,10 @@ const getLocationDetails = (placeIdOrLatLng) => {
   return existing ? Promise.resolve(existing) : api.getLocationDetails(placeIdOrLatLng)
 }
 
-const setLocation = (placeIdOrLatLng, isGeolocated) => {
+export const setLocation = (placeIdOrLatLng, isGeolocated) => {
   if (!placeIdOrLatLng) return
 
-  locationStore.setLoading(true)
+  locationStore.setLoadingLocationDetails(true)
   locationStore.setError(null)
   getLocationDetails(placeIdOrLatLng)
   .then((location) => {
@@ -28,7 +34,7 @@ const setLocation = (placeIdOrLatLng, isGeolocated) => {
 
     location.isGeolocated = isGeolocated
 
-    locationStore.setLoading(false)
+    locationStore.setLoadingLocationDetails(false)
     const newLocation = locationStore.setCurrent(location)
 
     const path = `/forecast/${newLocation.lat}/${newLocation.lng}`
@@ -40,11 +46,11 @@ const setLocation = (placeIdOrLatLng, isGeolocated) => {
   })
   .catch((error) => {
     locationStore.setError(error)
-    locationStore.setLoading(false)
+    locationStore.setLoadingLocationDetails(false)
   })
 }
 
-const setDefaultLocation = () => {
+export const setDefaultLocation = () => {
   if (!locationStore.recent.length) {
     return setUserLocation()
   }
@@ -52,20 +58,23 @@ const setDefaultLocation = () => {
   setLocation(locationStore.recent[0], false)
 }
 
-const setUserLocation = () => {
-  locationStore.setLoading(true)
+export const setUserLocation = () => {
+  locationStore.setLoadingUserLocation(true)
   locationStore.setError(null)
+
   util.getUserLocation()
   .then((latLng) => {
     setLocation(latLng, true)
   })
   .catch((error) => {
     locationStore.setError(error)
-    locationStore.setLoading(false)
+  })
+  .finally(() => {
+    locationStore.setLoadingUserLocation(false)
   })
 }
 
-const getWeather = (location) => {
+export const getWeather = (location) => {
   weatherStore.setError(null)
   api.getWeather(location.toString())
   .then((data) => {
@@ -77,15 +86,6 @@ const getWeather = (location) => {
   })
 }
 
-const refreshWeather = () => {
+export const refreshWeather = () => {
   setLocation(locationStore.current)
-}
-
-export default {
-  searchLocations,
-  setLocation,
-  setDefaultLocation,
-  setUserLocation,
-  getWeather,
-  refreshWeather,
 }

@@ -4,7 +4,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import FastClick from 'fastclick'
 
-import data from './lib/data'
+import { getWeather, setUserLocation } from './lib/data'
 import eventBus from './lib/event-bus'
 import router from './lib/router'
 import locationStore from './lib/location-store'
@@ -25,11 +25,11 @@ if (util.isStandalone()) {
   window.__onMessage = (message) => {
     debugStore.log(`got message: ${message}`)
     if (message === 'didBecomeActive') {
-      data.setUserLocation()
+      setUserLocation()
     }
   }
 
-  data.setUserLocation()
+  setUserLocation()
 } else {
   router.init()
 }
@@ -37,7 +37,7 @@ if (util.isStandalone()) {
 setInterval(() => {
   if (locationStore.hasCurrent) {
     debugStore.log('refresh weather')
-    data.getWeather(locationStore.current)
+    getWeather(locationStore.current)
   }
 }, 1000 * 60) // 1 minute
 

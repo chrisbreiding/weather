@@ -3,7 +3,7 @@ import React from 'react'
 import WeatherIcon from 'react-weathericons'
 
 import Radar from './radar'
-import data from '../lib/data'
+import { refreshWeather } from '../lib/data'
 import util from '../lib/util'
 
 const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar }) => {
@@ -24,7 +24,7 @@ const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar }) => {
             <WeatherIcon
               className='icon'
               name={util.getDarkSkyIcon(icon, true)}
-              onClick={data.refreshWeather}
+              onClick={refreshWeather}
             />
           </p>
         </div>

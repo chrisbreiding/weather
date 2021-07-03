@@ -105,6 +105,32 @@ button {
     }
   }
 
+  @keyframes pulse-and-spin {
+    0% {
+     transform: scale(1, 1);
+    }
+
+    25% {
+     transform: scale(0.7, 0.7);
+    }
+
+    50% {
+      transform: scale(1, 1);
+    }
+
+    75% {
+      transform: rotate(180deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .pulse-and-spin {
+    animation: pulse-and-spin 3s linear infinite;
+  }
+
   .user-location,
   .toggle-recent {
     margin-right: 0.5em;
@@ -146,10 +172,6 @@ button {
         display: block;
       }
     }
-  }
-
-  &.is-loading .clear {
-    display: none;
   }
 
   .search {
@@ -286,17 +308,6 @@ button {
   }
 
   &.has-error .location-error {
-    display: block;
-  }
-
-  .loading {
-    display: none;
-    position: absolute;
-    right: 0.5em;
-    top: 0.5em;
-  }
-
-  &.is-loading .loading {
     display: block;
   }
 }

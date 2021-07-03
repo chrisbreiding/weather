@@ -3,16 +3,10 @@ import React, { createRef, useEffect } from 'react'
 import { action } from 'mobx'
 import { observer, useObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import {
-  faLocationArrow,
-  faSearch,
-  faSpinner,
-  faTimes,
-} from '@fortawesome/pro-light-svg-icons'
+import { faLocationArrow, faSearch, faTimes } from '@fortawesome/pro-light-svg-icons'
 
-import data from '../lib/data'
+import { setLocation, setUserLocation, searchLocations } from '../lib/data'
 import eventBus from '../lib/event-bus'
-import util from '../lib/util'
 
 import RecentLocation from './recent-location'
 
@@ -22,7 +16,6 @@ const Location = observer(({ locationStore }) => {
   const state = useObservable({
     options: [],
     query: null,
-    isSearching: false,
     showingRecent: false,
 
     setOptions: action((options) => {
@@ -31,17 +24,13 @@ const Location = observer(({ locationStore }) => {
     setQuery: action((query) => {
       state.query = query
     }),
-    setSearching: action((isSearching) => {
-      state.isSearching = isSearching
-    }),
     setShowingRecent: action((showingRecent) => {
       state.showingRecent = showingRecent
     }),
   })
 
-  const { current, recent, isLoading: locationLoading, error } = locationStore
+  const { current, recent, isLoading, error } = locationStore
   const location = current || { description: '' }
-  const isLoading = state.isSearching || locationLoading
 
   const onOutsideClick = () => {
     state.setOptions([])
@@ -66,23 +55,15 @@ const Location = observer(({ locationStore }) => {
     state.setQuery(e.target.value)
   }
 
-  const setLocation = (placeIdOrLatLng, isGeolocated) => {
-    data.setLocation(placeIdOrLatLng, isGeolocated)
-  }
-
   const getUserLocation = (e) => {
     e.preventDefault()
     e.stopPropagation()
 
-    if (state.isSearching) return
+    if (locationStore.isSearchingLocations) return
 
     state.setOptions([])
-    state.setSearching(true)
 
-    util.getUserLocation().then(action((latLng) => {
-      state.setSearching(false)
-      setLocation(latLng, true)
-    }))
+    setUserLocation()
   }
 
   const onFocusQuery = () => {
@@ -90,7 +71,6 @@ const Location = observer(({ locationStore }) => {
   }
 
   const setOptions = (options) => {
-    state.setSearching(false)
     state.setOptions(options)
   }
 
@@ -99,15 +79,14 @@ const Location = observer(({ locationStore }) => {
     e.stopPropagation()
 
     const query = (state.query || '').trim()
-    if (!query || state.isSearching) return
+    if (!query || locationStore.isSearchingLocations) return
 
-    state.setSearching(true)
-    data.searchLocations(query).then(setOptions)
+    searchLocations(query).then(setOptions)
   }
 
   const onEsc = (e) => {
     if (e.key === 'Escape') {
-      state.setSearching(false)
+      locationStore.setSearchingLocations(false)
       state.setQuery(null)
       state.setOptions([])
       state.setShowingRecent(false)
@@ -141,14 +120,19 @@ const Location = observer(({ locationStore }) => {
     <div className='location'>
       <div
         className={cs('location-chooser', {
-          'is-loading': isLoading,
           'showing-recent': !!recent.length && state.showingRecent,
           'has-options': !!state.options.length,
           'has-error': !!error,
         })}
       >
-        <button className='user-location' onClick={getUserLocation} disabled={isLoading}>
-          <Icon icon={faLocationArrow} />
+        <button
+          className='user-location'
+          onClick={getUserLocation}
+          disabled={isLoading}
+        >
+          <Icon icon={faLocationArrow} className={cs({
+            'pulse-and-spin': locationStore.isLoadingUserLocation,
+          })} />
         </button>
 
         <div className='chooser'>
@@ -192,13 +176,11 @@ const Location = observer(({ locationStore }) => {
             An error occurred:
             {error}
           </div>
-
-          <div className='loading'>
-            <Icon icon={faSpinner} spin />
-          </div>
         </div>
         <button className='search' onClick={searchLocation} disabled={isLoading}>
-          <Icon icon={faSearch} />
+          <Icon icon={faSearch} className={cs({
+            'pulse-and-spin': locationStore.isLoadingLocationDetails || locationStore.isSearchingLocations,
+          })} />
         </button>
       </div>
     </div>
