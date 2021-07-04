@@ -93,7 +93,7 @@ class WebViewController: UIViewController, CLLocationManagerDelegate, WKScriptMe
         if CLLocationManager.locationServicesEnabled() {
             print("get user location")
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
             locationManager.requestLocation()
         } else {
             print("location services not enabled - cannot get user location")
