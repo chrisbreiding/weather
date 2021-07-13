@@ -94,8 +94,7 @@ header {
     justify-content: center;
     width: 2em;
 
-    &:hover,
-    &:active {
+    &:hover {
       background: darken($alert-color, 10%);
     }
   }
