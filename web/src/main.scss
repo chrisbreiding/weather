@@ -76,7 +76,7 @@ header {
 .alerts-badge {
   align-items: center;
   display: none;
-  margin-left: 0.5em;
+  margin-left: 1em;
 
   .has-alerts & {
     display: flex;
@@ -89,6 +89,7 @@ header {
     border: none;
     color: #fff;
     display: flex;
+    font-size: 1em;
     height: 2em;
     justify-content: center;
     width: 2em;
@@ -145,11 +146,7 @@ header {
     }
 
     50% {
-      transform: scale(1, 1);
-    }
-
-    75% {
-      transform: rotate(180deg);
+      transform: rotate(0deg) scale(1, 1);
     }
 
     100% {
@@ -157,7 +154,7 @@ header {
     }
   }
 
-  .pulse-and-spin {
+  .animate {
     animation: pulse-and-spin 3s linear infinite;
   }
 

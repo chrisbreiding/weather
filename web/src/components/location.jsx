@@ -131,7 +131,7 @@ const Location = observer(({ locationStore }) => {
           disabled={isLoading}
         >
           <Icon icon={faLocationArrow} className={cs({
-            'pulse-and-spin': locationStore.isLoadingUserLocation,
+            animate: locationStore.isLoadingUserLocation,
           })} />
         </button>
 
@@ -179,7 +179,7 @@ const Location = observer(({ locationStore }) => {
         </div>
         <button className='search' onClick={searchLocation} disabled={isLoading}>
           <Icon icon={faSearch} className={cs({
-            'pulse-and-spin': locationStore.isLoadingLocationDetails || locationStore.isSearchingLocations,
+            animate: locationStore.isLoadingLocationDetails || locationStore.isSearchingLocations,
           })} />
         </button>
       </div>
