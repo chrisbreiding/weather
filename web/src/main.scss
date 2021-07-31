@@ -135,26 +135,13 @@ header {
     }
   }
 
-  @keyframes pulse-and-spin {
-    0% {
-     transform: scale(1, 1);
-    }
-
-    25% {
-     transform: scale(0.7, 0.7);
-    }
-
-    50% {
-      transform: rotate(0deg) scale(1, 1);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
+  @keyframes spin {
+    0%   { transform: rotate(0deg);   }
+    100% { transform: rotate(360deg); }
   }
 
   .animate {
-    animation: pulse-and-spin 3s linear infinite;
+    animation: spin 2s linear infinite;
   }
 
   .user-location,
