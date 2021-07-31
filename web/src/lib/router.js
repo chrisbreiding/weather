@@ -1,22 +1,23 @@
 import { Router } from 'director'
 
 import { setDefaultLocation, setLocation } from './data'
+import { Queue } from './queue'
 
 const router = new Router({
   '/' () {
-    setDefaultLocation()
+    setDefaultLocation(Queue.create())
   },
   '/forecast/:lat/:lng' (lat, lng) {
     [lat, lng] = [Number(lat), Number(lng)]
     if (isNaN(lat) || isNaN(lng)) {
       return router.setRoute('/')
     }
-    setLocation({ lat, lng }, false)
+    setLocation(Queue.create(), { lat, lng }, false)
   },
 }).configure({
   html5history: true,
   notfound () {
-    setDefaultLocation()
+    setDefaultLocation(Queue.create())
   },
 })
 

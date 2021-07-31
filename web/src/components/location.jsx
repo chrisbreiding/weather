@@ -5,6 +5,7 @@ import { observer, useObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow, faSearch, faTimes } from '@fortawesome/pro-light-svg-icons'
 
+import { Queue } from '../lib/queue'
 import { setLocation, setUserLocation, searchLocations } from '../lib/data'
 import eventBus from '../lib/event-bus'
 
@@ -63,15 +64,11 @@ const Location = observer(({ locationStore }) => {
 
     state.setOptions([])
 
-    setUserLocation()
+    setUserLocation(Queue.create())
   }
 
   const onFocusQuery = () => {
     state.setShowingRecent(true)
-  }
-
-  const setOptions = (options) => {
-    state.setOptions(options)
   }
 
   const searchLocation = (e) => {
@@ -81,7 +78,13 @@ const Location = observer(({ locationStore }) => {
     const query = (state.query || '').trim()
     if (!query || locationStore.isSearchingLocations) return
 
-    searchLocations(query).then(setOptions)
+    const queue = Queue.create()
+
+    searchLocations(queue, query).then((options) => {
+      if (queue.canceled) return
+
+      state.setOptions(options)
+    })
   }
 
   const onEsc = (e) => {
@@ -97,7 +100,7 @@ const Location = observer(({ locationStore }) => {
   const onLocationChosen = (location) => () => {
     state.setOptions([])
     state.setQuery(null)
-    setLocation(location.placeId, false)
+    setLocation(Queue.create(), location.placeId, false)
   }
 
   const removeRecentLocation = (location) => (e) => {

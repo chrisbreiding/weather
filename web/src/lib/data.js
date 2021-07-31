@@ -3,17 +3,27 @@ import router from './router'
 import locationStore from './location-store'
 import weatherStore from './weather-store'
 import util from './util'
+import { Queue } from './queue'
 
-export const searchLocations = (query) => {
+export const searchLocations = (queue, query) => {
   locationStore.setSearchingLocations(true)
+
+  const reset = () => {
+    locationStore.setSearchingLocations(false)
+  }
+
+  queue.on('cancel', reset)
 
   return api.searchLocations(query)
   .catch((error) => {
-    locationStore.setError(error)
+    if (!queue.canceled) {
+      locationStore.setError(error)
+    }
+
     return []
   })
   .finally(() => {
-    locationStore.setSearchingLocations(false)
+    if (!queue.canceled) reset()
   })
 }
 
@@ -23,69 +33,105 @@ const getLocationDetails = (placeIdOrLatLng) => {
   return existing ? Promise.resolve(existing) : api.getLocationDetails(placeIdOrLatLng)
 }
 
-export const setLocation = (placeIdOrLatLng, isGeolocated) => {
-  if (!placeIdOrLatLng) return
+export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
+  if (!placeIdOrLatLng) {
+    queue.finish()
+
+    return
+  }
 
   locationStore.setLoadingLocationDetails(true)
   locationStore.setError(null)
+
+  const reset = () => {
+    locationStore.setLoadingLocationDetails(false)
+  }
+
   getLocationDetails(placeIdOrLatLng)
   .then((location) => {
-    if (!location) return
+    if (!location || queue.canceled) return
 
     location.isGeolocated = isGeolocated
+    reset()
 
-    locationStore.setLoadingLocationDetails(false)
     const newLocation = locationStore.setCurrent(location)
-
     const path = `/forecast/${newLocation.lat}/${newLocation.lng}`
+
     if (util.isStandalone() || path === window.location.pathname) {
-      getWeather(newLocation)
+      getWeather(queue, newLocation)
     } else {
+      queue.finish()
       router.setRoute(path)
     }
   })
   .catch((error) => {
-    locationStore.setError(error)
-    locationStore.setLoadingLocationDetails(false)
+    if (!queue.canceled) {
+      queue.finish()
+      locationStore.setError(error)
+    }
+
+    reset()
   })
 }
 
-export const setDefaultLocation = () => {
+export const setDefaultLocation = (queue) => {
   if (!locationStore.recent.length) {
-    return setUserLocation()
+    return setUserLocation(queue)
   }
 
-  setLocation(locationStore.recent[0], false)
+  setLocation(queue, locationStore.recent[0], false)
 }
 
-export const setUserLocation = () => {
+export const setUserLocation = (queue) => {
   locationStore.setLoadingUserLocation(true)
   locationStore.setError(null)
 
+  const reset = () => {
+    locationStore.setLoadingUserLocation(false)
+  }
+
+  queue.on('cancel', reset)
+
   util.getUserLocation()
   .then((latLng) => {
-    setLocation(latLng, true)
+    if (queue.canceled) return
+
+    setLocation(queue, latLng, true)
   })
   .catch((error) => {
+    if (queue.canceled) return
+
     locationStore.setError(error)
   })
   .finally(() => {
-    locationStore.setLoadingUserLocation(false)
+    if (!queue.canceled) reset()
   })
 }
 
-export const getWeather = (location) => {
+export const getWeather = (queue, location) => {
+  const reset = () => {
+    weatherStore.setLoading(false)
+  }
+
+  queue.on('cancel', reset)
+
   weatherStore.setError(null)
   api.getWeather(location.toString())
   .then((data) => {
+    if (queue.canceled) return
+
+    queue.finish()
     weatherStore.update(data)
   })
   .catch((error) => {
-    weatherStore.setError(error)
-    weatherStore.setLoading(false)
+    if (!queue.canceled) {
+      queue.finish()
+      weatherStore.setError(error)
+    }
   })
+  .finally(reset)
 }
 
 export const refreshWeather = () => {
-  setLocation(locationStore.current)
+  setLocation(Queue.create(), locationStore.current)
 }
