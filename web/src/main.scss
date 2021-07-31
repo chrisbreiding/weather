@@ -76,7 +76,7 @@ header {
 .alerts-badge {
   align-items: center;
   display: none;
-  margin-left: 1em;
+  margin: 0 0.5em;
 
   .has-alerts & {
     display: flex;
@@ -96,6 +96,10 @@ header {
 
     &:hover {
       background: darken($alert-color, 10%);
+    }
+
+    .is-standalone &:hover {
+      background: $alert-color;
     }
   }
 }

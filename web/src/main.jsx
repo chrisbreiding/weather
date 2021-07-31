@@ -1,3 +1,4 @@
+import cs from 'classnames'
 import { configure as configureMobx } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -24,7 +25,9 @@ const getUserLocation = () => {
   setUserLocation(Queue.create())
 }
 
-if (util.isStandalone()) {
+const isStandalone = util.isStandalone()
+
+if (isStandalone) {
   debugStore.log('is standalone')
 
   window.__onMessage = (message) => {
@@ -47,7 +50,10 @@ setInterval(() => {
 }, 1000 * 60) // 1 minute
 
 const App = observer(() => (
-  <div className='app' onClick={() => eventBus.emit('global:click')}>
+  <div
+    className={cs('app', { 'is-standalone': isStandalone })}
+    onClick={() => eventBus.emit('global:click')}
+  >
     <Header locationStore={locationStore} weatherStore={weatherStore} />
     <Weather locationStore={locationStore} weatherStore={weatherStore} />
     {!weatherStore.isLoading && <Footer />}
