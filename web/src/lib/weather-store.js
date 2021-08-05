@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree'
 import moment from 'moment'
 
 import util from './util'
+import { fetch } from './persistence'
 
 export const CurrentWeather = types.model('CurrentWeather', {
   summary: types.string,
@@ -197,4 +198,11 @@ const WeatherStore = types.model('WeatherStore', {
   },
 }))
 
-export default WeatherStore.create({ alerts: [] })
+const weatherStore = WeatherStore.create({ alerts: [] })
+const lastLoadedWeather = fetch('lastLoadedWeather')
+
+if (util.isStandalone() && lastLoadedWeather) {
+  weatherStore.update(lastLoadedWeather)
+}
+
+export default weatherStore

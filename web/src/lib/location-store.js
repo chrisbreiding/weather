@@ -3,6 +3,7 @@ import findIndex from 'lodash.findindex'
 import { getSnapshot, types } from 'mobx-state-tree'
 
 import util from './util'
+import { fetch, migrate, save } from './persistence'
 
 const Location = types.model('Location', {
   description: '',
@@ -18,7 +19,7 @@ const Location = types.model('Location', {
 }))
 
 const getCache = () => {
-  return JSON.parse(localStorage.cachedLocations || '{}')
+  return fetch('cachedLocations') || {}
 }
 
 const getExistingFromCache = (cache, location) => {
@@ -86,7 +87,7 @@ const LocationStore = types.model('LocationStore', {
   updateDescription (location, description) {
     location.description = description
     self._updateCache(location)
-    self._updateRecentLocalStorage()
+    self._saveRecentLocations()
   },
 
   removeRecent (location) {
@@ -104,13 +105,13 @@ const LocationStore = types.model('LocationStore', {
     self._removeFromRecent(existingIndex)
 
     self._recent.unshift(location)
-    self._updateRecentLocalStorage()
+    self._saveRecentLocations()
   },
 
   _removeFromRecent (index) {
     if (index > -1) {
       self._recent.splice(index, 1)
-      self._updateRecentLocalStorage()
+      self._saveRecentLocations()
     }
   },
 
@@ -120,7 +121,7 @@ const LocationStore = types.model('LocationStore', {
     if (existing) return
 
     cache[location.placeId] = getSnapshot(location)
-    localStorage.cachedLocations = JSON.stringify(cache)
+    save('cachedLocations', cache)
   },
 
   _updateCache (location) {
@@ -129,14 +130,24 @@ const LocationStore = types.model('LocationStore', {
     if (!existing) return
 
     cache[location.placeId] = getSnapshot(location)
-    localStorage.cachedLocations = JSON.stringify(cache)
+    save('cachedLocations', cache)
   },
 
-  _updateRecentLocalStorage () {
-    localStorage.recentLocations = JSON.stringify(getSnapshot(self._recent))
+  _saveRecentLocations () {
+    save('recentLocations', getSnapshot(self._recent))
   },
 }))
 
-const recent = JSON.parse(localStorage.recentLocations || '[]')
+migrate('cachedLocations')
+migrate('recentLocations')
 
-export default LocationStore.create({ _recent: recent })
+const recent = fetch('recentLocations') || []
+const lastLoadedLocation = fetch('lastLoadedLocation')
+
+const locationStore = LocationStore.create({ _recent: recent })
+
+if (util.isStandalone() && lastLoadedLocation) {
+  locationStore.setCurrent(lastLoadedLocation)
+}
+
+export default locationStore

@@ -4,6 +4,7 @@ import locationStore from './location-store'
 import weatherStore from './weather-store'
 import util from './util'
 import { Queue } from './queue'
+import { save } from './persistence'
 
 export const searchLocations = (queue, query) => {
   locationStore.setSearchingLocations(true)
@@ -56,6 +57,10 @@ export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
 
     const newLocation = locationStore.setCurrent(location)
     const path = `/forecast/${newLocation.lat}/${newLocation.lng}`
+
+    if (util.isStandalone()) {
+      save('lastLoadedLocation', location)
+    }
 
     if (util.isStandalone() || path === window.location.pathname) {
       getWeather(queue, newLocation)
@@ -119,6 +124,10 @@ export const getWeather = (queue, location) => {
   api.getWeather(location.toString())
   .then((data) => {
     if (queue.canceled) return
+
+    if (util.isStandalone()) {
+      save('lastLoadedWeather', data)
+    }
 
     queue.finish()
     weatherStore.update(data)
