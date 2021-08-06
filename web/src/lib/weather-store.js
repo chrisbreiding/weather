@@ -119,8 +119,8 @@ const Day = types.model('Day', {
   precipProbability: types.number,
   precipAccumulation: types.maybeNull(types.number),
   precipType: types.maybeNull(types.string),
-  temperatureMin: types.number,
-  temperatureMax: types.number,
+  temperatureLow: types.number,
+  temperatureHigh: types.number,
 })
 .views((self) => ({
   get precipProbabilityPercent () {

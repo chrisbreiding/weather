@@ -44,9 +44,9 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
             {util.getShortDisplayDateFromTimestamp(day.time)}
           </div>
           <div className='details'>
-            <span className='temp-min'>{Math.round(day.temperatureMin)}°</span>
+            <span className='temp-min'>{Math.round(day.temperatureLow)}°</span>
             {' '}|{' '}
-            <span className='temp-max'>{Math.round(day.temperatureMax)}°</span>
+            <span className='temp-max'>{Math.round(day.temperatureHigh)}°</span>
           </div>
           <div className='icon'>
             <Icon name={util.getDarkSkyIcon(day.icon, util.isToday(day.time))} size='3x' />

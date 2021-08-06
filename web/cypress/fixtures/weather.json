@@ -1312,8 +1312,8 @@
         "precipProbability": 0.51,
         "precipType": "rain",
         "windSpeed": 1.68,
-        "temperatureMin": 65.74,
-        "temperatureMax": 84.76
+        "temperatureLow": 65.74,
+        "temperatureHigh": 84.76
       },
       {
         "time": 1528603200,
@@ -1322,8 +1322,8 @@
         "precipProbability": 0.97,
         "precipType": "rain",
         "windSpeed": 7.17,
-        "temperatureMin": 61.58,
-        "temperatureMax": 70.58
+        "temperatureLow": 61.58,
+        "temperatureHigh": 70.58
       },
       {
         "time": 1528689600,
@@ -1332,8 +1332,8 @@
         "precipProbability": 0.92,
         "precipType": "rain",
         "windSpeed": 8.32,
-        "temperatureMin": 57.88,
-        "temperatureMax": 70.1
+        "temperatureLow": 57.88,
+        "temperatureHigh": 70.1
       },
       {
         "time": 1528776000,
@@ -1342,8 +1342,8 @@
         "precipProbability": 0.04,
         "precipType": "rain",
         "windSpeed": 4.62,
-        "temperatureMin": 53.36,
-        "temperatureMax": 80.84
+        "temperatureLow": 53.36,
+        "temperatureHigh": 80.84
       },
       {
         "time": 1528862400,
@@ -1352,8 +1352,8 @@
         "precipProbability": 0.13,
         "precipType": "rain",
         "windSpeed": 4.41,
-        "temperatureMin": 66.29,
-        "temperatureMax": 88.49
+        "temperatureLow": 66.29,
+        "temperatureHigh": 88.49
       },
       {
         "time": 1528948800,
@@ -1362,8 +1362,8 @@
         "precipProbability": 0.01,
         "precipType": "rain",
         "windSpeed": 5.04,
-        "temperatureMin": 64.16,
-        "temperatureMax": 88.02
+        "temperatureLow": 64.16,
+        "temperatureHigh": 88.02
       },
       {
         "time": 1529035200,
@@ -1372,8 +1372,8 @@
         "precipProbability": 0.5,
         "precipType": "rain",
         "windSpeed": 4.2,
-        "temperatureMin": 68.18,
-        "temperatureMax": 80.33
+        "temperatureLow": 68.18,
+        "temperatureHigh": 80.33
       },
       {
         "time": 1529121600,
@@ -1382,8 +1382,8 @@
         "precipProbability": 0.01,
         "precipType": "rain",
         "windSpeed": 6.96,
-        "temperatureMin": 58.42,
-        "temperatureMax": 79.69
+        "temperatureLow": 58.42,
+        "temperatureHigh": 79.69
       }
     ]
   }
