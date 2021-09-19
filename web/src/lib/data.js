@@ -158,12 +158,15 @@ export const getInitialWeather = () => {
   locationStore.setLoadingUserLocation(true)
   locationStore.setError(null)
 
-  const reset = () => {
-    locationStore.setLoadingUserLocation(false)
-    weatherStore.setLoading(false)
+  const resetLocation = () => locationStore.setLoadingUserLocation(false)
+  const resetWeather = () => weatherStore.setLoading(false)
+
+  const resetAll = () => {
+    resetLocation()
+    resetWeather()
   }
 
-  queue.on('cancel', reset)
+  queue.on('cancel', resetAll)
 
   util.getUserLocation()
   .then((latLng) => {
@@ -186,7 +189,7 @@ export const getInitialWeather = () => {
     locationStore.setError(error)
   })
   .finally(() => {
-    if (!queue.canceled) reset()
+    if (!queue.canceled) resetLocation()
   })
 
   if (!locationStore.hasCurrent) return
@@ -206,6 +209,6 @@ export const getInitialWeather = () => {
     // ignore the error, let location load and get weather again
   })
   .finally(() => {
-    if (!queue.canceled) reset()
+    if (!queue.canceled) resetWeather()
   })
 }
