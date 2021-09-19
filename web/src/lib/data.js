@@ -144,3 +144,68 @@ export const getWeather = (queue, location) => {
 export const refreshWeather = () => {
   setLocation(Queue.create(), locationStore.current)
 }
+
+// in standalone mode, we load the last known location and weather so that
+// it doesn't show a loading animation. then we load the user's current
+// location and update the weather based on that. getting the user location
+// can take several seconds, but loading weather is generally fast, so we
+// refresh the weather for the last known location in parallel, but then
+// update the weather for the latest location if it's different
+export const getInitialWeather = () => {
+  const queue = Queue.create()
+  let cancelLatestWeather = false
+
+  locationStore.setLoadingUserLocation(true)
+  locationStore.setError(null)
+
+  const reset = () => {
+    locationStore.setLoadingUserLocation(false)
+    weatherStore.setLoading(false)
+  }
+
+  queue.on('cancel', reset)
+
+  util.getUserLocation()
+  .then((latLng) => {
+    if (queue.canceled) return
+
+    // if the location is the same as the last one, we're already loading
+    // the latest weather below, so don't do it again here
+    if (locationStore.hasCurrent && util.coordsMatch(locationStore.current, latLng)) {
+      return
+    }
+
+    cancelLatestWeather = true
+
+    setLocation(queue, latLng, true)
+  })
+  .catch((error) => {
+    // already have location saved, so don't display error
+    if (queue.canceled || locationStore.hasCurrent) return
+
+    locationStore.setError(error)
+  })
+  .finally(() => {
+    if (!queue.canceled) reset()
+  })
+
+  if (!locationStore.hasCurrent) return
+
+  weatherStore.setError(null)
+  api.getWeather(locationStore.current.toString())
+  .then((data) => {
+    // if the user location has changed, it will load the weather for the
+    // new location, so don't update the weather for the old location here
+    if (queue.canceled || cancelLatestWeather) return
+
+    save('lastLoadedWeather', data)
+
+    weatherStore.update(data)
+  })
+  .catch(() => {
+    // ignore the error, let location load and get weather again
+  })
+  .finally(() => {
+    if (!queue.canceled) reset()
+  })
+}

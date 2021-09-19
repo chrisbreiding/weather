@@ -5,7 +5,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import FastClick from 'fastclick'
 
-import { getWeather, setUserLocation } from './lib/data'
+import { getWeather, getInitialWeather } from './lib/data'
 import eventBus from './lib/event-bus'
 import router from './lib/router'
 import locationStore from './lib/location-store'
@@ -21,10 +21,6 @@ import Weather from './components/weather'
 new FastClick(document.body)
 configureMobx({ enforceActions: 'always' })
 
-const getUserLocation = () => {
-  setUserLocation(Queue.create())
-}
-
 const isStandalone = util.isStandalone()
 
 if (isStandalone) {
@@ -33,11 +29,11 @@ if (isStandalone) {
   window.__onMessage = (message) => {
     debugStore.log(`got message: ${message}`)
     if (message === 'didBecomeActive') {
-      getUserLocation()
+      getInitialWeather()
     }
   }
 
-  getUserLocation()
+  getInitialWeather()
 } else {
   router.init()
 }
