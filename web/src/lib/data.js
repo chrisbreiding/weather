@@ -153,6 +153,7 @@ export const refreshWeather = () => {
 // update the weather for the latest location if it's different
 export const getInitialWeather = () => {
   const queue = Queue.create()
+  let loadedLatestWeather = false
   let cancelLatestWeather = false
 
   locationStore.setLoadingUserLocation(true)
@@ -172,9 +173,13 @@ export const getInitialWeather = () => {
   .then((latLng) => {
     if (queue.canceled) return
 
-    // if the location is the same as the last one, we're already loading
-    // the latest weather below, so don't do it again here
-    if (locationStore.hasCurrent && util.coordsMatch(locationStore.current, latLng)) {
+    // if the location is the same as the last one and we've already loaded
+    // the latest weather below, don't do it again here
+    if (
+      locationStore.hasCurrent
+      && util.coordsMatch(locationStore.current, latLng)
+      && loadedLatestWeather
+    ) {
       return
     }
 
@@ -200,6 +205,8 @@ export const getInitialWeather = () => {
     // if the user location has changed, it will load the weather for the
     // new location, so don't update the weather for the old location here
     if (queue.canceled || cancelLatestWeather) return
+
+    loadedLatestWeather = true
 
     save('lastLoadedWeather', data)
 
