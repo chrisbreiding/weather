@@ -52,7 +52,7 @@ export const debugStore = types.model('DebugStore', {
 
 const timestampDisplay = (timestamp) => {
   return timestamp
-  .replace('T', ' ')
+  .replace(/^\d{4}-\d{2}-\d{2}T/, '')
   .replace(/\.\d+Z$/, '')
 }
 

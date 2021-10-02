@@ -203,7 +203,7 @@ export const getInitialWeather = () => {
       && util.coordsMatch(locationStore.current, latLng)
       && loadedLatestWeather
     ) {
-      debugStore.log('(a) got user location, but already loaded weather')
+      debugStore.log('(a) got user location, but location is the same and already loaded weather')
 
       return
     }
