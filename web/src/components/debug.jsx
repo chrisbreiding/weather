@@ -1,6 +1,8 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { types } from 'mobx-state-tree'
+import { getSnapshot, types } from 'mobx-state-tree'
+
+import { fetch, save } from '../lib/persistence'
 
 const Log = types.model('Log', {
   timestamp: types.string,
@@ -11,13 +13,15 @@ export const debugStore = types.model('DebugStore', {
   active: false,
   logs: types.array(Log),
 })
+.views((self) => ({
+  get hasLogs () {
+    return !!self.logs.length
+  },
+}))
 .actions((self) => ({
   toggle () {
     self.active = !self.active
-
-    if (!self.active) {
-      self.logs = []
-    }
+    save('debugActive', self.active)
   },
 
   log (message) {
@@ -26,16 +30,25 @@ export const debugStore = types.model('DebugStore', {
         message,
         timestamp: (new Date()).toISOString(),
       })
+      self._save()
     }
   },
 
   clear () {
     if (self.active) {
       self.logs = []
+      self._save()
     }
   },
+
+  _save () {
+    save('debugLogs', getSnapshot(self.logs))
+  },
 }))
-.create()
+.create({
+  active: fetch('debugActive') || false,
+  logs: fetch('debugLogs') || [],
+})
 
 const timestampDisplay = (timestamp) => {
   return timestamp
@@ -47,12 +60,17 @@ export const DebugLogs = observer(() => {
   if (!debugStore.active) return null
 
   return (
-    <ul className='debug-logs'>
-      {debugStore.logs.map((log) => (
-        <li key={`${log.timestamp}-${log.message}`}>
-          [{timestampDisplay(log.timestamp)}] {log.message}
-        </li>
-      ))}
-    </ul>
+    <div className='debug-logs'>
+      {debugStore.hasLogs &&
+        <button onClick={debugStore.clear}>Clear</button>
+      }
+      <ul>
+        {debugStore.logs.map((log) => (
+          <li key={`${log.timestamp}-${log.message}`}>
+            [{timestampDisplay(log.timestamp)}] {log.message}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 })

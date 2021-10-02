@@ -868,6 +868,19 @@ header {
 .wi-night-alt-cloudy { color: #777; }
 .wi-moon-new { color: #777; }
 
+.link-like-button {
+  background: none;
+  border: none;
+  color: #3b6ea7;
+  font-size: 1em;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: lighten(#3b6ea7, 20%);
+  }
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -875,16 +888,7 @@ header {
   padding: 4em 1em 1em;
 
   button {
-    background: none;
-    border: none;
-    color: #3b6ea7;
-    font-size: 1em;
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: lighten(#3b6ea7, 20%);
-    }
+    @extend .link-like-button;
   }
 
   .reload .icon {
@@ -895,9 +899,19 @@ header {
 .debug-logs {
   background: #f8f8f8;
   border: solid 1px #d3d3d3;
-  font-family: monospace;
   margin: 1em;
   padding: 1em;
+
+  button {
+    @extend .link-like-button;
+    float: right;
+    margin-bottom: 1em;
+  }
+
+  ul {
+    clear: both;
+    font-family: monospace;
+  }
 
   li {
     margin: 0.2em 0;
