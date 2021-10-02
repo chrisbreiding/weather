@@ -5,6 +5,7 @@ import weatherStore from './weather-store'
 import util from './util'
 import { Queue } from './queue'
 import { save } from './persistence'
+import { debugStore } from '../components/debug'
 
 export const searchLocations = (queue, query) => {
   locationStore.setSearchingLocations(true)
@@ -36,6 +37,8 @@ const getLocationDetails = (placeIdOrLatLng) => {
 
 export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
   if (!placeIdOrLatLng) {
+    debugStore.log('no location, do not try to set')
+
     queue.finish()
 
     return
@@ -48,9 +51,15 @@ export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
     locationStore.setLoadingLocationDetails(false)
   }
 
+  debugStore.log('get location details')
+
   getLocationDetails(placeIdOrLatLng)
   .then((location) => {
-    if (!location || queue.canceled) return
+    if (!location || queue.canceled) {
+      debugStore.location(!location ? 'no location details found' : 'got location details, but queue canceled')
+
+      return
+    }
 
     location.isGeolocated = isGeolocated
     reset()
@@ -120,14 +129,22 @@ export const getWeather = (queue, location) => {
 
   queue.on('cancel', reset)
 
+  debugStore.log('get weather')
+
   weatherStore.setError(null)
   api.getWeather(location.toString())
   .then((data) => {
-    if (queue.canceled) return
+    if (queue.canceled) {
+      debugStore.log('got weather, but queue canceled')
+
+      return
+    }
 
     if (util.isStandalone()) {
       save('lastLoadedWeather', data)
     }
+
+    debugStore.log('update weather')
 
     queue.finish()
     weatherStore.update(data)
@@ -169,9 +186,15 @@ export const getInitialWeather = () => {
 
   queue.on('cancel', resetAll)
 
+  debugStore.log('(a) get user location')
+
   util.getUserLocation()
   .then((latLng) => {
-    if (queue.canceled) return
+    if (queue.canceled) {
+      debugStore.log('(a) got user location, but queue canceled')
+
+      return
+    }
 
     // if the location is the same as the last one and we've already loaded
     // the latest weather below, don't do it again here
@@ -180,14 +203,20 @@ export const getInitialWeather = () => {
       && util.coordsMatch(locationStore.current, latLng)
       && loadedLatestWeather
     ) {
+      debugStore.log('(a) got user location, but already loaded weather')
+
       return
     }
 
     cancelLatestWeather = true
 
+    debugStore.log('(a) set user location')
+
     setLocation(queue, latLng, true)
   })
   .catch((error) => {
+    debugStore.log('(a) getting user location errored')
+
     // already have location saved, so don't display error
     if (queue.canceled || locationStore.hasCurrent) return
 
@@ -199,21 +228,30 @@ export const getInitialWeather = () => {
 
   if (!locationStore.hasCurrent) return
 
+  debugStore.log('(b) get weather for last known location')
+
   weatherStore.setError(null)
   api.getWeather(locationStore.current.toString())
   .then((data) => {
     // if the user location has changed, it will load the weather for the
     // new location, so don't update the weather for the old location here
-    if (queue.canceled || cancelLatestWeather) return
+    if (queue.canceled || cancelLatestWeather) {
+      debugStore.log(`(b) got weather, but ${queue.canceled ? 'queue canceled' : 'got new location'}`)
+
+      return
+    }
 
     loadedLatestWeather = true
 
     save('lastLoadedWeather', data)
 
+    debugStore.log('(b) update weather for last known location')
+
     weatherStore.update(data)
   })
   .catch(() => {
     // ignore the error, let location load and get weather again
+    debugStore.log('(b) getting weather errored')
   })
   .finally(() => {
     if (!queue.canceled) resetWeather()
