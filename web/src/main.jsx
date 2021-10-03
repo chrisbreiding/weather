@@ -44,7 +44,7 @@ if (isStandalone) {
 }
 
 setInterval(() => {
-  if (!loadingInitialWeather) {
+  if (loadingInitialWeather) {
     debugStore.log('loading initial weather, do not refresh weather on interval')
   }
 
