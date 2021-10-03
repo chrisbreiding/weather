@@ -22,6 +22,7 @@ new FastClick(document.body)
 configureMobx({ enforceActions: 'always' })
 
 const isStandalone = util.isStandalone()
+let loadingInitialWeather = false
 
 if (isStandalone) {
   debugStore.log('is standalone')
@@ -29,7 +30,11 @@ if (isStandalone) {
   window.__onMessage = (message) => {
     debugStore.log(`got message: ${message}`)
     if (message === 'didBecomeActive') {
-      getInitialWeather()
+      loadingInitialWeather = true
+
+      getInitialWeather().then(() => {
+        loadingInitialWeather = false
+      })
     }
   }
 
@@ -39,8 +44,12 @@ if (isStandalone) {
 }
 
 setInterval(() => {
-  if (locationStore.hasCurrent) {
-    debugStore.log('refresh weather')
+  if (!loadingInitialWeather) {
+    debugStore.log('loading initial weather, do not refresh weather on interval')
+  }
+
+  if (locationStore.hasCurrent && !loadingInitialWeather) {
+    debugStore.log('refresh weather on interval')
     getWeather(Queue.create(), locationStore.current)
   }
 }, 1000 * 60) // 1 minute

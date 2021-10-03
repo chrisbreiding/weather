@@ -53,7 +53,7 @@ export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
 
   debugStore.log('get location details')
 
-  getLocationDetails(placeIdOrLatLng)
+  return getLocationDetails(placeIdOrLatLng)
   .then((location) => {
     if (!location || queue.canceled) {
       debugStore.location(!location ? 'no location details found' : 'got location details, but queue canceled')
@@ -72,7 +72,7 @@ export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
     }
 
     if (util.isStandalone() || path === window.location.pathname) {
-      getWeather(queue, newLocation)
+      return getWeather(queue, newLocation)
     } else {
       queue.finish()
       router.setRoute(path)
@@ -132,7 +132,8 @@ export const getWeather = (queue, location) => {
   debugStore.log('get weather')
 
   weatherStore.setError(null)
-  api.getWeather(location.toString())
+
+  return api.getWeather(location.toString())
   .then((data) => {
     if (queue.canceled) {
       debugStore.log('got weather, but queue canceled')
@@ -188,7 +189,7 @@ export const getInitialWeather = () => {
 
   debugStore.log('(a) get user location')
 
-  util.getUserLocation()
+  const _getLocation = util.getUserLocation()
   .then((latLng) => {
     if (queue.canceled) {
       debugStore.log('(a) got user location, but queue canceled')
@@ -212,7 +213,7 @@ export const getInitialWeather = () => {
 
     debugStore.log('(a) set user location')
 
-    setLocation(queue, latLng, true)
+    return setLocation(queue, latLng, true)
   })
   .catch((error) => {
     debugStore.log('(a) getting user location errored')
@@ -226,12 +227,13 @@ export const getInitialWeather = () => {
     if (!queue.canceled) resetLocation()
   })
 
-  if (!locationStore.hasCurrent) return
+  if (!locationStore.hasCurrent) return _getLocation
 
   debugStore.log('(b) get weather for last known location')
 
   weatherStore.setError(null)
-  api.getWeather(locationStore.current.toString())
+
+  const _getWeather = api.getWeather(locationStore.current.toString())
   .then((data) => {
     // if the user location has changed, it will load the weather for the
     // new location, so don't update the weather for the old location here
@@ -256,4 +258,9 @@ export const getInitialWeather = () => {
   .finally(() => {
     if (!queue.canceled) resetWeather()
   })
+
+  return Promise.all([
+    _getLocation,
+    _getWeather,
+  ])
 }
