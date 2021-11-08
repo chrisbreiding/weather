@@ -56,6 +56,7 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
           strokeWidth={2}
           dot={false}
           activeDot={{ r: 5 }}
+          isAnimationActive={false}
         />
       </LineChart>
     </ResponsiveContainer>

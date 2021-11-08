@@ -20,6 +20,13 @@ import util from '../lib/util'
 
 const TempChart = observer(({ hourlyWeather, minWidth }) => {
   const { days, startTimestamp, endTimestamp } = hourlyWeather
+  const sharedLineProps = {
+    activeDot: { r: 5 },
+    dot: false,
+    isAnimationActive: false,
+    strokeWidth: 2,
+    type: 'linear',
+  }
 
   return (
     <ResponsiveContainer className='temp-chart' width='100%' minWidth={minWidth} height={170}>
@@ -58,22 +65,16 @@ const TempChart = observer(({ hourlyWeather, minWidth }) => {
           </Fragment>
         )} />} />
         <Line
-          type='linear'
-          name='Feels Like (°F)'
           dataKey='apparentTemp'
+          name='Feels Like (°F)'
           stroke='#9645e8'
-          strokeWidth={2}
-          dot={false}
-          activeDot={{ r: 5 }}
+          {...sharedLineProps}
         />
         <Line
-          type='linear'
-          name='Temperature (°F)'
           dataKey='temp'
+          name='Temperature (°F)'
           stroke='#F00'
-          strokeWidth={2}
-          dot={false}
-          activeDot={{ r: 5 }}
+          {...sharedLineProps}
         />
       </LineChart>
     </ResponsiveContainer>

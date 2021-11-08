@@ -22,6 +22,17 @@ import util from '../lib/util'
 const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
   const { days, startTimestamp, endTimestamp } = hourlyWeather
 
+
+  const sharedAreaProps = {
+    activeDot: false,
+    dot: false,
+    fill: '#0cafe2',
+    isAnimationActive: false,
+    name: 'Chance of Precip. (%)',
+    stroke: 'transparent',
+    type: 'step',
+  }
+
   return (
     <ResponsiveContainer className='precip-chart' width='100%' minWidth={minWidth} height={170}>
       <AreaChart
@@ -56,63 +67,40 @@ const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
           </Fragment>
         )} />} />
         <Area
-          type='step'
-          name=''
           dataKey='precipSnowProbability'
-          stroke='#0cafe2'
           fillOpacity={0}
-          dot={false}
+          {...sharedAreaProps}
           activeDot={{ r: 5 }}
+          fill={undefined}
+          name=''
+          stroke='#0cafe2'
         />
         <Area
-          type='step'
-          name='Chance of Precip. (%)'
           dataKey='lowPrecipProbability'
-          stroke='transparent'
           fillOpacity={0.2}
-          fill='#0cafe2'
-          dot={false}
-          activeDot={false}
+          {...sharedAreaProps}
         />
         <Area
-          type='step'
-          name='Chance of Precip. (%)'
           dataKey='mediumPrecipProbability'
-          stroke='transparent'
           fillOpacity={0.4}
-          fill='#0cafe2'
-          dot={false}
-          activeDot={false}
+          {...sharedAreaProps}
         />
         <Area
-          type='step'
-          name='Chance of Precip. (%)'
           dataKey='highPrecipProbability'
-          stroke='transparent'
           fillOpacity={0.6}
-          fill='#0cafe2'
-          dot={false}
-          activeDot={false}
+          {...sharedAreaProps}
         />
         <Area
-          type='step'
-          name='Chance of Precip. (%)'
           dataKey='veryHighPrecipProbability'
-          stroke='transparent'
           fillOpacity={0.8}
-          fill='#0cafe2'
-          dot={false}
-          activeDot={false}
+          {...sharedAreaProps}
         />
         <Area
-          type='step'
-          name='Chance of Snow (%)'
           dataKey='snowProbability'
-          stroke='transparent'
           fillOpacity={0.2}
+          {...sharedAreaProps}
           fill='#9645e8'
-          dot={false}
-          activeDot={false}
+          name='Chance of Snow (%)'
         />
       </AreaChart>
     </ResponsiveContainer>
