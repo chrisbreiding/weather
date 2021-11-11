@@ -24,16 +24,20 @@ configureMobx({ enforceActions: 'always' })
 const isStandalone = util.isStandalone()
 
 if (isStandalone) {
+  let initialRun = true
+
   debugStore.log('is standalone')
 
   window.__onMessage = (message) => {
     debugStore.log(`got message: ${message}`)
-    if (message === 'didBecomeActive') {
+    if (message === 'didBecomeActive' && !initialRun) {
       getInitialWeather()
     }
   }
 
-  getInitialWeather()
+  getInitialWeather().then(() => {
+    initialRun = false
+  })
 } else {
   router.init()
 
