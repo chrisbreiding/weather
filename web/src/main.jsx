@@ -1,3 +1,5 @@
+import '@babel/polyfill'
+
 import cs from 'classnames'
 import { configure as configureMobx } from 'mobx'
 import { observer } from 'mobx-react-lite'
