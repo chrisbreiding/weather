@@ -6,7 +6,7 @@ import { fetch, save } from '../lib/persistence'
 
 const Log = types.model('Log', {
   timestamp: types.string,
-  message: types.string,
+  messages: types.array(types.string),
 })
 
 export const debugStore = types.model('DebugStore', {
@@ -24,10 +24,10 @@ export const debugStore = types.model('DebugStore', {
     save('debugActive', self.active)
   },
 
-  log (message) {
+  log (...messages) {
     if (self.active) {
       self.logs.push({
-        message,
+        messages,
         timestamp: (new Date()).toISOString(),
       })
       self._save()
@@ -65,11 +65,19 @@ export const DebugLogs = observer(() => {
         <button onClick={debugStore.clear}>Clear</button>
       }
       <ul>
-        {debugStore.logs.map((log) => (
-          <li key={`${log.timestamp}-${log.message}`}>
-            [{timestampDisplay(log.timestamp)}] {log.message}
-          </li>
-        ))}
+        {debugStore.logs.map((log) => {
+          const message = log.messages.map((message) => {
+            // get rid of surrounding quotes JSON.stringify adds
+            return JSON.stringify(message).replace(/^"/, '').replace(/"$/, '')
+          }).join(' ')
+
+          return (
+            <li key={`${log.timestamp}-${message}`}>
+              <span className='timestamp'>[{timestampDisplay(log.timestamp)}]</span>
+              <span className='message'>{message}</span>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

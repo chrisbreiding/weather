@@ -14,7 +14,7 @@ export const searchLocations = (queue, query) => {
     locationStore.setSearchingLocations(false)
   }
 
-  queue.on('cancel', reset)
+  queue.once('cancel', reset)
 
   return api.searchLocations(query)
   .catch((error) => {
@@ -104,7 +104,7 @@ export const setUserLocation = (queue) => {
     locationStore.setLoadingUserLocation(false)
   }
 
-  queue.on('cancel', reset)
+  queue.once('cancel', reset)
 
   util.getUserLocation()
   .then((latLng) => {
@@ -122,19 +122,20 @@ export const setUserLocation = (queue) => {
   })
 }
 
-export const getWeather = (queue, location) => {
+export const getWeather = async (queue, location, final = true) => {
   const reset = () => {
     weatherStore.setLoading(false)
   }
 
-  queue.on('cancel', reset)
+  queue.once('cancel', reset)
 
-  debugStore.log('get weather')
+  debugStore.log('get weather for', location.toString())
 
   weatherStore.setError(null)
 
-  return api.getWeather(location.toString())
-  .then((data) => {
+  try {
+    const data = await api.getWeather(location.toString())
+
     if (queue.canceled) {
       debugStore.log('got weather, but queue canceled')
 
@@ -147,114 +148,25 @@ export const getWeather = (queue, location) => {
 
     debugStore.log('update weather')
 
-    queue.finish()
+    if (final) {
+      queue.finish()
+    }
+
     weatherStore.update(data)
-  })
-  .catch((error) => {
-    if (!queue.canceled) {
+  } catch (error) {
+    debugStore.log('getting weather errored', error.stack)
+
+    if (queue.canceled) return
+
+    if (final) {
       queue.finish()
       weatherStore.setError(error)
     }
-  })
-  .finally(reset)
+  }
+
+  if (!queue.canceled) reset()
 }
 
 export const refreshWeather = () => {
   setLocation(Queue.create(), locationStore.current)
-}
-
-const getWeatherForLastLocation = async (queue, reset) => {
-  if (!locationStore.hasCurrent) return
-
-  try {
-    debugStore.log('get weather for last known location')
-
-    weatherStore.setError(null)
-
-    const weatherData = await api.getWeather(locationStore.current.toString())
-    // if the user location has changed, it will load the weather for the
-    // new location, so don't update the weather for the old location here
-    if (queue.canceled) {
-      debugStore.log('got weather, but queue canceled')
-
-      return
-    }
-
-    save('lastLoadedWeather', weatherData)
-
-    debugStore.log('update weather for last known location')
-
-    weatherStore.update(weatherData)
-  } catch (error) {
-  // ignore the error, let location load and get weather again
-    debugStore.log('getting weather errored')
-  }
-
-  if (!queue.canceled) reset()
-}
-
-const getLatestLocation = async (queue, reset) => {
-  try {
-    debugStore.log('get user location')
-
-    locationStore.setLoadingUserLocation(true)
-    locationStore.setError(null)
-
-    const latLng = await util.getUserLocation()
-
-    if (queue.canceled) {
-      debugStore.log('got user location, but queue canceled')
-
-      return
-    }
-
-    // if the location is the same as the last one and we've already loaded
-    // the latest weather below, don't do it again here
-    if (
-      locationStore.hasCurrent
-      && util.coordsMatch(locationStore.current, latLng)
-    ) {
-      debugStore.log('got user location, but location is the same and already loaded weather')
-
-      if (!queue.canceled) reset()
-
-      return
-    }
-
-    debugStore.log('set user location')
-
-    await setLocation(queue, latLng, true)
-  } catch (error) {
-    debugStore.log('getting user location errored')
-
-    // already have location saved, so don't display error
-    if (queue.canceled || locationStore.hasCurrent) return
-
-    locationStore.setError(error)
-  }
-
-  if (!queue.canceled) reset()
-}
-
-// in standalone mode, we load the last known location and weather so that
-// it doesn't show a loading animation. then we load the weather for the
-// last known location so it's up-to-date, since getting the latest location
-// can take several seconds. then we load the latest location and update the
-// weather for it if it's different from the previous location
-export const getInitialWeather = async () => {
-  const queue = Queue.create()
-
-  const resetLocation = () => locationStore.setLoadingUserLocation(false)
-  const resetWeather = () => weatherStore.setLoading(false)
-  const resetAll = () => {
-    resetLocation()
-    resetWeather()
-  }
-
-  queue.on('cancel', resetAll)
-
-  await getWeatherForLastLocation(queue, resetWeather)
-  await getLatestLocation(queue, resetLocation)
-
-  queue.finish()
 }
