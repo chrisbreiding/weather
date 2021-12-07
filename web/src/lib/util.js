@@ -71,7 +71,50 @@ const getNativeUserLocation = () => {
   })
 }
 
+const fallbackCopyToClipboard = (text) => {
+  let textArea = document.createElement('textarea')
+  textArea.value = text
+
+  // Avoid scrolling to bottom
+  textArea.style.top = '0'
+  textArea.style.left = '0'
+  textArea.style.position = 'fixed'
+
+  document.body.appendChild(textArea)
+  textArea.focus()
+  textArea.select()
+
+  try {
+    document.execCommand('copy')
+    // eslint-disable-next-line no-console
+    console.log('succeeded copying to clipboard')
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('failed copying to clipboard:', error.stack)
+  }
+
+  document.body.removeChild(textArea)
+}
+
+const copyToClipboard = (text) => {
+  if (!navigator.clipboard) {
+    fallbackCopyToClipboard(text)
+    return
+  }
+
+  navigator.clipboard.writeText(text)
+  .then(() => {
+    // eslint-disable-next-line no-console
+    console.log('succeeded copying to clipboard (async)')
+  })
+  .catch((error) => {
+    // eslint-disable-next-line no-console
+    console.log('failed copying to clipboard (async):', error.stack)
+  })
+}
+
 export default {
+  copyToClipboard,
   nearlyEqual,
 
   coordsMatch ({ lat: lat1, lng: lng1 }, { lat: lat2, lng: lng2 }) {

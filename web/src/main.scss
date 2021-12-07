@@ -906,6 +906,10 @@ header {
     @extend .link-like-button;
     float: right;
     margin-bottom: 1em;
+
+    &:first-child {
+      margin-left: 1em;
+    }
   }
 
   ul {

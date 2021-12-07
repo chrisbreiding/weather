@@ -3,6 +3,7 @@ import moment from 'moment'
 
 import util from './util'
 import { fetch } from './persistence'
+import { debugStore } from '../components/debug'
 
 export const CurrentWeather = types.model('CurrentWeather', {
   summary: types.string,
@@ -154,6 +155,8 @@ const Alert = types.model('Alert', {
   },
 }))
 
+const str = (value) => JSON.stringify(value, null, 2)
+
 const WeatherStore = types.model('WeatherStore', {
   isLoading: true,
   isShowingRadar: false,
@@ -165,6 +168,11 @@ const WeatherStore = types.model('WeatherStore', {
 })
 .actions((self) => ({
   update ({ currently, hourly, daily, alerts = [] }) {
+    debugStore.log('currently:', str(currently))
+    debugStore.log('hourly:', str(hourly))
+    debugStore.log('daily:', str(daily))
+    debugStore.log('alerts:', str(alerts))
+
     self.currently = CurrentWeather.create(currently)
     self.hourly = HourlyWeather.create(hourly)
     self.daily = DailyWeather.create(daily)
@@ -202,6 +210,7 @@ const weatherStore = WeatherStore.create({ alerts: [] })
 const lastLoadedWeather = fetch('lastLoadedWeather')
 
 if (util.isStandalone() && lastLoadedWeather) {
+  debugStore.log('load last weather')
   weatherStore.update(lastLoadedWeather)
 }
 
