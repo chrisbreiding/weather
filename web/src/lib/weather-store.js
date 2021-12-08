@@ -206,12 +206,4 @@ const WeatherStore = types.model('WeatherStore', {
   },
 }))
 
-const weatherStore = WeatherStore.create({ alerts: [] })
-const lastLoadedWeather = fetch('lastLoadedWeather')
-
-if (util.isStandalone() && lastLoadedWeather) {
-  debugStore.log('load last weather')
-  weatherStore.update(lastLoadedWeather)
-}
-
-export default weatherStore
+export default WeatherStore.create({ alerts: [] })
