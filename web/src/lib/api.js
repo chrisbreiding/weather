@@ -1,3 +1,5 @@
+import { debugStore } from '../components/debug'
+
 const BASE_URL = localStorage.apiUrl
   ? localStorage.apiUrl
   : /local/.test(location.hostname)
@@ -16,11 +18,17 @@ const handleResponseError = (response) => {
   }
 }
 
+const request = (url) => {
+  debugStore.log('request', url)
+
+  return fetch(url)
+  .then((response) => response.json())
+  .then(handleResponseError)
+}
+
 export default {
   searchLocations (query) {
-    return fetch(`${BASE_URL}/location-search?query=${query}`)
-    .then((response) => response.json())
-    .then(handleResponseError)
+    return request(`${BASE_URL}/location-search?query=${query}`)
     .then((response) => response.predictions.map((prediction) => ({
       description: prediction.description,
       placeId: prediction.place_id,
@@ -36,9 +44,7 @@ export default {
 
     const byLatLng = !!placeIdOrLatLng.lat
 
-    return fetch(url + (byLatLng ? `?latlng=${placeIdOrLatLng.lat},${placeIdOrLatLng.lng}` : `?placeid=${placeIdOrLatLng}`))
-    .then((response) => response.json())
-    .then(handleResponseError)
+    return request(url + (byLatLng ? `?latlng=${placeIdOrLatLng.lat},${placeIdOrLatLng.lng}` : `?placeid=${placeIdOrLatLng}`))
     .then((result) => {
       result = byLatLng ? result.results[0] : result.result
 
@@ -57,9 +63,8 @@ export default {
   },
 
   getWeather (location) {
-    return fetch(`${BASE_URL}/weather?location=${location}`)
-    .then((response) => response.json())
-    .then(handleResponseError)
+    // Date.now() ensures the response isn't cached
+    return request(`${BASE_URL}/weather?location=${location}&z=${Date.now()}`)
     .catch((err) => {
       console.error('Getting weather failed:', err.stack) // eslint-disable-line no-console
       throw err
