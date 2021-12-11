@@ -142,6 +142,10 @@ export const getWeather = async (queue, location, final = true) => {
       return
     }
 
+    if (util.isStandalone()) {
+      save('lastLoadedWeather', data)
+    }
+
     debugStore.log('update weather')
 
     if (final) {
