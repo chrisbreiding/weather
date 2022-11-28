@@ -34,7 +34,7 @@ const TempChart = observer(({ hourlyWeather, minWidth }) => {
         data={hourlyWeather.chartData}
         syncId='weather'
       >
-        <CartesianGrid stroke='#eee' />
+        <CartesianGrid stroke='#dfdfdf' />
         <ReferenceLine x={util.currentTimestamp()} stroke='#ccc' />
         <XAxis
           dataKey='time'
@@ -46,7 +46,7 @@ const TempChart = observer(({ hourlyWeather, minWidth }) => {
           ticks={days}
         />
         <YAxis tick={<YLabel render={(value) => `${value}°F`} />} axisLine={false} />
-        <Tooltip content={<TooltipContent render={(data) => (
+        <Tooltip wrapperStyle={{ outline: 'none' }} content={<TooltipContent render={(data) => (
           <div>
             <div className='temp'>{`${data.temp}°F`}</div>
             <div className='apparent-temp'>{`${data.apparentTemp}°F`}</div>
@@ -67,13 +67,13 @@ const TempChart = observer(({ hourlyWeather, minWidth }) => {
         <Line
           dataKey='apparentTemp'
           name='Feels Like (°F)'
-          stroke='#9645e8'
+          stroke='#a557f3'
           {...sharedLineProps}
         />
         <Line
           dataKey='temp'
           name='Temperature (°F)'
-          stroke='#F00'
+          stroke='#ed5353'
           {...sharedLineProps}
         />
       </LineChart>

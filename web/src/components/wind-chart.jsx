@@ -27,7 +27,7 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
         data={hourlyWeather.chartData}
         syncId='weather'
       >
-        <CartesianGrid stroke='#eee' />
+        <CartesianGrid stroke='#dfdfdf' />
         <ReferenceLine x={util.currentTimestamp()} stroke='#ccc' />
         <XAxis
           dataKey='time'
@@ -39,7 +39,7 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
           ticks={days}
         />
         <YAxis tick={<YLabel render={(value) => `${value} mph`} />} axisLine={false} />
-        <Tooltip content={<TooltipContent render={(data) => (
+        <Tooltip wrapperStyle={{ outline: 'none' }} content={<TooltipContent render={(data) => (
           <div className='wind'>{`${data.windSpeed} mph`}</div>
         )} />} />
         <Legend content={<LegendContent render={() => (
@@ -52,7 +52,7 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
           type='linear'
           name='Wind Speed'
           dataKey='windSpeed'
-          stroke='#002384'
+          stroke='#3b6ea7'
           strokeWidth={2}
           dot={false}
           activeDot={{ r: 5 }}

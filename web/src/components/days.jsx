@@ -77,7 +77,7 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
           barGap={0}
           data={chartData}
         >
-          <CartesianGrid stroke='#eee' />
+          <CartesianGrid stroke='#dfdfdf' />
           <XAxis
             dataKey='noon'
             type='number'

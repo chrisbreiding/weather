@@ -39,7 +39,7 @@ const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
         data={hourlyWeather.chartData}
         syncId='weather'
       >
-        <CartesianGrid stroke='#eee' />
+        <CartesianGrid stroke='#dfdfdf' />
         <ReferenceLine x={util.currentTimestamp()} stroke='#ccc' />
         <XAxis
           dataKey='time'

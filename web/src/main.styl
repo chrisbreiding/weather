@@ -1,7 +1,9 @@
-$warm = #ff7722;
-$cold = #9645e8;
-$precip = #0cafe2;
-$wind = #002384;
+$hot = #f69050;
+$warm = #ffde5b;
+$cold = #b782ec;
+$precip = #77c8e1;
+$wind = #3b6ea7;
+$alert = #b91d1d;
 
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img,a img{border:none;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}
 
@@ -34,13 +36,13 @@ p {
 }
 
 a {
-  color: #3b6ea7;
+  color: $wind;
   text-decoration: none;
 
   &:hover,
   &:focus,
   &:active {
-    color: lighten(#3b6ea7, 20%);
+    color: lighten($wind, 20%);
     text-decoration: underline;
   }
 }
@@ -56,8 +58,6 @@ button {
   left: 0;
   top: 0;
 }
-
-alert-color = #b91d1d;
 
 header {
   margin: 0 auto;
@@ -82,7 +82,7 @@ header {
 
   button {
     align-items: center;
-    background: alert-color;
+    background: $alert;
     border-radius: 50%;
     border: none;
     color: #fff;
@@ -93,11 +93,11 @@ header {
     width: 2em;
 
     &:hover {
-      background: darken(alert-color, 10%);
+      background: darken($alert, 10%);
     }
 
     .is-standalone &:hover {
-      background: alert-color;
+      background: $alert;
     }
   }
 }
@@ -181,6 +181,8 @@ header {
     }
 
     input:focus {
+      border-color: $precip;
+      outline: none;
       padding-right: 2em;
 
       + .clear {
@@ -195,7 +197,7 @@ header {
   }
 
   .query {
-    border: solid 1px #c7c7c7;
+    border: solid 1px #dfdfdf;
     border-radius: 0;
     padding: 0.4em 0.6em;
     font-size: 1em;
@@ -205,7 +207,7 @@ header {
 
   ul {
     background: #fff;
-    border: solid 1px #c7c7c7;
+    border: solid 1px #dfdfdf;
     border-top: none;
     box-shadow: 0 0 0.4em rgba(0, 0, 0, 0.1);
     display: none;
@@ -216,7 +218,7 @@ header {
     z-index: 1;
 
     li {
-      border-top: solid 1px #d3d3d3;
+      border-top: solid 1px #dfdfdf;
       display: block;
       cursor: pointer;
       padding: 0.4em 0.6em;
@@ -227,6 +229,7 @@ header {
 
       &:first-child {
         border-top: none;
+        padding-top: 0.2rem;
       }
     }
   }
@@ -284,9 +287,12 @@ header {
         border: none;
         border-right: solid 1px #e3e3e3;
         font-size: 1em;
-        outline: solid 1px $precip;
         padding: 0.4em 0.6em;
         width: 100%;
+
+        &:focus {
+          outline: solid 1px $precip;
+        }
       }
 
       button {
@@ -304,15 +310,15 @@ header {
       }
 
       .remove:hover {
-        color: #c00;
+        color: $alert;
       }
     }
   }
 
   .location-error {
-    color: #b70c0c;
+    color: $alert;
     background: #ffebe2;
-    border: solid 1px #b70c0c;
+    border: solid 1px $alert;
     display: none;
     font-size: 0.8em;
     left: 0;
@@ -343,13 +349,13 @@ header {
 }
 
 .alert {
-  border: solid 1px alert-color;
+  border: solid 1px $alert;
   border-radius: 3px;
   margin-bottom: 0.4em;
   width: 100%;
 
   .alert-title {
-    background: alert-color;
+    background: $alert;
     color: #fff;
     align-items: stretch;
     display: flex;
@@ -372,7 +378,7 @@ header {
     button {
       background: none;
       border: none;
-      border-left: solid 1px darken(#c00, 10%);
+      border-left: solid 1px darken($alert, 20%);
       color: #fff;
       font-size: 1em;
       outline: none;
@@ -382,7 +388,7 @@ header {
       }
 
       &:hover {
-        background: darken(#c00, 10%);
+        background: darken($alert, 20%);
       }
     }
   }
@@ -418,7 +424,7 @@ header {
 }
 
 .weather-error {
-  color: #b70c0c;
+  color: $alert;
   margin: 0 auto;
   padding: 3em 1em 1em;
   text-align: center;
@@ -431,7 +437,7 @@ header {
 
   .error-message {
     background: #ffebe2;
-    border: solid 1px #b70c0c;
+    border: solid 1px $alert;
     margin-top: 0.6em;
     overflow: auto;
     padding: 0.6em 1em;
@@ -461,17 +467,17 @@ header {
 
   .weather-icon.rain {
     animation: rock-left 2s infinite;
-    color: #00ccff;
+    color: $precip;
   }
 
   .weather-icon.day-sunny {
     animation: spin 3s infinite linear;
-    color: #ffcc00;
+    color: $warm;
   }
 
   .weather-icon.snow {
     animation: rock-left 2s infinite;
-    color: #ad00ff;
+    color: $cold;
   }
 }
 
@@ -529,11 +535,11 @@ header {
   }
 
   &.higher-apparent .apparent-temp {
-    color: $warm;
+    color: $hot;
   }
 
   .precip {
-    color: $precip;
+    color: darken($precip, 10%);
   }
 
   .weather-icon {
@@ -581,13 +587,14 @@ header {
   button {
     align-items: center;
     background: #333;
+    border: solid 2px #fff;;
     border-radius: 50%;
     display: none;
     height: 3.5em;
     justify-content: center;
     position: absolute;
-    right: 1em;
-    top: 1em;
+    right: 0.6em;
+    top: 0.6em;
     width: 3.7em;
 
     &:hover {
@@ -698,7 +705,7 @@ header {
   }
 
   .day-label {
-    border-left: solid 1px #eee;
+    border-left: solid 1px #dfdfdf;
     cursor: pointer;
     height: 100%;
     padding: 0.4em 0;
@@ -713,11 +720,12 @@ header {
     }
 
     .date {
-      border-bottom: solid 1px #eee;
+      border-bottom: solid 1px #dfdfdf;
       padding-bottom: 0.4em;
     }
 
     .details {
+      color: #bfbfbf;
       font-size: 0.9rem;
       padding-top: 0.4em;
     }
@@ -727,7 +735,7 @@ header {
     }
 
     .temp-max {
-      color: $warm;
+      color: $hot;
     }
 
     .icon {
@@ -774,7 +782,7 @@ header {
   }
 
   .temp {
-    color: #C00;
+    color: #ed5353;
   }
 
   .apparent-temp {
@@ -782,7 +790,7 @@ header {
   }
 
   .precip {
-    color: $precip;
+    color: darken($precip, 20%);
   }
 
   .wind {
@@ -824,11 +832,11 @@ header {
   }
 
   .temp .box {
-    background: #F00;
+    background: #ed5353;
   }
 
   .apparent-temp .box {
-    background: #9645e8;
+    background: #a557f3;
   }
 
   .precip-probability .box {
@@ -849,10 +857,10 @@ header {
 .weather-icon.day-sunny { color: $warm; }
 .weather-icon.night-clear { color: $cold; }
 .weather-icon.rain { color: $precip; }
-.weather-icon.snow { color: $precip; }
-.weather-icon.sleet { color: darken($precip, 10%); }
-.weather-icon.wind { color: #c2c2c2; }
-.weather-icon.fog { color: #c2c2c2; }
+.weather-icon.snow { color: $cold; }
+.weather-icon.sleet { color: $cold; }
+.weather-icon.wind { color: #d5d5d5; }
+.weather-icon.fog { color: #d5d5d5; }
 .weather-icon.cloud { color: #9d9d9d; }
 .weather-icon.default { color: #9d9d9d; }
 
