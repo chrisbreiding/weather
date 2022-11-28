@@ -3,8 +3,8 @@ import React from 'react'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
-const Radar = ({ location, onOpen, onClose, controls = false, zoom = 6 }) => {
-  const src = `https://maps.darksky.net/@radar,${location},${zoom}?fieldControl=${controls}&domain=${encodeURI(window.location.href)}&auth=1538703242_bbabefdbd4a3f1aa368ac46db3499950&embed=true&timeControl=false&defaultField=radar`
+const Radar = ({ location, onOpen, onClose, updatedTimestamp, controls = false, zoom = 6 }) => {
+  const src = `https://maps.darksky.net/@radar,${location},${zoom}?fieldControl=${controls}&domain=${encodeURI(window.location.href)}&auth=1538703242_bbabefdbd4a3f1aa368ac46db3499950&embed=true&timeControl=false&defaultField=radar&__t=${updatedTimestamp}`
 
   return (
     <div className={cs('radar', { 'with-controls': controls })}>

@@ -5,7 +5,7 @@ import { refreshWeather } from '../lib/data'
 import Radar from './radar'
 import { WeatherIcon } from './weather-icon'
 
-const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar }) => {
+const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar, updatedTimestamp }) => {
   const { temperature, apparentTemperature, icon, summary, precipProbabilityPercent } = currentWeather
 
   return (
@@ -29,7 +29,11 @@ const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar }) => {
         </div>
         <p className='precip'>{precipProbabilityPercent}% chance of precip.</p>
       </div>
-      <Radar location={currentLocation} onOpen={onShowRadar} />
+      <Radar
+        location={currentLocation}
+        updatedTimestamp={updatedTimestamp}
+        onOpen={onShowRadar}
+      />
     </div>
   )
 }

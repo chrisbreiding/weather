@@ -161,13 +161,14 @@ const Alert = types.model('Alert', {
 const str = (value) => JSON.stringify(value, null, 2)
 
 const WeatherStore = types.model('WeatherStore', {
+  alerts: types.array(Alert),
+  currently: types.maybeNull(CurrentWeather),
+  daily: types.maybeNull(DailyWeather),
+  error: types.maybeNull(types.string),
+  hourly: types.maybeNull(HourlyWeather),
+  updatedTimestamp: 0,
   isLoading: true,
   isShowingRadar: false,
-  error: types.maybeNull(types.string),
-  currently: types.maybeNull(CurrentWeather),
-  hourly: types.maybeNull(HourlyWeather),
-  daily: types.maybeNull(DailyWeather),
-  alerts: types.array(Alert),
 })
 .actions((self) => ({
   update ({ currently, hourly, daily, alerts = [] }) {
@@ -193,6 +194,8 @@ const WeatherStore = types.model('WeatherStore', {
       return true
     })
     self.alerts = alerts.map((alert) => Alert.create(alert))
+
+    self.updatedTimestamp = Date.now()
   },
 
   setFocusedDay (day) {

@@ -41,6 +41,7 @@ const Weather = observer(({ locationStore, weatherStore }) => {
       <CurrentWeather
         currentLocation={locationStore.current}
         currentWeather={weatherStore.currently}
+        updatedTimestamp={weatherStore.updatedTimestamp}
         onShowRadar={setShowingRadar(true)}
       />
       <div className='charts'>
