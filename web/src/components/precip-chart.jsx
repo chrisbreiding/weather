@@ -51,7 +51,7 @@ const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
           ticks={days}
         />
         <YAxis domain={[0, 100]} tick={<YLabel render={(value) => `${value}%`} />} axisLine={false} />
-        <Tooltip content={<TooltipContent render={(data) => (
+        <Tooltip wrapperStyle={{ outline: 'none' }} content={<TooltipContent render={(data) => (
           <div className='precip'>{`${data.precipProbability || data.snowProbability}%`}</div>
         )} />} />
         <Legend content={<LegendContent render={() => (
