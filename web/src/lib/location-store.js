@@ -1,5 +1,3 @@
-import find from 'lodash.find'
-import findIndex from 'lodash.findindex'
 import { getSnapshot, types } from 'mobx-state-tree'
 
 import util from './util'
@@ -23,7 +21,7 @@ const getCache = () => {
 }
 
 const getExistingFromCache = (cache, location) => {
-  return cache[location.placeId] || find(Object.values(cache), (cachedLocation) => (
+  return cache[location.placeId] || Object.values(cache).find((cachedLocation) => (
     util.coordsMatch(location, cachedLocation)
   ))
 }
@@ -93,11 +91,11 @@ const LocationStore = types.model('LocationStore', {
   },
 
   removeRecent (location) {
-    self._removeFromRecent(findIndex(self._recent, { placeId: location.placeId }))
+    self._removeFromRecent(self._recent.findIndex(({ placeId }) => placeId === location.placeId))
   },
 
   _addToRecent (location) {
-    const existingIndex = findIndex(self._recent, (recentLocation) => {
+    const existingIndex = self._recent.findIndex((recentLocation) => {
       if (location.isGeolocated && recentLocation.isGeolocated) {
         return util.coordsMatch(location, recentLocation)
       } else {

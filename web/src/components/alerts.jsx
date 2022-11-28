@@ -1,19 +1,19 @@
 import cs from 'classnames'
 import React from 'react'
 import { action } from 'mobx'
-import { observer, useObservable } from 'mobx-react-lite'
+import { observer, useLocalObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 import util from '../lib/util'
 
 const Alert = observer(({ alert }) => {
-  const state = useObservable({
+  const state = useLocalObservable(() => ({
     isOpen: false,
     toggleOpen: action(() => {
       state.isOpen = !state.isOpen
     }),
-  })
+  }))
 
   return (
     <li className={cs('alert', { 'is-open': state.isOpen })}>

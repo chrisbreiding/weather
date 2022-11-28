@@ -1,7 +1,7 @@
 import cs from 'classnames'
 import React, { createRef, useEffect } from 'react'
 import { action } from 'mobx'
-import { observer, useObservable } from 'mobx-react-lite'
+import { observer, useLocalObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 
@@ -14,7 +14,7 @@ import RecentLocation from './recent-location'
 const Location = observer(({ locationStore }) => {
   const searchRef = createRef()
 
-  const state = useObservable({
+  const state = useLocalObservable(() => ({
     options: [],
     query: null,
     showingRecent: false,
@@ -28,7 +28,7 @@ const Location = observer(({ locationStore }) => {
     setShowingRecent: action((showingRecent) => {
       state.showingRecent = showingRecent
     }),
-  })
+  }))
 
   const { current, recent, isLoading, error } = locationStore
   const location = current || { description: '' }

@@ -1,9 +1,9 @@
 import cs from 'classnames'
+import FastClick from 'fastclick'
 import { configure as configureMobx } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { render } from 'react-dom'
-import FastClick from 'fastclick'
+import { createRoot } from 'react-dom/client'
 
 import { getInitialWeather } from './lib/get-initial-weather'
 import eventBus from './lib/event-bus'
@@ -53,4 +53,4 @@ const App = observer(() => {
   )
 })
 
-render(<App />, document.getElementById('app'))
+createRoot(document.getElementById('app')).render(<App />)

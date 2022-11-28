@@ -1,7 +1,7 @@
 import cs from 'classnames'
 import React from 'react'
 import { action } from 'mobx'
-import { observer, useObservable } from 'mobx-react-lite'
+import { observer, useLocalObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,12 +9,12 @@ import Alerts from './alerts'
 import Location from './location'
 
 const Weather = observer(({ locationStore, weatherStore }) => {
-  const state = useObservable({
+  const state = useLocalObservable(() => ({
     showingAlerts: false,
     toggleShowingAlerts: action(() => {
       state.showingAlerts = !state.showingAlerts
     }),
-  })
+  }))
 
   return (
     <header className={cs({

@@ -1,6 +1,6 @@
 import cs from 'classnames'
 import React, { useEffect, useRef } from 'react'
-import { observer, useObservable } from 'mobx-react-lite'
+import { observer, useLocalObservable } from 'mobx-react-lite'
 import { action } from 'mobx'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons'
@@ -12,13 +12,13 @@ const stop = (e) => {
 let wasEditing
 
 const RecentLocation = observer(({ location, onEdit, onSelect, onRemove }) => {
-  const state = useObservable({
+  const state = useLocalObservable(() => ({
     isEditing: false,
 
     setIsEditing: action((isEditing) => {
       state.isEditing = isEditing
     }),
-  })
+  }))
 
   const toggleEditing = (e) => {
     e.stopPropagation()
