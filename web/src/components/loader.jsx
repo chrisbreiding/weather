@@ -1,13 +1,12 @@
 import React from 'react'
-import Icon from 'react-weathericons'
 
-import util from '../lib/util'
+import { WeatherIcon } from './weather-icon'
 
 const Loader = () => (
   <div className='loader'>
-    <Icon name={util.icons.RAIN} className='icon rain' size="4x" />
-    <Icon name={util.icons.SUN} className='icon sun' size="4x" />
-    <Icon name={util.icons.SNOW} className='icon snow' size="4x" />
+    <WeatherIcon iconName='RAIN' size="4x" />
+    <WeatherIcon iconName='SUN' size="4x" />
+    <WeatherIcon iconName='SNOW' size="4x" />
   </div>
 )
 

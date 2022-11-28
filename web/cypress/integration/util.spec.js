@@ -1,4 +1,4 @@
-import util from './util'
+import util from '../../src/lib/util'
 
 describe('util', () => {
   context('.nearlyEqual', () => {

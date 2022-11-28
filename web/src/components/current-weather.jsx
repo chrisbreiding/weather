@@ -1,10 +1,9 @@
 import cs from 'classnames'
 import React from 'react'
-import WeatherIcon from 'react-weathericons'
 
-import Radar from './radar'
 import { refreshWeather } from '../lib/data'
-import util from '../lib/util'
+import Radar from './radar'
+import { WeatherIcon } from './weather-icon'
 
 const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar }) => {
   const { temperature, apparentTemperature, icon, summary, precipProbabilityPercent } = currentWeather
@@ -21,11 +20,7 @@ const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar }) => {
             <span className='degrees'>°F</span>
           </p>
           <p>
-            <WeatherIcon
-              className='icon'
-              name={util.getDarkSkyIcon(icon, true)}
-              onClick={refreshWeather}
-            />
+            <WeatherIcon darkSkyIcon={icon} size='4x' onClick={refreshWeather} />
           </p>
         </div>
         <div className='row'>

@@ -18,6 +18,7 @@ export const migrate = (key) => {
 
   if (data) {
     const parsedData = JSON.parse(data)
+
     save(key, parsedData)
     delete localStorage[key]
   }

@@ -3,7 +3,7 @@ import React from 'react'
 import { action } from 'mobx'
 import { observer, useObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faExclamationTriangle } from '@fortawesome/pro-light-svg-icons'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 import util from '../lib/util'
 

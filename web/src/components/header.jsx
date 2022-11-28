@@ -3,7 +3,7 @@ import React from 'react'
 import { action } from 'mobx'
 import { observer, useObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/pro-light-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 import Alerts from './alerts'
 import Location from './location'
@@ -26,7 +26,7 @@ const Weather = observer(({ locationStore, weatherStore }) => {
         <div className='alerts-badge'>
           <button onClick={state.toggleShowingAlerts}>
             {state.showingAlerts
-              ? <Icon icon={faTimes} />
+              ? <Icon icon={faXmark} />
               : weatherStore.alerts.length
             }
           </button>

@@ -3,10 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { observer, useObservable } from 'mobx-react-lite'
 import { action } from 'mobx'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import {
-  faPen,
-  faTrashAlt,
-} from '@fortawesome/pro-light-svg-icons'
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 const stop = (e) => {
   e.stopPropagation()
@@ -54,8 +51,10 @@ const RecentLocation = observer(({ location, onEdit, onSelect, onRemove }) => {
     if (!wasEditing && state.isEditing) {
       descriptionRef.current.focus()
       const descriptionLength = location.description.length
+
       descriptionRef.current.setSelectionRange(descriptionLength, descriptionLength)
     }
+
     wasEditing = state.isEditing
   })
 
@@ -65,8 +64,8 @@ const RecentLocation = observer(({ location, onEdit, onSelect, onRemove }) => {
         <input ref={descriptionRef} value={location.description} onChange={update} onKeyUp={onEsc} />
       </form>
       <div className='description' onClick={onSelect}>{location.description}</div>
-      <button className='edit' onClick={toggleEditing}><Icon icon={faPen} /></button>
-      <button className='remove' onClick={onRemove}><Icon icon={faTrashAlt} /></button>
+      <button className='edit' onClick={toggleEditing}><Icon icon={faPenToSquare} /></button>
+      <button className='remove' onClick={onRemove}><Icon icon={faTrashCan} /></button>
     </li>
   )
 })

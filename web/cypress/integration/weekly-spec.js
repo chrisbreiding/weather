@@ -11,12 +11,12 @@ describe('weekly view', () => {
     .then((location) => {
       cy.fixture('weather').then((weather) => {
         cy.visit('/', {
-          onBeforeLoad(win) {
+          onBeforeLoad (win) {
             cy.stub(win.navigator.geolocation, 'getCurrentPosition').yields({
               coords: {
                 latitude: 1,
-                longitude: 2
-              }
+                longitude: 2,
+              },
             })
 
             const o = winObj(win)
@@ -36,9 +36,9 @@ describe('weekly view', () => {
                 daily: o({
                   data: weather.daily.data.map((day) => o(day)),
                 }),
-              })
+              }),
             })
-          }
+          },
         })
       })
     })

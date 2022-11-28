@@ -3,7 +3,7 @@ import React, { createRef, useEffect } from 'react'
 import { action } from 'mobx'
 import { observer, useObservable } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faLocationArrow, faSearch, faTimes } from '@fortawesome/pro-light-svg-icons'
+import { faLocationArrow, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 import { Queue } from '../lib/queue'
 import { setLocation, setUserLocation, searchLocations } from '../lib/data'
@@ -76,6 +76,7 @@ const Location = observer(({ locationStore }) => {
     e.stopPropagation()
 
     const query = (state.query || '').trim()
+
     if (!query || locationStore.isSearchingLocations) return
 
     const queue = Queue.create()
@@ -150,7 +151,7 @@ const Location = observer(({ locationStore }) => {
               onKeyUp={onEsc}
             />
             <div className='clear' onClick={clearSearch}>
-              <Icon icon={faTimes} />
+              <Icon icon={faXmark} />
             </div>
           </form>
 
@@ -181,7 +182,7 @@ const Location = observer(({ locationStore }) => {
           </div>
         </div>
         <button className='search' onClick={searchLocation} disabled={isLoading}>
-          <Icon icon={faSearch} className={cs({
+          <Icon icon={faMagnifyingGlass} className={cs({
             animate: locationStore.isLoadingLocationDetails || locationStore.isSearchingLocations,
           })} />
         </button>

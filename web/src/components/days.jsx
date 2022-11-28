@@ -10,9 +10,9 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import Icon from 'react-weathericons'
 
 import util from '../lib/util'
+import { WeatherIcon } from './weather-icon'
 
 const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
   const { focusedDay, weekStartTimestamp, weekEndTimestamp } = hourlyWeather
@@ -49,10 +49,10 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
             <span className='temp-max'>{Math.round(day.temperatureHigh)}°</span>
           </div>
           <div className='icon'>
-            <Icon name={util.getDarkSkyIcon(day.icon, util.isToday(day.time))} size='3x' />
+            <WeatherIcon darkSkyIcon={day.icon} adjustForTime={util.isToday(day.time)} size='3x' />
           </div>
           <div className={cs('precip', { 'is-snow': isSnow })}>
-            <Icon name={util.icons[isSnow ? 'SNOWFLAKE' : 'RAINDROP']} />
+            <WeatherIcon iconName={isSnow ? 'SNOWFLAKE' : 'RAINDROP'} />
             <span>{precipDetail(day)}</span>
           </div>
         </div>

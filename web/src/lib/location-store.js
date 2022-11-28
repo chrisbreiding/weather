@@ -56,6 +56,7 @@ const LocationStore = types.model('LocationStore', {
 
   getLocationFromCache (placeIdOrLatLng) {
     const location = placeIdOrLatLng.lat ? placeIdOrLatLng : { placeId: placeIdOrLatLng }
+
     return getExistingFromCache(getCache(), location)
   },
 }))
@@ -65,6 +66,7 @@ const LocationStore = types.model('LocationStore', {
     self.current = location
     self._addToRecent(location)
     self._addToCache(location)
+
     return location
   },
 
@@ -102,6 +104,7 @@ const LocationStore = types.model('LocationStore', {
         return location.placeId === recentLocation.placeId
       }
     })
+
     self._removeFromRecent(existingIndex)
 
     self._recent.unshift(location)
@@ -118,6 +121,7 @@ const LocationStore = types.model('LocationStore', {
   _addToCache (location) {
     const cache = getCache()
     const existing = getExistingFromCache(cache, location)
+
     if (existing) return
 
     cache[location.placeId] = getSnapshot(location)
@@ -127,6 +131,7 @@ const LocationStore = types.model('LocationStore', {
   _updateCache (location) {
     const cache = getCache()
     const existing = getExistingFromCache(cache, location)
+
     if (!existing) return
 
     cache[location.placeId] = getSnapshot(location)

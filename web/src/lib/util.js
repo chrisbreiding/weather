@@ -1,24 +1,6 @@
 import moment from 'moment'
 import { debugStore } from '../components/debug'
 
-const iconMap = {
-  'clear-day:day': 'day-sunny',
-  'clear-day:night': 'night-clear',
-  'clear-night:day': 'day-sunny',
-  'clear-night:night': 'night-clear',
-  'rain': 'rain',
-  'snow': 'snowflake-cold',
-  'sleet': 'sleet',
-  'wind': 'strong-wind',
-  'fog': 'fog',
-  'cloudy': 'cloud',
-  'partly-cloudy-day:day': 'day-cloudy',
-  'partly-cloudy-day:night': 'night-alt-cloudy',
-  'partly-cloudy-night:day': 'day-cloudy',
-  'partly-cloudy-night:night': 'night-alt-cloudy',
-  'default': 'moon-new',
-}
-
 const roundCoord = (coord) => Math.round(coord * 100)
 const nearlyEqual = (num1, num2) => {
   return Math.abs((Math.max(num1, num2) - Math.min(num1, num2))) < 10
@@ -73,6 +55,7 @@ const getNativeUserLocation = () => {
 
 const fallbackCopyToClipboard = (text) => {
   let textArea = document.createElement('textarea')
+
   textArea.value = text
 
   // Avoid scrolling to bottom
@@ -99,6 +82,7 @@ const fallbackCopyToClipboard = (text) => {
 const copyToClipboard = (text) => {
   if (!navigator.clipboard) {
     fallbackCopyToClipboard(text)
+
     return
   }
 
@@ -146,39 +130,12 @@ export default {
     return moment.unix(timestamp).format('ddd M/D')
   },
 
-  getDarkSkyIcon (icon, adjustForDayNight) {
-    // dark sky specifies an icon for the worst weather of the day
-    // this normalizes it so if it's current weather or today's forecast
-    // it shows day during day and night during night
-    // for the rest of the forecast, it shows day
-    if (/(day|night)/.test(icon)) {
-      if (adjustForDayNight) {
-        const hours = moment().toObject().hours
-        const isDay = hours > 6 && hours < 20
-        icon += `:${isDay ? 'day' : 'night'}`
-      } else {
-        icon += ':day'
-      }
-    }
-
-    return iconMap[icon] || iconMap.default
-  },
-
   getUserLocation () {
     if (window.webkit?.messageHandlers?.bus) {
       return getNativeUserLocation()
     }
 
     return getWebUserLocation()
-  },
-
-  icons: {
-    SUN: 'day-sunny',
-    RAIN: 'rain',
-    RAINDROP: 'raindrop',
-    CLOUD: 'cloud',
-    SNOW: 'snow',
-    SNOWFLAKE: 'snowflake-cold',
   },
 
   isBetween (timestamp, start, end) {
@@ -188,6 +145,7 @@ export default {
   isSameDay (dayTimestamp, maybeSameDayTimestamp) {
     const date = moment.unix(dayTimestamp)
     const maybeSameDate = moment.unix(maybeSameDayTimestamp)
+
     return (
       date.isSame(maybeSameDate, 'day')
       || date.endOf('day').add(2, 'hour').isSame(maybeSameDate, 'hour')

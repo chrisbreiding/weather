@@ -35,6 +35,7 @@ export const HourlyWeather = types.model('HourlyWeather', {
 .views((self) => ({
   get hours () {
     const [start, end] = [self.startTimestamp, self.endTimestamp]
+
     return self.data.filter((hour) => {
       return hour.time >= start && hour.time <= end
     })
@@ -100,11 +101,13 @@ export const HourlyWeather = types.model('HourlyWeather', {
 
   get weekStartTimestamp () {
     const earliestTime = Math.min(...self.data.map((hour) => hour.time))
+
     return moment.unix(earliestTime).startOf('day').unix()
   },
 
   get weekEndTimestamp () {
     const latestTime = Math.max(...self.data.map((hour) => hour.time))
+
     return moment.unix(latestTime).startOf('day').unix()
   },
 }))
@@ -178,12 +181,15 @@ const WeatherStore = types.model('WeatherStore', {
     self.daily = DailyWeather.create(daily)
     self.isLoading = false
     const alertIds = {}
+
     // dedupe alerts
     alerts = alerts.filter((alert) => {
       const id = util.getAlertId(alert)
+
       if (alertIds[id]) return false
 
       alertIds[id] = true
+
       return true
     })
     self.alerts = alerts.map((alert) => Alert.create(alert))

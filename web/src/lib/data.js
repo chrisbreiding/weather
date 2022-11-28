@@ -1,5 +1,4 @@
 import api from './api'
-import router from './router'
 import locationStore from './location-store'
 import weatherStore from './weather-store'
 import util from './util'
@@ -65,18 +64,12 @@ export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
     reset()
 
     const newLocation = locationStore.setCurrent(location)
-    const path = `/forecast/${newLocation.lat}/${newLocation.lng}`
 
     if (util.isStandalone()) {
       save('lastLoadedLocation', location)
     }
 
-    if (util.isStandalone() || path === window.location.pathname) {
-      return getWeather(queue, newLocation)
-    } else {
-      queue.finish()
-      router.setRoute(path)
-    }
+    return getWeather(queue, newLocation)
   })
   .catch((error) => {
     if (!queue.canceled) {
