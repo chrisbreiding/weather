@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 import util from './util'
 import { fetch } from './persistence'
@@ -46,8 +46,8 @@ export const HourlyWeather = types.model('HourlyWeather', {
 
     return self.hours
     .filter((hour) => {
-      return moment.unix(hour.time).isSame(
-        moment.unix(hour.time).startOf('day'),
+      return dayjs.unix(hour.time).isSame(
+        dayjs.unix(hour.time).startOf('day'),
       )
     })
     .map((hour) => hour.time)
@@ -85,7 +85,7 @@ export const HourlyWeather = types.model('HourlyWeather', {
 
   get startTimestamp () {
     if (self.focusedDay) {
-      return moment.unix(self.focusedDay).startOf('day').unix()
+      return dayjs.unix(self.focusedDay).startOf('day').unix()
     }
 
     return self.weekStartTimestamp
@@ -93,7 +93,7 @@ export const HourlyWeather = types.model('HourlyWeather', {
 
   get endTimestamp () {
     if (self.focusedDay) {
-      return moment.unix(self.focusedDay).endOf('day').add(1, 'millisecond').unix()
+      return dayjs.unix(self.focusedDay).endOf('day').add(1, 'millisecond').unix()
     }
 
     return self.weekEndTimestamp
@@ -102,13 +102,13 @@ export const HourlyWeather = types.model('HourlyWeather', {
   get weekStartTimestamp () {
     const earliestTime = Math.min(...self.data.map((hour) => hour.time))
 
-    return moment.unix(earliestTime).startOf('day').unix()
+    return dayjs.unix(earliestTime).startOf('day').unix()
   },
 
   get weekEndTimestamp () {
     const latestTime = Math.max(...self.data.map((hour) => hour.time))
 
-    return moment.unix(latestTime).startOf('day').unix()
+    return dayjs.unix(latestTime).startOf('day').unix()
   },
 }))
 .actions((self) => ({

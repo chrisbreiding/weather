@@ -1,4 +1,6 @@
 import cs from 'classnames'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
 import FastClick from 'fastclick'
 import { configure as configureMobx } from 'mobx'
 import { observer } from 'mobx-react-lite'
@@ -16,6 +18,7 @@ import Footer from './components/footer'
 import Header from './components/header'
 import Weather from './components/weather'
 
+dayjs.extend(isBetween)
 new FastClick(document.body)
 configureMobx({ enforceActions: 'always' })
 

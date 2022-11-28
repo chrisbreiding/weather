@@ -25,12 +25,12 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "classnames": "^2.3.2",
+    "dayjs": "^1.11.6",
     "events": "^3.3.0",
     "fastclick": "^1.0.6",
     "mobx": "^6.7.0",
     "mobx-react": "^7.6.0",
     "mobx-state-tree": "^5.1.6",
-    "moment": "^2.29.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "recharts": "^2.1.16"

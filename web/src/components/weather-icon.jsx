@@ -13,7 +13,7 @@ import {
   faDroplet,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import React from 'react'
 
 const iconMap = {
@@ -49,8 +49,8 @@ function getDarkSkyIcon (icon, adjustForDayNight) {
   // for the rest of the forecast, it shows day
   if (/(day|night)/.test(icon)) {
     if (adjustForDayNight) {
-      const hours = moment().toObject().hours
-      const isDay = hours > 6 && hours < 20
+      const currentHour = dayjs().hour()
+      const isDay = currentHour > 6 && currentHour < 20
 
       icon += `:${isDay ? 'day' : 'night'}`
     } else {

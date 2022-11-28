@@ -1,4 +1,4 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { debugStore } from '../components/debug'
 
 const roundCoord = (coord) => Math.round(coord * 100)
@@ -111,23 +111,23 @@ export default {
   },
 
   currentTimestamp () {
-    return moment().unix()
+    return dayjs().unix()
   },
 
   formatDateTime (timestamp) {
-    return moment.unix(timestamp).format('ddd M/D h:mma')
+    return dayjs.unix(timestamp).format('ddd M/D h:mma')
   },
 
   formatTime (timestamp) {
-    return moment.unix(timestamp).format('ha')
+    return dayjs.unix(timestamp).format('ha')
   },
 
   getNoonFromTimestamp (timestamp) {
-    return moment.unix(timestamp).startOf('day').add(12, 'hours').unix()
+    return dayjs.unix(timestamp).startOf('day').add(12, 'hours').unix()
   },
 
   getShortDisplayDateFromTimestamp (timestamp) {
-    return moment.unix(timestamp).format('ddd M/D')
+    return dayjs.unix(timestamp).format('ddd M/D')
   },
 
   getUserLocation () {
@@ -139,12 +139,12 @@ export default {
   },
 
   isBetween (timestamp, start, end) {
-    return moment.unix(timestamp).isBetween(moment.unix(start), moment.unix(end), null, '[]')
+    return dayjs.unix(timestamp).isBetween(dayjs.unix(start), dayjs.unix(end), null, '[]')
   },
 
   isSameDay (dayTimestamp, maybeSameDayTimestamp) {
-    const date = moment.unix(dayTimestamp)
-    const maybeSameDate = moment.unix(maybeSameDayTimestamp)
+    const date = dayjs.unix(dayTimestamp)
+    const maybeSameDate = dayjs.unix(maybeSameDayTimestamp)
 
     return (
       date.isSame(maybeSameDate, 'day')
@@ -157,7 +157,7 @@ export default {
   },
 
   isToday (timestamp) {
-    return moment.unix(timestamp).isSame(moment(), 'day')
+    return dayjs.unix(timestamp).isSame(dayjs(), 'day')
   },
 
   toTenth (num) {
