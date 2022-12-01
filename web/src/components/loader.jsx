@@ -4,9 +4,9 @@ import { WeatherIcon } from './weather-icon'
 
 const Loader = () => (
   <div className='loader'>
-    <WeatherIcon iconName='RAIN' size="4x" />
-    <WeatherIcon iconName='SUN' size="4x" />
-    <WeatherIcon iconName='SNOW' size="4x" />
+    <WeatherIcon icon='rain' size="4x" />
+    <WeatherIcon icon='clear:day' size="4x" />
+    <WeatherIcon icon='snow' size="4x" />
   </div>
 )
 

@@ -1,0 +1,184 @@
+.icon-preview {
+  padding: 0.5rem;
+
+  .weather-icon {
+    margin: 2rem;
+  }
+}
+
+.weather-icon {
+  display: inline-block;
+}
+
+.layered-icon {
+  position: relative;
+
+  svg {
+    left: 0;
+    position: absolute;
+    top: 0;
+
+    &:first-child {
+      position: static;
+    }
+  }
+}
+
+.weather-icon.blizzard {
+  color: $cold;
+
+  &.layered-icon {
+    svg:first-child {
+      transform: scale(45%) translate(-27%, -50%);
+    }
+
+    svg:nth-child(2) {
+      transform: scale(45%) translate(57%, -50%);
+    }
+
+    svg:nth-child(3) {
+      transform: scale(45%) translate(-57%, 50%);
+    }
+
+    svg:nth-child(4) {
+      transform: scale(45%) translate(27%, 50%);
+    }
+  }
+}
+
+.weather-icon.cloud {
+  color: $cloud;
+
+
+  &.layered-icon svg:last-child {
+    color: $windy;
+    transform: scale(75%) translate(0, 3%);
+  }
+}
+
+.weather-icon.day-sunny {
+  color: $warm;
+
+  &.layered-icon svg:last-child {
+    clip-path: circle(20% at 50% 50%);
+    color: $hot;
+  }
+}
+
+.weather-icon.default {
+  color: $cloud;
+}
+
+.weather-icon.fog {
+  color: $windy;
+
+  &.layered-icon svg:last-child {
+    clip-path: polygon(0 0, 100% 0, 100% 65%, 0 65%);
+    color: $cloud;
+  }
+}
+
+.weather-icon.hot {
+  color: $alert;
+
+  &.layered-icon {
+    svg:first-child {
+      transform: scale(50%) translate(0, 17%);
+    }
+
+    svg:last-child {
+      color: $hot;
+    }
+  }
+}
+
+.weather-icon.hurricane {
+  color: $windy;
+
+  &.layered-icon svg:last-child {
+    clip-path: circle(5% at 50% 50%);
+    color: $cloud;
+  }
+}
+
+.weather-icon.night-clear {
+  color: $cold;
+}
+
+.weather-icon.partly-cloudy-day {
+  color: $cloud;
+
+  &.layered-icon {
+    svg:nth-child(2) {
+      clip-path: polygon(0 0, 70% 0, 70% 40%, 44% 42%, 20% 100%, 0 65%);
+      color: $warm;
+    }
+
+    svg:last-child {
+      clip-path: circle(14% at 33% 41%);
+      color: $hot;
+    }
+  }
+}
+
+.weather-icon.partly-cloudy-night {
+  color: $cloud;
+
+  &.layered-icon svg:last-child {
+    clip-path: polygon(100% 0px, 100% 75%, 76% 85%, 62% 63.75%, 56% 48.75%, 41% 42.5%, 50% 0px);
+    color: $cold;
+  }
+}
+
+.weather-icon.rain {
+  color: $precip;
+
+  &.layered-icon svg:last-child {
+    clip-path: polygon(0 0, 100% 0, 100% 65%, 0 65%);
+    color: $cloud;
+  }
+}
+
+.weather-icon.raindrop {
+  color: $precip;
+}
+
+.weather-icon.sleet {
+  color: $cold;
+
+  &.layered-icon svg:last-child {
+    clip-path: polygon(0 0, 100% 0, 100% 65%, 0 65%);
+    color: $cloud;
+  }
+}
+
+.weather-icon.snow {
+  color: $cold;
+}
+
+.weather-icon.storm {
+  color: $warm;
+
+  &.layered-icon svg:last-child {
+    clip-path: polygon(0 0, 100% 0, 100% 65%, 61% 65%, 65% 40%, 60% 40%, 34% 65%, 0 65%);
+    color: $cloud;
+  }
+}
+
+.weather-icon.tornado {
+  color: $windy;
+
+  &.layered-icon svg:last-child {
+    clip-path: polygon(0 0, 100% 0, 100% 22%, 0 22%, 0 47%, 100% 47%, 100% 72%, 0 72%);
+    color: $cloud;
+  }
+}
+
+.weather-icon.wind {
+  color: $windy;
+
+  &.layered-icon svg:last-child {
+    clip-path: polygon(0 40%, 100% 40%, 100% 90%, 60% 90%, 60% 60%, 0 60%);
+    color: $cloud;
+  }
+}

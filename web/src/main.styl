@@ -1,9 +1,4 @@
-$hot = #f69050;
-$warm = #ffde5b;
-$cold = #b782ec;
-$precip = #77c8e1;
-$wind = #3b6ea7;
-$alert = #b91d1d;
+json('lib/colors.json')
 
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img,a img{border:none;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}
 
@@ -12,6 +7,8 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+@require('./styles/weather-icons')
 
 input,
 textarea {
@@ -197,7 +194,7 @@ header {
   }
 
   .query {
-    border: solid 1px #dfdfdf;
+    border: solid 1px $border;
     border-radius: 0;
     padding: 0.4em 0.6em;
     font-size: 1em;
@@ -207,7 +204,7 @@ header {
 
   ul {
     background: #fff;
-    border: solid 1px #dfdfdf;
+    border: solid 1px $border;
     border-top: none;
     box-shadow: 0 0 0.4em rgba(0, 0, 0, 0.1);
     display: none;
@@ -218,7 +215,7 @@ header {
     z-index: 1;
 
     li {
-      border-top: solid 1px #dfdfdf;
+      border-top: solid 1px $border;
       display: block;
       cursor: pointer;
       padding: 0.4em 0.6em;
@@ -444,7 +441,7 @@ header {
   }
 }
 
-@keyframes rock-left {
+@keyframes rock {
     0% { transform: rotate(0.05turn); }
     10% { transform: rotate(0.05turn); }
    50% { transform: rotate(-0.05turn); }
@@ -459,25 +456,22 @@ header {
 
 .loader {
   @extend .fullscreen-centered;
-  padding: 3em 2em;
+  padding: 3rem 2rem;
 
   .weather-icon {
-    margin: 0 0.2em;
+    margin: 0 1rem;
   }
 
-  .weather-icon.rain {
-    animation: rock-left 2s infinite;
-    color: $precip;
+  .weather-icon:first-child {
+    animation: rock 2s infinite;
   }
 
-  .weather-icon.day-sunny {
-    animation: spin 3s infinite linear;
-    color: $warm;
+  .weather-icon:nth-child(2)  {
+    animation: spin 4s infinite linear;
   }
 
-  .weather-icon.snow {
-    animation: rock-left 2s infinite;
-    color: $cold;
+  .weather-icon:last-child {
+    animation: rock 2s infinite;
   }
 }
 
@@ -544,8 +538,7 @@ header {
 
   .weather-icon {
     cursor: pointer;
-    margin-top: 0.3em;
-    margin-bottom: 0.1em;
+    margin-bottom: 0.2em;
   }
 }
 
@@ -705,11 +698,15 @@ header {
   }
 
   .day-label {
-    border-left: solid 1px #dfdfdf;
+    border-left: solid 1px $border;
+    bottom: 0;
     cursor: pointer;
-    height: 100%;
+    left: 0;
     padding: 0.4em 0;
+    position: absolute;
+    right: 0;
     text-align: center;
+    top: 0;
 
     &:hover {
       background: #f8f8f8;
@@ -720,7 +717,7 @@ header {
     }
 
     .date {
-      border-bottom: solid 1px #dfdfdf;
+      border-bottom: solid 1px $border;
       padding-bottom: 0.4em;
     }
 
@@ -782,7 +779,7 @@ header {
   }
 
   .temp {
-    color: #ed5353;
+    color: $temp;
   }
 
   .apparent-temp {
@@ -832,37 +829,27 @@ header {
   }
 
   .temp .box {
-    background: #ed5353;
+    background: $temp;
   }
 
   .apparent-temp .box {
-    background: #a557f3;
+    background: $cold;
   }
 
   .precip-probability .box {
-    background: rgba(12, 175, 226, 0.2);
-    border: solid 1px #0cafe2;
+    background: alpha($precip, 0.2);
+    border: solid 1px $precipBorder;
   }
 
   .snow-probability .box {
-    background: rgba(150, 69, 232, 0.2);
-    border: solid 1px #0cafe2;
+    background: alpha($cold, 0.4);
+    border: solid 1px $precipBorder;
   }
 
   .wind-speed .box {
     background: $wind;
   }
 }
-
-.weather-icon.day-sunny { color: $warm; }
-.weather-icon.night-clear { color: $cold; }
-.weather-icon.rain { color: $precip; }
-.weather-icon.snow { color: $cold; }
-.weather-icon.sleet { color: $cold; }
-.weather-icon.wind { color: #d5d5d5; }
-.weather-icon.fog { color: #d5d5d5; }
-.weather-icon.cloud { color: #9d9d9d; }
-.weather-icon.default { color: #9d9d9d; }
 
 .link-like-button {
   background: none;

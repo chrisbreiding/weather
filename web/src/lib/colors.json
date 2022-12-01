@@ -1,0 +1,15 @@
+{
+  "$schema": "./colors.schema.json",
+  "$alert": "#b91d1d",
+  "$border": "#dfdfdf",
+  "$cloud": "#b0b0b0",
+  "$cold": "#b782ec",
+  "$hot": "#f69050",
+  "$nowLine": "#3b6ea7",
+  "$precip": "#77c8e1",
+  "$precipBorder": "#0cafe2",
+  "$temp": "#ed5353",
+  "$warm": "#ffde5b",
+  "$wind": "#3b6ea7",
+  "$windy": "#d5d5d5"
+}

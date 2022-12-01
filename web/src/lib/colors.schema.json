@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "$alert": { "format": "color-hex" },
+    "$border": { "format": "color-hex" },
+    "$cold": { "format": "color-hex" },
+    "$cloud": { "format": "color-hex" },
+    "$hot": { "format": "color-hex" },
+    "$nowLine": { "format": "color-hex" },
+    "$precip": { "format": "color-hex" },
+    "$precipBorder": { "format": "color-hex" },
+    "$temp": { "format": "color-hex" },
+    "$warm": { "format": "color-hex" },
+    "$wind": { "format": "color-hex" },
+    "$windy": { "format": "color-hex" }
+  }
+}

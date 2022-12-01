@@ -19,9 +19,7 @@ const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar, updatedT
             {Math.round(temperature)}
             <span className='degrees'>°F</span>
           </p>
-          <p>
-            <WeatherIcon darkSkyIcon={icon} size='4x' onClick={refreshWeather} />
-          </p>
+          <WeatherIcon icon={icon} size='4x' onClick={refreshWeather} />
         </div>
         <div className='row'>
           <p className='apparent-temp'>Feels like {Math.round(apparentTemperature)}°F</p>

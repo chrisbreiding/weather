@@ -1,68 +1,83 @@
 import {
-  faSun,
-  faMoon,
-  faCloudRain,
-  faSnowflake,
-  faCloudShowersHeavy,
-  faWind,
-  faSmog,
+  faCircleQuestion,
   faCloud,
-  faCloudSun,
+  faCloudBolt,
   faCloudMoon,
-  faCircle,
+  faCloudRain,
+  faCloudShowersHeavy,
+  faCloudSun,
   faDroplet,
+  faFire,
+  faHurricane,
+  faMoon,
+  faSmog,
+  faSnowflake,
+  faSun,
+  faTornado,
+  faWind,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
 import React from 'react'
 
 const iconMap = {
-  'clear-day:day': { icon: faSun, className: 'day-sunny' },
-  'clear-day:night': { icon: faMoon, className: 'night-clear' },
-  'clear-night:day': { icon: faSun, className: 'day-sunny' },
-  'clear-night:night': { icon: faMoon, className: 'night-clear' },
-  'rain': { icon: faCloudRain, className: 'rain' },
+  'blizzard': { icon: faSnowflake, className: 'blizzard', layers: 4 },
+  'clear:day': { icon: faSun, className: 'day-sunny', layers: 2 },
+  'clear:night': { icon: faMoon, className: 'night-clear', layers: 2 },
+  'cloudy': { icon: faCloud, className: 'cloud', layers: 2 },
+  'fog': { icon: faSmog, className: 'fog', layers: 2 },
+  'hot': { icon: faFire, className: 'hot', layers: 2 },
+  'hurricane': { icon: faHurricane, className: 'hurricane', layers: 2 },
+  'partly-cloudy:day': { icon: faCloudSun, className: 'partly-cloudy-day', layers: 3 },
+  'partly-cloudy:night': { icon: faCloudMoon, className: 'partly-cloudy-night', layers: 2 },
+  'rain': { icon: faCloudRain, className: 'rain', layers: 2 },
+  'raindrop': { icon: faDroplet, className: 'raindrop' },
+  'sleet': { icon: faCloudShowersHeavy, className: 'sleet', layers: 2 },
   'snow': { icon: faSnowflake, className: 'snow' },
-  'sleet': { icon: faCloudShowersHeavy, className: 'sleet' },
-  'wind': { icon: faWind, className: 'wind' },
-  'fog': { icon: faSmog, className: 'fog' },
-  'cloudy': { icon: faCloud, className: 'cloud' },
-  'partly-cloudy-day:day': { icon: faCloudSun, className: 'cloud' },
-  'partly-cloudy-day:night': { icon: faCloudMoon, className: 'cloud' },
-  'partly-cloudy-night:day': { icon: faCloudSun, className: 'cloud' },
-  'partly-cloudy-night:night': { icon: faCloudMoon, className: 'cloud' },
-  'default': { icon: faCircle, className: 'default' },
+  'snowflake': { icon: faSnowflake, className: 'snow' },
+  'storm': { icon: faCloudBolt, className: 'storm', layers: 2 },
+  'tornado': { icon: faTornado, className: 'tornado', layers: 2 },
+  'wind': { icon: faWind, className: 'wind', layers: 2 },
+
+  'default': { icon: faCircleQuestion, className: 'default' },
 }
 
-const namedIcons = {
-  SUN: { icon: faSun, className: 'day-sunny' },
-  RAIN: { icon: faCloudRain, className: 'rain' },
-  RAINDROP: { icon: faDroplet, className: 'rain' },
-  SNOW: { icon: faSnowflake, className: 'snow' },
-  SNOWFLAKE: { icon: faSnowflake, className: 'snow' },
-}
-
-function getDarkSkyIcon (icon, adjustForDayNight) {
-  // dark sky specifies an icon for the worst weather of the day
-  // this normalizes it so if it's current weather or today's forecast
-  // it shows day during day and night during night
-  // for the rest of the forecast, it shows day
-  if (/(day|night)/.test(icon)) {
+function getIconProps (iconName, adjustForDayNight) {
+  // the remote specifies an icon for the worst weather of the day this
+  // normalizes it so if it's current weather or today's forecast it shows
+  // day during day and night during night. for the rest of the forecast,
+  // it shows day. NOTE: not sure this is true anymore with WeatherKit api,
+  // but can't hurt to do this anyway
+  if (iconName === 'clear' || iconName === 'partly-cloudy') {
     if (adjustForDayNight) {
       const currentHour = dayjs().hour()
       const isDay = currentHour > 6 && currentHour < 20
 
-      icon += `:${isDay ? 'day' : 'night'}`
+      iconName += `:${isDay ? 'day' : 'night'}`
     } else {
-      icon += ':day'
+      iconName += ':day'
     }
   }
 
-  return iconMap[icon] || iconMap.default
+  return iconMap[iconName] || iconMap.default
 }
 
-export const WeatherIcon = ({ adjustForTime = true, darkSkyIcon, iconName, ...props }) => {
-  const icon = darkSkyIcon ? getDarkSkyIcon(darkSkyIcon, adjustForTime) : namedIcons[iconName]
+export const WeatherIcon = ({ adjustForTime = true, icon: iconName, ...props }) => {
+  const { className, icon, layers } = getIconProps(iconName, adjustForTime)
 
-  return <FontAwesomeIcon icon={icon.icon} className={`weather-icon ${icon.className}`} {...props} />
+  if (!layers) {
+    return (
+      <span className={`weather-icon ${className}`}>
+        <FontAwesomeIcon icon={icon} {...props} />
+      </span>
+    )
+  }
+
+  return (
+    <span className={`weather-icon layered-icon ${className}`}>
+      {Array(layers).fill(1).map((_, i) => (
+        <FontAwesomeIcon key={i} icon={icon} {...props} />
+      ))}
+    </span>
+  )
 }

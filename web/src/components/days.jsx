@@ -49,10 +49,10 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
             <span className='temp-max'>{Math.round(day.temperatureHigh)}°</span>
           </div>
           <div className='icon'>
-            <WeatherIcon darkSkyIcon={day.icon} adjustForTime={util.isToday(day.time)} size='3x' />
+            <WeatherIcon icon={day.icon} adjustForTime={util.isToday(day.time)} size='3x' />
           </div>
           <div className={cs('precip', { 'is-snow': isSnow })}>
-            <WeatherIcon iconName={isSnow ? 'SNOWFLAKE' : 'RAINDROP'} />
+            <WeatherIcon icon={isSnow ? 'snowflake' : 'raindrop'} />
             <span>{precipDetail(day)}</span>
           </div>
         </div>

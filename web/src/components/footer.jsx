@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faBug, faArrowRotateRight } from '@fortawesome/free-solid-svg-icons'
 
-import { debugStore } from './debug'
 import util from '../lib/util'
+import { debugStore } from './debug'
 
 const toggleDebug = () => {
   debugStore.toggle()
@@ -14,8 +14,8 @@ const reload = () => {
   window.location.reload(true)
 }
 
-const Footer = observer(() => {
-  if (!util.isStandalone()) return null
+const Footer = observer(({ weatherStore }) => {
+  if (!util.isStandalone() || weatherStore.isLoading) return null
 
   return (
     <div className='footer'>
