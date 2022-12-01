@@ -7,7 +7,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "lint-fix": "npm run lint -- --fix",
-    "lint": "eslint 'src/*.+(js|jsx)' 'src/**/*.+(js|jsx)'",
+    "lint": "eslint 'src/*.+(js|jsx)' 'src/**/*.+(js|jsx)' 'cypress/**/*.+(js|jsx)'",
     "preview": "vite preview --port 8088",
     "start": "vite"
   },
