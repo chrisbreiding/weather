@@ -16,6 +16,7 @@ import LegendContent from './legend-content'
 import TooltipContent from './tooltip-content'
 import YLabel from './y-label'
 
+import colors from '../lib/colors'
 import util from '../lib/util'
 
 const TempChart = observer(({ hourlyWeather, minWidth }) => {
@@ -34,8 +35,8 @@ const TempChart = observer(({ hourlyWeather, minWidth }) => {
         data={hourlyWeather.chartData}
         syncId='weather'
       >
-        <CartesianGrid stroke='#dfdfdf' />
-        <ReferenceLine x={util.currentTimestamp()} stroke='#ccc' />
+        <CartesianGrid stroke={colors.$border} />
+        <ReferenceLine x={util.currentTimestamp()} stroke={colors.$nowLine} />
         <XAxis
           dataKey='time'
           type='number'
@@ -67,13 +68,13 @@ const TempChart = observer(({ hourlyWeather, minWidth }) => {
         <Line
           dataKey='apparentTemp'
           name='Feels Like (°F)'
-          stroke='#a557f3'
+          stroke={colors.$cold}
           {...sharedLineProps}
         />
         <Line
           dataKey='temp'
           name='Temperature (°F)'
-          stroke='#ed5353'
+          stroke={colors.$temp}
           {...sharedLineProps}
         />
       </LineChart>

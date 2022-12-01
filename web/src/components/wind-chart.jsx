@@ -16,6 +16,7 @@ import LegendContent from './legend-content'
 import TooltipContent from './tooltip-content'
 import YLabel from './y-label'
 
+import colors from '../lib/colors'
 import util from '../lib/util'
 
 const WindChart = observer(({ hourlyWeather, minWidth }) => {
@@ -27,8 +28,8 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
         data={hourlyWeather.chartData}
         syncId='weather'
       >
-        <CartesianGrid stroke='#dfdfdf' />
-        <ReferenceLine x={util.currentTimestamp()} stroke='#ccc' />
+        <CartesianGrid stroke={colors.$border} />
+        <ReferenceLine x={util.currentTimestamp()} stroke={colors.$nowLine} />
         <XAxis
           dataKey='time'
           type='number'
@@ -52,7 +53,7 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
           type='linear'
           name='Wind Speed'
           dataKey='windSpeed'
-          stroke='#3b6ea7'
+          stroke={colors.$wind}
           strokeWidth={2}
           dot={false}
           activeDot={{ r: 5 }}

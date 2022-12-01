@@ -16,17 +16,16 @@ import LegendContent from './legend-content'
 import TooltipContent from './tooltip-content'
 import YLabel from './y-label'
 
+import colors from '../lib/colors'
 import util from '../lib/util'
 
 
 const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
   const { days, startTimestamp, endTimestamp } = hourlyWeather
-
-
   const sharedAreaProps = {
     activeDot: false,
     dot: false,
-    fill: '#0cafe2',
+    fill: colors.$precipBorder,
     isAnimationActive: false,
     name: 'Chance of Precip. (%)',
     stroke: 'transparent',
@@ -39,8 +38,8 @@ const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
         data={hourlyWeather.chartData}
         syncId='weather'
       >
-        <CartesianGrid stroke='#dfdfdf' />
-        <ReferenceLine x={util.currentTimestamp()} stroke='#ccc' />
+        <CartesianGrid stroke={colors.$border} />
+        <ReferenceLine x={util.currentTimestamp()} stroke={colors.$nowLine} />
         <XAxis
           dataKey='time'
           type='number'
@@ -73,7 +72,7 @@ const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
           activeDot={{ r: 5 }}
           fill={undefined}
           name=''
-          stroke='#0cafe2'
+          stroke={colors.$precipBorder}
         />
         <Area
           dataKey='lowPrecipProbability'
@@ -97,9 +96,9 @@ const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
         />
         <Area
           dataKey='snowProbability'
-          fillOpacity={0.2}
+          fillOpacity={0.4}
           {...sharedAreaProps}
-          fill='#9645e8'
+          fill={colors.$cold}
           name='Chance of Snow (%)'
         />
       </AreaChart>

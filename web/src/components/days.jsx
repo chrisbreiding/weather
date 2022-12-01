@@ -11,6 +11,7 @@ import {
   YAxis,
 } from 'recharts'
 
+import colors from '../lib/colors'
 import util from '../lib/util'
 import { WeatherIcon } from './weather-icon'
 
@@ -77,7 +78,7 @@ const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
           barGap={0}
           data={chartData}
         >
-          <CartesianGrid stroke='#dfdfdf' />
+          <CartesianGrid stroke={colors.$border} />
           <XAxis
             dataKey='noon'
             type='number'
