@@ -6,8 +6,7 @@ import { fetch } from './persistence'
 import { debugStore } from '../components/debug'
 
 export const CurrentWeather = types.model('CurrentWeather', {
-  summary: types.string,
-  precipProbability: types.number,
+  precipProbability: types.optional(types.number, 0),
   temperature: types.number,
   apparentTemperature: types.number,
   icon: types.string,
@@ -21,7 +20,7 @@ export const CurrentWeather = types.model('CurrentWeather', {
 const Hour = types.model('Hour', {
   time: types.number,
   precipIntensity: types.number,
-  precipProbability: types.number,
+  precipProbability: types.optional(types.number, 0),
   precipType: types.maybeNull(types.string),
   temperature: types.number,
   apparentTemperature: types.number,
@@ -34,11 +33,8 @@ export const HourlyWeather = types.model('HourlyWeather', {
 })
 .views((self) => ({
   get hours () {
-    const [start, end] = [self.startTimestamp, self.endTimestamp]
-
-    return self.data.filter((hour) => {
-      return hour.time >= start && hour.time <= end
-    })
+    // add an hour so the final day ends on 12am
+    return self.data.slice(weatherStore.startDayIndex * 24, weatherStore.endDayIndex * 24 + 1)
   },
 
   get days () {
@@ -100,7 +96,7 @@ export const HourlyWeather = types.model('HourlyWeather', {
   },
 
   get weekStartTimestamp () {
-    const earliestTime = Math.min(...self.data.map((hour) => hour.time))
+    const earliestTime = Math.min(...self.hours.map((hour) => hour.time))
 
     return dayjs.unix(earliestTime).startOf('day').unix()
   },
@@ -137,7 +133,7 @@ const DailyWeather = types.model('DailyWeather', {
 })
 .views((self) => ({
   get days () {
-    return self.data.slice(0, 7)
+    return self.data.slice(weatherStore.startDayIndex, weatherStore.endDayIndex)
   },
 }))
 

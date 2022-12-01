@@ -6,7 +6,7 @@ import Radar from './radar'
 import { WeatherIcon } from './weather-icon'
 
 const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar, updatedTimestamp }) => {
-  const { temperature, apparentTemperature, icon, summary, precipProbabilityPercent } = currentWeather
+  const { temperature, apparentTemperature, icon, precipProbabilityPercent } = currentWeather
 
   return (
     <div className={cs('current', {
@@ -23,7 +23,6 @@ const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar, updatedT
         </div>
         <div className='row'>
           <p className='apparent-temp'>Feels like {Math.round(apparentTemperature)}°F</p>
-          <p className='summary'>{summary}</p>
         </div>
         <p className='precip'>{precipProbabilityPercent}% chance of precip.</p>
       </div>

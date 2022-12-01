@@ -41,7 +41,7 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
         />
         <YAxis tick={<YLabel render={(value) => `${value} mph`} />} axisLine={false} />
         <Tooltip wrapperStyle={{ outline: 'none' }} content={<TooltipContent render={(data) => (
-          <div className='wind'>{`${data.windSpeed} mph`}</div>
+          <div className='wind'>{`${util.toHundredth(data.windSpeed)} mph`}</div>
         )} />} />
         <Legend content={<LegendContent render={() => (
           <div className='legend-item wind-speed'>

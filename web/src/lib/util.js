@@ -166,6 +166,12 @@ export default {
     return (num).toFixed(1).replace('.0', '')
   },
 
+  toHundredth (num) {
+    if (!num) return 0
+
+    return (num).toFixed(2).replace('.00', '').replace(/0$/, '')
+  },
+
   getAlertId (alert) {
     return `${alert.title}${alert.time}${alert.expires}`
   },
