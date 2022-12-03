@@ -79,11 +79,12 @@
 }
 
 .weather-icon.hot {
-  color: $alert;
+  color: $temp;
 
   &.layered-icon {
     svg:first-child {
-      transform: scale(50%) translate(0, 17%);
+      color: $temp;
+      transform: scale(60%) translate(0, 17%);
     }
 
     svg:last-child {
@@ -153,6 +154,31 @@
 }
 
 .weather-icon.snow {
+  &.layered-icon svg:first-child {
+    color: $cloud;
+    transform: scale(80%, 71%) translateY(-26%);
+  }
+
+  &.layered-icon svg:nth-child(2),
+  &.layered-icon svg:nth-child(3),
+  &.layered-icon svg:nth-child(4) {
+    color: $cold;
+  }
+
+  &.layered-icon svg:nth-child(2) {
+    transform: scale(25%) translate(-100%, 140%);
+  }
+
+  &.layered-icon svg:nth-child(3) {
+    transform: scale(25%) translate(0%, 140%);
+  }
+
+  &.layered-icon svg:nth-child(4) {
+    transform: scale(25%) translate(100%, 140%);
+  }
+}
+
+.weather-icon.snowflake {
   color: $cold;
 }
 

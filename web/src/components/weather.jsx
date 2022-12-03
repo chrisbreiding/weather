@@ -2,13 +2,15 @@ import cs from 'classnames'
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 
+import { chartState } from '../lib/chart-state'
+
 import CurrentWeather from './current-weather'
 import Days from './days'
-import TempChart from './temp-chart'
-import PrecipChart from './precip-chart'
-import WindChart from './wind-chart'
 import Loader from './loader'
+import PrecipChart from './precip-chart'
 import Radar from './radar'
+import TempChart from './temp-chart'
+import WindChart from './wind-chart'
 
 const Weather = observer(({ locationStore, weatherStore }) => {
   if (!locationStore.hasCurrent) return null
@@ -31,12 +33,12 @@ const Weather = observer(({ locationStore, weatherStore }) => {
   }
 
   const focusedDay = weatherStore.hourly.focusedDay
-  const minWidth = focusedDay ? 375 : 600
 
   return (
     <div className={cs('weather', {
       'has-focused-day': !!focusedDay,
       'showing-radar': weatherStore.isShowingRadar,
+      'is-loading': chartState.isLoading,
     })}>
       <CurrentWeather
         currentLocation={locationStore.current}
@@ -48,11 +50,10 @@ const Weather = observer(({ locationStore, weatherStore }) => {
         <Days
           hourlyWeather={weatherStore.hourly}
           dailyWeather={weatherStore.daily}
-          onSelectDay={weatherStore.setFocusedDay}
         />
-        <TempChart hourlyWeather={weatherStore.hourly} minWidth={minWidth} />
-        <PrecipChart hourlyWeather={weatherStore.hourly} minWidth={minWidth} />
-        <WindChart hourlyWeather={weatherStore.hourly} minWidth={minWidth} />
+        <TempChart hourlyWeather={weatherStore.hourly} />
+        <PrecipChart hourlyWeather={weatherStore.hourly} />
+        <WindChart hourlyWeather={weatherStore.hourly} />
       </div>
       <Radar
         controls={true}

@@ -62,6 +62,15 @@ const getLatestLocation = async (queue) => {
 export const getInitialWeather = async () => {
   const queue = Queue.create()
 
+  // TODO: remove or improve before pushing to prod
+  const locationMatch = location.pathname.match(/location\/(.*)\/(.*)/)
+
+  if (locationMatch) {
+    const [, lat, lng] = locationMatch
+
+    return setLocation(queue, { lat: lat.replace('_', '.'), lng: lng.replace('_', '.') }, false)
+  }
+
   if (locationStore.hasCurrent) {
     await getWeather(queue, locationStore.current, false)
   }

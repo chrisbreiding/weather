@@ -1,105 +1,76 @@
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import cs from 'classnames'
-import React from 'react'
 import { observer } from 'mobx-react-lite'
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  LabelList,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-} from 'recharts'
+import React from 'react'
 
-import colors from '../lib/colors'
+import { chartState } from '../lib/chart-state'
 import util from '../lib/util'
+
 import { WeatherIcon } from './weather-icon'
 
-const Days = observer(({ hourlyWeather, dailyWeather, onSelectDay }) => {
-  const { focusedDay, weekStartTimestamp, weekEndTimestamp } = hourlyWeather
-  const { days } = dailyWeather
+const precipDetail = (day) => {
+  return day.precipType === 'snow' ?
+    `${util.toTenth(day.precipAccumulation)} in` :
+    `${day.precipProbabilityPercent}%`
+}
 
-  const precipDetail = (day) => {
-    return day.precipType === 'snow' ?
-      `${util.toTenth(day.precipAccumulation)} in` :
-      `${day.precipProbabilityPercent}%`
-  }
-
-  const customLabel = (props) => {
-    const day = days[props.value]
-    const isSnow = day.precipType === 'snow'
-
-    return (
-      <foreignObject
-        className='day-label-container'
-        x={props.x}
-        y={props.y}
-        width={props.width}
-        height={props.height}
-      >
-        <div
-          className={cs('day-label', { 'is-focused': day.time === focusedDay })}
-          onClick={() => onSelectDay(day)}
-        >
-          <div className='date'>
-            {util.getShortDisplayDateFromTimestamp(day.time)}
-          </div>
-          <div className='details'>
-            <span className='temp-min'>{Math.round(day.temperatureLow)}°</span>
-            {' '}|{' '}
-            <span className='temp-max'>{Math.round(day.temperatureHigh)}°</span>
-          </div>
-          <div className='icon'>
-            <WeatherIcon icon={day.icon} adjustForTime={util.isToday(day.time)} size='3x' />
-          </div>
-          <div className={cs('precip', { 'is-snow': isSnow })}>
-            <WeatherIcon icon={isSnow ? 'snowflake' : 'raindrop'} />
-            <span>{precipDetail(day)}</span>
-          </div>
-        </div>
-      </foreignObject>
-    )
-  }
-
-  const chartData = days.map((day, index) => {
-    return {
-      index,
-      value: 20,
-      time: util.getShortDisplayDateFromTimestamp(day.time),
-      noon: util.getNoonFromTimestamp(day.time),
-    }
-  })
+const Day = observer(({ day, hourlyWeather }) => {
+  const { focusedDay } = hourlyWeather
+  const isSnow = day.precipType === 'snow'
 
   return (
-    <div className='days'>
-      <ResponsiveContainer width='100%' minWidth={600} height={145}>
-        <BarChart
-          barCategoryGap={0}
-          barGap={0}
-          data={chartData}
-        >
-          <CartesianGrid stroke={colors.$border} />
-          <XAxis
-            dataKey='noon'
-            type='number'
-            hide={true}
-            domain={[weekStartTimestamp, weekEndTimestamp]}
-            tickSize={0}
-            tickFormatter={() => ''}
-            ticks={days}
-          />
-          <YAxis tick={false} />
-          <Bar dataKey="value" fill="rgba(255, 255, 255, 0)" isAnimationActive={false}>
-            <LabelList
-              dataKey="index"
-              position="inside"
-              content={customLabel}
-            />
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+    <div
+      className={cs('day', { 'is-focused': day.time === focusedDay })}
+      style={{ width: `${chartState.dayWidth}px` }}
+      onClick={() => chartState.setFocusedDay(day)}
+    >
+      <div className='date'>
+        {util.getShortDisplayDateFromTimestamp(day.time)}
+      </div>
+      <div className='details'>
+        <span className='temp-min'>{Math.round(day.temperatureLow)}°</span>
+        {' '}|{' '}
+        <span className='temp-max'>{Math.round(day.temperatureHigh)}°</span>
+      </div>
+      <div className='icon'>
+        <WeatherIcon icon={day.icon} adjustForTime={util.isToday(day.time)} size='3x' />
+      </div>
+      <div className={cs('precip', { 'is-snow': isSnow })}>
+        <WeatherIcon icon={isSnow ? 'snowflake' : 'raindrop'} />
+        <span>{precipDetail(day)}</span>
+      </div>
     </div>
   )
 })
+
+const DaysList = observer(({ dailyWeather, hourlyWeather }) => (
+  <>
+    {dailyWeather.days.map((day) => (
+      <Day key={day.time} day={day} hourlyWeather={hourlyWeather} />
+    ))}
+  </>
+))
+
+const Days = observer(({ hourlyWeather, dailyWeather }) => (
+  <div className='days' style={chartState.chartWidth ? { width: `${chartState.chartWidth}px` } : {}}>
+    {!chartState.isAtStart && (
+      <button className='days-arrow days-arrow-left' onClick={chartState.shiftDaysLeft}>
+        <Icon icon={faAngleLeft} size='2x' />
+      </button>
+    )}
+    <div className='days-scroll-container'>
+      <div className='days-list' style={{ width: `${chartState.dayContainerWidth}px`, transform: `translateX(-${chartState.shiftAmount}px)` }}>
+        <DaysList hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />
+      </div>
+      <div className='left-border' />
+    </div>
+    {!chartState.isAtEnd && (
+      <button className='days-arrow days-arrow-right' onClick={chartState.shiftDaysRight}>
+        <Icon icon={faAngleRight} size='2x' />
+      </button>
+    )}
+  </div>
+))
 
 export default Days

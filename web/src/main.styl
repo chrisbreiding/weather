@@ -71,7 +71,7 @@ header {
 .alerts-badge {
   align-items: center;
   display: none;
-  margin: 0 0.5em;
+  margin-left: 0.5em;
 
   .has-alerts & {
     display: flex;
@@ -497,14 +497,9 @@ header {
       justify-content: center;
       line-height: 1.2;
     }
-
-    .summary {
-      display: none;
-    }
   }
 
-  .apparent-temp,
-  .summary {
+  .apparent-temp {
     font-size: 0.9em;
   }
 
@@ -642,10 +637,6 @@ header {
     }
 
     .row {
-      .summary {
-        display: flex;
-      }
-
       p {
         width: 8rem;
       }
@@ -671,9 +662,7 @@ header {
 
 .charts {
   margin: 0 auto;
-  max-width: 800px;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  padding-right: 2em;
   width: 100%;
 
   .has-focused-day & {
@@ -681,32 +670,66 @@ header {
   }
 }
 
+.days-arrow {
+  padding: 0.4em 2em;
+}
+
 .recharts-wrapper {
   margin-left: -15px; // compensate for too much padding on left
 }
 
 .days {
+  border: solid 1px $border;
+  border-left: none;
+  margin-left: 50px;
   font-size: 0.8em;
+  position: relative;
+
+  .is-loading & {
+    height: 130px;
+
+    .days-list,
+    .days-arrow {
+      display: none;
+    }
+  }
 
   .has-focused-day & {
     overflow-x: scroll;
     overflow-y: hidden;
   }
 
-  .yAxis {
-    display: none;
+  .days-scroll-container {
+    overflow: hidden;
+    position: relative;
+
+    // necessary for the days to line up correctly and to have a full border
+    // when the days are scrolling
+    .left-border {
+      background: $border;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 1px;
+    }
   }
 
-  .day-label {
+  .days-list {
+    display: flex;
+    transition: all 1.5s ease-in-out;
+  }
+
+  .day-label-container {
+    overflow: visible;
+    position: relative;
+  }
+
+  .day {
     border-left: solid 1px $border;
-    bottom: 0;
     cursor: pointer;
-    left: 0;
     padding: 0.4em 0;
-    position: absolute;
-    right: 0;
     text-align: center;
-    top: 0;
 
     &:hover {
       background: #f8f8f8;
@@ -750,8 +773,27 @@ header {
     }
   }
 
-  .day-label-container:first-child .day-label {
-    border-left: none;
+  .days-arrow {
+    background: none;
+    border: none;
+    bottom: 0;
+    color: #9d9d9d;
+    position: absolute;
+    top: 0;
+
+    svg {
+      transform: scaleY(1.5);
+    }
+  }
+
+  .days-arrow-left {
+    padding-right: 0.2em;
+    right: 100%;
+  }
+
+  .days-arrow-right {
+    left: 100%;
+    padding-left: 0.2em;
   }
 }
 

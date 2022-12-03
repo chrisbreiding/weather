@@ -18,12 +18,13 @@ import YLabel from './y-label'
 
 import colors from '../lib/colors'
 import util from '../lib/util'
+import { chartAnimationProps, chartHeight, chartLineProps, chartMinWidth } from '../lib/constants'
 
-const WindChart = observer(({ hourlyWeather, minWidth }) => {
+const WindChart = observer(({ hourlyWeather }) => {
   const { days, startTimestamp, endTimestamp } = hourlyWeather
 
   return (
-    <ResponsiveContainer className='wind-chart' width='100%' minWidth={minWidth} height={170}>
+    <ResponsiveContainer className='wind-chart' width='100%' minWidth={chartMinWidth} height={chartHeight}>
       <LineChart
         data={hourlyWeather.chartData}
         syncId='weather'
@@ -34,6 +35,7 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
           dataKey='time'
           type='number'
           domain={[startTimestamp, endTimestamp]}
+          allowDataOverflow={true}
           axisLine={false}
           tickSize={0}
           tickFormatter={() => ''}
@@ -50,14 +52,11 @@ const WindChart = observer(({ hourlyWeather, minWidth }) => {
           </div>
         )} />} />
         <Line
-          type='linear'
           name='Wind Speed'
           dataKey='windSpeed'
           stroke={colors.$wind}
-          strokeWidth={2}
-          dot={false}
-          activeDot={{ r: 5 }}
-          isAnimationActive={false}
+          {...chartAnimationProps}
+          {...chartLineProps}
         />
       </LineChart>
     </ResponsiveContainer>

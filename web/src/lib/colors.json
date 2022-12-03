@@ -3,13 +3,13 @@
   "$alert": "#b91d1d",
   "$border": "#dfdfdf",
   "$cloud": "#b0b0b0",
-  "$cold": "#b782ec",
-  "$hot": "#f69050",
+  "$cold": "#a98dc5",
+  "$hot": "#f7b58d",
   "$nowLine": "#3b6ea7",
-  "$precip": "#77c8e1",
-  "$precipBorder": "#0cafe2",
+  "$precip": "#9bd7eb",
+  "$precipBorder": "#059ac7",
   "$temp": "#ed5353",
-  "$warm": "#ffde5b",
+  "$warm": "#f7df7f",
   "$wind": "#3b6ea7",
   "$windy": "#d5d5d5"
 }

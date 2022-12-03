@@ -1,9 +1,10 @@
-import { types } from 'mobx-state-tree'
 import dayjs from 'dayjs'
+import { types } from 'mobx-state-tree'
 
-import util from './util'
-import { fetch } from './persistence'
 import { debugStore } from '../components/debug'
+import { chartState } from './chart-state'
+import { fetch } from './persistence'
+import util from './util'
 
 export const CurrentWeather = types.model('CurrentWeather', {
   precipProbability: types.optional(types.number, 0),
@@ -29,16 +30,14 @@ const Hour = types.model('Hour', {
 
 export const HourlyWeather = types.model('HourlyWeather', {
   data: types.array(Hour),
-  focusedDay: types.maybeNull(types.number),
 })
 .views((self) => ({
   get hours () {
-    // add an hour so the final day ends on 12am
-    return self.data.slice(weatherStore.startDayIndex * 24, weatherStore.endDayIndex * 24 + 1)
+    return self.data
   },
 
   get days () {
-    if (self.focusedDay) return []
+    if (chartState.focusedDay) return []
 
     return self.hours
     .filter((hour) => {
@@ -52,7 +51,7 @@ export const HourlyWeather = types.model('HourlyWeather', {
   get chartData () {
     const [start, end] = [self.startTimestamp, self.endTimestamp]
     const isDay = (hour) => util.isBetween(hour.time, start, end)
-    const hours = self.focusedDay ? self.hours.filter(isDay) : self.hours
+    const hours = chartState.focusedDay ? self.hours.filter(isDay) : self.hours
 
     return hours.map((hour) => {
       const isSnow = hour.precipType === 'snow'
@@ -80,16 +79,16 @@ export const HourlyWeather = types.model('HourlyWeather', {
   },
 
   get startTimestamp () {
-    if (self.focusedDay) {
-      return dayjs.unix(self.focusedDay).startOf('day').unix()
+    if (chartState.focusedDay) {
+      return dayjs.unix(chartState.focusedDay).startOf('day').unix()
     }
 
     return self.weekStartTimestamp
   },
 
   get endTimestamp () {
-    if (self.focusedDay) {
-      return dayjs.unix(self.focusedDay).endOf('day').add(1, 'millisecond').unix()
+    if (chartState.focusedDay) {
+      return dayjs.unix(chartState.focusedDay).endOf('day').add(1, 'millisecond').unix()
     }
 
     return self.weekEndTimestamp
@@ -98,18 +97,13 @@ export const HourlyWeather = types.model('HourlyWeather', {
   get weekStartTimestamp () {
     const earliestTime = Math.min(...self.hours.map((hour) => hour.time))
 
-    return dayjs.unix(earliestTime).startOf('day').unix()
+    return dayjs.unix(earliestTime).startOf('day').unix() + ((0 + chartState.startDayIndex) * 60 * 60 * 24)
   },
 
   get weekEndTimestamp () {
-    const latestTime = Math.max(...self.data.map((hour) => hour.time))
+    const latestTime = Math.max(...self.hours.map((hour) => hour.time))
 
-    return dayjs.unix(latestTime).startOf('day').unix()
-  },
-}))
-.actions((self) => ({
-  setFocusedDay (day) {
-    self.focusedDay = day.time === self.focusedDay ? null : day.time
+    return dayjs.unix(latestTime).startOf('day').unix() - ((10 - chartState.endDayIndex) * 60 * 60 * 24)
   },
 }))
 
@@ -133,7 +127,11 @@ const DailyWeather = types.model('DailyWeather', {
 })
 .views((self) => ({
   get days () {
-    return self.data.slice(weatherStore.startDayIndex, weatherStore.endDayIndex)
+    return self.data
+  },
+
+  get lastDayIndex () {
+    return self.days.length
   },
 }))
 
@@ -141,16 +139,20 @@ const alertParagraphRegex = /(\*|\s\.\.\.|\.\.\.\s)/
 
 const Alert = types.model('Alert', {
   title: types.string,
-  description: types.string,
+  messages: types.array(types.string),
   time: types.number,
   expires: types.number,
 })
 .views((self) => ({
   get descriptionParagraphs () {
-    return (self.description || '')
-    .split(alertParagraphRegex)
-    .map((paragraph) => paragraph.trim().replace(/^\.\.?\.?/, ''))
-    .filter((paragraph) => !!paragraph && paragraph !== '*' && paragraph !== '...')
+    return self.messages
+    .map((message) => {
+      return message
+      .split(alertParagraphRegex)
+      .map((paragraph) => paragraph.trim().replace(/^\.\.?\.?/, ''))
+      .filter((paragraph) => !!paragraph && paragraph !== '*' && paragraph !== '...')
+    })
+    .flat()
   },
 }))
 
@@ -160,10 +162,11 @@ const WeatherStore = types.model('WeatherStore', {
   alerts: types.array(Alert),
   currently: types.maybeNull(CurrentWeather),
   daily: types.maybeNull(DailyWeather),
-  error: types.maybeNull(types.string),
   hourly: types.maybeNull(HourlyWeather),
   updatedTimestamp: 0,
   isLoading: true,
+  // TODO: move to chartState? new uiState?
+  error: types.maybeNull(types.string),
   isShowingRadar: false,
 })
 .actions((self) => ({
@@ -192,10 +195,6 @@ const WeatherStore = types.model('WeatherStore', {
     self.alerts = alerts.map((alert) => Alert.create(alert))
 
     self.updatedTimestamp = Date.now()
-  },
-
-  setFocusedDay (day) {
-    self.hourly.setFocusedDay(day)
   },
 
   setLoading (isLoading) {

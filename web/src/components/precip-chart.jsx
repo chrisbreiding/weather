@@ -17,23 +17,23 @@ import TooltipContent from './tooltip-content'
 import YLabel from './y-label'
 
 import colors from '../lib/colors'
+import { chartAnimationProps, chartHeight, chartMinWidth } from '../lib/constants'
 import util from '../lib/util'
 
-
-const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
+const PrecipChart = observer(({ hourlyWeather }) => {
   const { days, startTimestamp, endTimestamp } = hourlyWeather
   const sharedAreaProps = {
     activeDot: false,
     dot: false,
     fill: colors.$precipBorder,
-    isAnimationActive: false,
     name: 'Chance of Precip. (%)',
     stroke: 'transparent',
     type: 'step',
+    ...chartAnimationProps,
   }
 
   return (
-    <ResponsiveContainer className='precip-chart' width='100%' minWidth={minWidth} height={170}>
+    <ResponsiveContainer className='precip-chart' width='100%' minWidth={chartMinWidth} height={chartHeight}>
       <AreaChart
         data={hourlyWeather.chartData}
         syncId='weather'
@@ -44,6 +44,7 @@ const PrecipChart = observer(({ hourlyWeather, minWidth }) => {
           dataKey='time'
           type='number'
           domain={[startTimestamp, endTimestamp]}
+          allowDataOverflow={true}
           axisLine={false}
           tickSize={0}
           tickFormatter={() => ''}
