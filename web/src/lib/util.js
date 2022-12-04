@@ -153,7 +153,7 @@ export default {
   },
 
   isStandalone () {
-    return location.pathname === '/standalone' || window.navigator.standalone
+    return location.pathname.includes('standalone') || window.navigator.standalone
   },
 
   isToday (timestamp) {
