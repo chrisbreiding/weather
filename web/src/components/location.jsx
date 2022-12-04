@@ -1,18 +1,20 @@
+import { faLocationArrow, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import cs from 'classnames'
-import React, { createRef, useEffect } from 'react'
 import { action } from 'mobx'
 import { observer, useLocalObservable } from 'mobx-react-lite'
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faLocationArrow, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
+import React, { createRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { Queue } from '../lib/queue'
-import { setLocation, setUserLocation, searchLocations } from '../lib/data'
+import { setLocationAndWeather, getAndSetUserLocation, searchLocations } from '../lib/data'
 import eventBus from '../lib/event-bus'
 
 import RecentLocation from './recent-location'
 
 const Location = observer(({ locationStore }) => {
   const searchRef = createRef()
+  const navigate = useNavigate()
 
   const state = useLocalObservable(() => ({
     options: [],
@@ -56,7 +58,7 @@ const Location = observer(({ locationStore }) => {
     state.setQuery(e.target.value)
   }
 
-  const getUserLocation = (e) => {
+  const getUserLocation = async (e) => {
     e.preventDefault()
     e.stopPropagation()
 
@@ -64,7 +66,11 @@ const Location = observer(({ locationStore }) => {
 
     state.setOptions([])
 
-    setUserLocation(Queue.create())
+    const path = getAndSetUserLocation(Queue.create())
+
+    if (path) {
+      navigate(path)
+    }
   }
 
   const onFocusQuery = () => {
@@ -98,10 +104,15 @@ const Location = observer(({ locationStore }) => {
     }
   }
 
-  const onLocationChosen = (location) => () => {
+  const onLocationChosen = (location) => async () => {
     state.setOptions([])
     state.setQuery(null)
-    setLocation(Queue.create(), location.placeId, false)
+
+    const path = await setLocationAndWeather(Queue.create(), location.placeId, false)
+
+    if (path) {
+      navigate(path)
+    }
   }
 
   const removeRecentLocation = (location) => (e) => {

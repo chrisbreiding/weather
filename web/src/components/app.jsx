@@ -1,37 +1,25 @@
 import cs from 'classnames'
 import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
-import { getInitialWeather } from '../lib/get-initial-weather'
 import eventBus from '../lib/event-bus'
 import locationStore from '../lib/location-store'
-import util from '../lib/util'
 import weatherStore from '../lib/weather-store'
+import util from '../lib/util'
 
-import { DebugLogs, debugStore } from './debug'
+import { DebugLogs } from './debug'
 import Footer from './footer'
 import Header from './header'
 import Weather from './weather'
+import { Queue } from '../lib/queue'
+import { setLocationAndWeather } from '../lib/data'
 
-const isStandalone = util.isStandalone()
+export const App = ({ isStandalone }) => {
+  const { lat, lng } = useParams()
 
-export const App = () => {
   useEffect(() => {
-    debugStore.log('iStandalone?', isStandalone)
-
-    let initialRun = true
-
-    // receives messages from the iOS wrapper
-    window.__onMessage = (message) => {
-      debugStore.log(`got message: ${message}`)
-      if (message === 'didBecomeActive' && !initialRun) {
-        getInitialWeather()
-      }
-    }
-
-    getInitialWeather().then(() => {
-      initialRun = false
-    })
-  }, [true])
+    setLocationAndWeather(Queue.create(), util.decodeLatLng({ lat, lng }), false)
+  }, [lat, lng])
 
   return (
     <div

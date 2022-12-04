@@ -34,7 +34,7 @@ const getLocationDetails = (placeIdOrLatLng) => {
   return existing ? Promise.resolve(existing) : api.getLocationDetails(placeIdOrLatLng)
 }
 
-export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
+export const setLocationAndWeather = (queue, placeIdOrLatLng, isGeolocated) => {
   if (!placeIdOrLatLng) {
     debugStore.log('no location, do not try to set')
 
@@ -69,7 +69,19 @@ export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
       save('lastLoadedLocation', location)
     }
 
-    return getWeather(queue, newLocation)
+    const locationRegex = /(forecast|standalone)\/?([0-9_-]+)?\/?([0-9_-]+)?/
+    const match = window.location.pathname.match(locationRegex)
+    const existingLocation = match && match[2] && match[3] && util.decodeLatLng({ lat: match[2], lng: match[3] })
+
+    if (existingLocation && util.coordsMatch(existingLocation, newLocation)) {
+      return getAndSetWeather(queue, newLocation).then(() => {
+        return null
+      })
+    } else {
+      queue.finish()
+
+      return `/${(match && match[1]) || 'forecast'}/${util.encodeLatLng(newLocation)}`
+    }
   })
   .catch((error) => {
     if (!queue.canceled) {
@@ -81,15 +93,17 @@ export const setLocation = (queue, placeIdOrLatLng, isGeolocated) => {
   })
 }
 
-export const setDefaultLocation = (queue) => {
+export const setDefaultLocation = () => {
+  const queue = Queue.create()
+
   if (!locationStore.recent.length) {
-    return setUserLocation(queue)
+    return getAndSetUserLocation(queue)
   }
 
-  setLocation(queue, locationStore.recent[0], false)
+  return setLocationAndWeather(queue, locationStore.recent[0], false)
 }
 
-export const setUserLocation = (queue) => {
+export const getAndSetUserLocation = (queue) => {
   locationStore.setLoadingUserLocation(true)
   locationStore.setError(null)
 
@@ -99,11 +113,11 @@ export const setUserLocation = (queue) => {
 
   queue.once('cancel', reset)
 
-  util.getUserLocation()
+  return util.getUserLocation()
   .then((latLng) => {
     if (queue.canceled) return
 
-    setLocation(queue, latLng, true)
+    return setLocationAndWeather(queue, latLng, true)
   })
   .catch((error) => {
     if (queue.canceled) return
@@ -115,7 +129,7 @@ export const setUserLocation = (queue) => {
   })
 }
 
-export const getWeather = async (queue, location, final = true) => {
+export const getAndSetWeather = async (queue, location, final = true) => {
   const reset = () => {
     weatherStore.setLoading(false)
   }
@@ -161,5 +175,5 @@ export const getWeather = async (queue, location, final = true) => {
 }
 
 export const refreshWeather = () => {
-  setLocation(Queue.create(), locationStore.current)
+  setLocationAndWeather(Queue.create(), locationStore.current)
 }

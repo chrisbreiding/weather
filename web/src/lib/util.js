@@ -175,4 +175,19 @@ export default {
   getAlertId (alert) {
     return `${alert.title}${alert.time}${alert.expires}`
   },
+
+  // vite can't handle periods in the url path, so use underscores
+  encodeLatLng (location) {
+    const lat = `${location.lat}`.replace('.', '_')
+    const lng = `${location.lng}`.replace('.', '_')
+
+    return `${lat}/${lng}`
+  },
+
+  decodeLatLng (location) {
+    return {
+      lat: `${location.lat}`.replace('_', '.'),
+      lng: `${location.lng}`.replace('_', '.'),
+    }
+  },
 }

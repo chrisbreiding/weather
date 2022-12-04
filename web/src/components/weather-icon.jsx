@@ -52,6 +52,7 @@ function getIconProps (iconName, adjustForDayNight) {
   // but can't hurt to do this anyway
   if (iconName === 'clear' || iconName === 'partly-cloudy') {
     if (adjustForDayNight) {
+      // TODO: use sunrise/set values for this instead
       const currentHour = dayjs().hour()
       const isDay = currentHour > 6 && currentHour < 20
 
