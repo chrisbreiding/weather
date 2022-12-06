@@ -1,0 +1,23 @@
+{
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "./dist/",
+    "./.history/",
+    "./node_modules/"
+  ],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "importsNotUsedAsValues": "error",
+    "jsx": "react",
+    "module": "commonjs",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2018",
+    "lib": ["ES2019", "DOM"]
+  }
+}
