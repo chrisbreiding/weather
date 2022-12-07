@@ -72,7 +72,7 @@ class DebugStore {
 
   toggle = () => {
     this.active = !this.active
-    save<'debugActive'>('debugActive', this.active)
+    save('debugActive', this.active)
   }
 
   log (...messages: any[]) {
@@ -96,13 +96,13 @@ class DebugStore {
   }
 
   _save () {
-    save<'debugLogs'>('debugLogs', this.logs.map((log) => log.serialize()))
+    save('debugLogs', this.logs.map((log) => log.serialize()))
   }
 }
 
 export const debugStore = new DebugStore({
-  active: fetch<'debugActive'>('debugActive') || false,
-  logs: fetch<'debugLogs'>('debugLogs') || [] as DebugLogProps[],
+  active: fetch('debugActive') || false,
+  logs: fetch('debugLogs') || [] as DebugLogProps[],
 })
 
 function datetimeDisplay (datetime: string) {

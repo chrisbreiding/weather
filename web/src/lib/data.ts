@@ -159,7 +159,7 @@ export const getAndSetWeather = async (queue: Queue, location: Location, final =
     }
 
     if (isStandalone()) {
-      save<'lastLoadedWeather'>('lastLoadedWeather', data)
+      save('lastLoadedWeather', data)
     }
 
     debugStore.log('update weather')
@@ -183,6 +183,8 @@ export const getAndSetWeather = async (queue: Queue, location: Location, final =
   if (!queue.canceled) reset()
 }
 
-export function refreshWeather () {
-  setLocationAndWeather(Queue.create(), locationStore.current)
+export function refreshWeather (queue?: Queue) {
+  if (!locationStore.current) return
+
+  return getAndSetWeather(queue || Queue.create(), locationStore.current)
 }

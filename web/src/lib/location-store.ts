@@ -42,7 +42,7 @@ export class Location {
 }
 
 function getCache () {
-  return fetch<'cachedLocations'>('cachedLocations') || {} as LocationCache
+  return fetch('cachedLocations') || {} as LocationCache
 }
 
 function getExistingFromCache (cache: LocationCache, placeIdOrLatLng: PlaceIdOrLatLng) {
@@ -185,7 +185,7 @@ export class LocationStore {
     if (existing) return
 
     cache[location.placeId] = location.serialize()
-    save<'cachedLocations'>('cachedLocations', cache)
+    save('cachedLocations', cache)
   }
 
   _updateCache (location: Location) {
@@ -195,19 +195,19 @@ export class LocationStore {
     if (!existing) return
 
     cache[location.placeId] = location.serialize()
-    save<'cachedLocations'>('cachedLocations', cache)
+    save('cachedLocations', cache)
   }
 
   _saveRecentLocations () {
-    save<'recentLocations'>('recentLocations', this._recent.map((location) => location.serialize()))
+    save('recentLocations', this._recent.map((location) => location.serialize()))
   }
 }
 
 migrate<'cachedLocations'>('cachedLocations')
 migrate<'recentLocations'>('recentLocations')
 
-const recent = fetch<'recentLocations'>('recentLocations') || []
-const lastLoadedLocation = fetch<'lastLoadedLocation'>('lastLoadedLocation')
+const recent = fetch('recentLocations') || []
+const lastLoadedLocation = fetch('lastLoadedLocation')
 
 export const locationStore = new LocationStore({ recent })
 

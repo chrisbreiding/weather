@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
-import { setLocationAndWeather } from '../lib/data'
+import { refreshWeather, setLocationAndWeather } from '../lib/data'
 import { locationStore } from '../lib/location-store'
 import { Queue } from '../lib/queue'
 import { coordsMatch, getUserLocation } from '../lib/util'
@@ -78,7 +78,11 @@ export const Standalone = () => {
     const path = await getLatestLocation(queue)
 
     if (path) {
+      // new user location - weather will be loaded in app component because
+      // of lat/lng change
       navigate(path)
+    } else {
+      await refreshWeather(queue)
     }
 
     queue.finish()

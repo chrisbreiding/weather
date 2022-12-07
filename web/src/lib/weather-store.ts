@@ -82,12 +82,7 @@ export class WeatherStore {
 }
 
 export const weatherStore = new WeatherStore()
-const lastLoadedWeather = fetch<'lastLoadedWeather'>('lastLoadedWeather')
-
-// @ts-ignore
-window.setWeather = action(() => {
-  weatherStore.currently!.temperature = 20
-})
+const lastLoadedWeather = fetch('lastLoadedWeather')
 
 if (util.isStandalone() && lastLoadedWeather) {
   debugStore.log('load last weather')
