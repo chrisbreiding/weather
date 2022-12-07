@@ -11,15 +11,15 @@ class DebugLog {
   messages: string[]
 
   constructor ({ datetime, messages }: DebugLogProps) {
+    this.datetime = datetime
+    this.messages = messages
+
     makeObservable(this, {
       datetime: observable,
       messages: observable,
 
       message: computed,
     })
-
-    this.datetime = datetime
-    this.messages = messages
   }
 
   get message () {
@@ -44,6 +44,9 @@ class DebugStore {
   logs: DebugLog[]
 
   constructor ({ active, logs }: DebugStoreProps) {
+    this.active = active
+    this.logs = logs.map((logProps) => new DebugLog(logProps))
+
     makeObservable(this, {
       active: observable,
       logs: observable,
@@ -55,9 +58,6 @@ class DebugStore {
       log: action,
       toggle: action,
     })
-
-    this.active = active
-    this.logs = logs.map((logProps) => new DebugLog(logProps))
   }
 
   get hasLogs () {

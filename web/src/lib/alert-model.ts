@@ -16,6 +16,11 @@ export class Alert {
   expires: number
 
   constructor (props: AlertProps) {
+    this.title = props.title
+    this.messages = props.messages
+    this.time = props.time
+    this.expires = props.expires
+
     makeObservable(this, {
       title: observable,
       messages: observable,
@@ -25,11 +30,6 @@ export class Alert {
       id: computed,
       descriptionParagraphs: computed,
     })
-
-    this.title = props.title
-    this.messages = props.messages
-    this.time = props.time
-    this.expires = props.expires
   }
 
   get id () {

@@ -21,6 +21,14 @@ export class Day {
   temperatureHigh: number
 
   constructor (props: DayProps) {
+    this.time = props.time
+    this.icon = props.icon
+    this.precipProbability = props.precipProbability
+    this.precipAccumulation = props.precipAccumulation
+    this.precipType = props.precipType
+    this.temperatureLow = props.temperatureLow
+    this.temperatureHigh = props.temperatureHigh
+
     makeObservable(this, {
       time: observable,
       icon: observable,
@@ -32,14 +40,6 @@ export class Day {
 
       precipProbabilityPercent: computed,
     })
-
-    this.time = props.time
-    this.icon = props.icon
-    this.precipProbability = props.precipProbability
-    this.precipAccumulation = props.precipAccumulation
-    this.precipType = props.precipType
-    this.temperatureLow = props.temperatureLow
-    this.temperatureHigh = props.temperatureHigh
   }
 
   get precipProbabilityPercent () {
@@ -51,13 +51,13 @@ export class DailyWeather {
   days: Day[]
 
   constructor ({ days }: { days: DayProps[] }) {
+    this.days = days.map((dayProps) => new Day(dayProps))
+
     makeObservable(this, {
       days: observable,
 
       lastDayIndex: computed,
     })
-
-    this.days = days.map((dayProps) => new Day(dayProps))
   }
 
   get lastDayIndex () {

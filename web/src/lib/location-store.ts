@@ -11,6 +11,12 @@ export class Location {
   placeId: string
 
   constructor (props: LocationProps) {
+    this.description = props.description
+    this.isGeolocated = props.isGeolocated
+    this.lat = props.lat
+    this.lng = props.lng
+    this.placeId = props.placeId
+
     makeObservable(this, {
       description: observable,
       isGeolocated: observable,
@@ -18,12 +24,6 @@ export class Location {
       lng: observable,
       placeId: observable,
     })
-
-    this.description = props.description
-    this.isGeolocated = props.isGeolocated
-    this.lat = props.lat
-    this.lng = props.lng
-    this.placeId = props.placeId
   }
 
   serialize () {
@@ -69,6 +69,8 @@ export class LocationStore {
   current?: Location
 
   constructor ({ recent }: LocationStoreProps) {
+    this._recent = recent.map((location) => new Location(location))
+
     makeObservable(this, {
       current: observable,
       error: observable,
@@ -96,8 +98,6 @@ export class LocationStore {
       _saveRecentLocations: action,
       _updateCache: action,
     })
-
-    this._recent = recent.map((location) => new Location(location))
   }
 
   get isLoading () {

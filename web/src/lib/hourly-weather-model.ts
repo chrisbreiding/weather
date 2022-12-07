@@ -23,6 +23,14 @@ class Hour {
   windSpeed: number
 
   constructor (props: HourProps) {
+    this.apparentTemperature = props.apparentTemperature
+    this.precipIntensity = props.precipIntensity
+    this.precipProbability = props.precipProbability
+    this.precipType = props.precipType
+    this.temperature = props.temperature
+    this.time = props.time
+    this.windSpeed = props.windSpeed
+
     makeObservable(this, {
       apparentTemperature: observable,
       precipIntensity: observable,
@@ -32,14 +40,6 @@ class Hour {
       time: observable,
       windSpeed: observable,
     })
-
-    this.apparentTemperature = props.apparentTemperature
-    this.precipIntensity = props.precipIntensity
-    this.precipProbability = props.precipProbability
-    this.precipType = props.precipType
-    this.temperature = props.temperature
-    this.time = props.time
-    this.windSpeed = props.windSpeed
   }
 }
 
@@ -47,6 +47,8 @@ export class HourlyWeather {
   hours: Hour[]
 
   constructor ({ hours }: { hours: HourProps[] }) {
+    this.hours = hours.map((hourProps) => new Hour(hourProps))
+
     makeObservable(this, {
       hours: observable,
 
@@ -57,8 +59,6 @@ export class HourlyWeather {
       weekStartTimestamp: computed,
       weekEndTimestamp: computed,
     })
-
-    this.hours = hours.map((hourProps) => new Hour(hourProps))
   }
 
   get days () {

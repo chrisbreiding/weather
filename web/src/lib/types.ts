@@ -6,7 +6,7 @@ import type { HourProps } from './hourly-weather-model'
 declare global {
   interface Window {
     __onMessage?: (message: string) => void
-    __onUserLocation?: (location?: GeolocationCoordinates) => void
+    __onUserLocation?: (location?: { latitude: number, longitude: number }) => void
     webkit: {
       messageHandlers: {
         bus: {

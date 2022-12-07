@@ -15,6 +15,11 @@ export class CurrentWeather {
   temperature: number
 
   constructor (props: CurrentWeatherProps) {
+    this.apparentTemperature = props.apparentTemperature
+    this.icon = props.icon
+    this.precipProbability = props.precipProbability
+    this.temperature = props.temperature
+
     makeObservable(this, {
       apparentTemperature: observable,
       icon: observable,
@@ -23,11 +28,6 @@ export class CurrentWeather {
 
       precipProbabilityPercent: computed,
     })
-
-    this.apparentTemperature = props.apparentTemperature
-    this.icon = props.icon
-    this.precipProbability = props.precipProbability
-    this.temperature = props.temperature
   }
 
   get precipProbabilityPercent () {

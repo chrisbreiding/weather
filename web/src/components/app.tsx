@@ -22,9 +22,6 @@ export const App = ({ isStandalone }: AppProps) => {
 
   useEffect(() => {
     setLocationAndWeather(Queue.create(), { lat: Number(lat), lng: Number(lng) }, false)
-    .catch((err) => {
-      console.log(err)
-    })
   }, [lat, lng])
 
   return (
