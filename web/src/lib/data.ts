@@ -178,9 +178,9 @@ export const getAndSetWeather = async (queue: Queue, location: Location, final =
       queue.finish()
       weatherStore.setError(error)
     }
+  } finally {
+    if (!queue.canceled) reset()
   }
-
-  if (!queue.canceled) reset()
 }
 
 export function refreshWeather (queue?: Queue) {
