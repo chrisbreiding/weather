@@ -1,5 +1,6 @@
 import {
   faCircle,
+  faCircleMinus,
   faCircleQuestion,
   faCloud,
   faCloudBolt,
@@ -30,7 +31,7 @@ const iconMap = {
   'cloudy': { icon: faCloud, className: 'cloud', layers: 2 },
   'fog': { icon: faSmog, className: 'fog', layers: 2 },
   'hot': { icon: [faCircle, faFire], className: 'hot' },
-  'hurricane': { icon: faHurricane, className: 'hurricane', layers: 2 },
+  'hurricane': { icon: faHurricane, className: 'hurricane', layers: 3 },
   'partly-cloudy:day': { icon: faCloudSun, className: 'partly-cloudy-day', layers: 3 },
   'partly-cloudy:night': { icon: faCloudMoon, className: 'partly-cloudy-night', layers: 2 },
   'rain': { icon: faCloudRain, className: 'rain', layers: 2 },
@@ -42,7 +43,7 @@ const iconMap = {
   'tornado': { icon: faTornado, className: 'tornado', layers: 2 },
   'wind': { icon: faWind, className: 'wind', layers: 2 },
 
-  'default': { icon: faCircleQuestion, className: 'default' },
+  'default': { icon: faCircleMinus, className: 'default' },
 }
 
 export type IconName = 'blizzard' | 'clear' | 'clear:day' | 'clear:night' | 'cloudy' | 'fog' | 'hot' | 'hurricane' | 'partly-cloudy' | 'partly-cloudy:day' | 'partly-cloudy:night' | 'rain' | 'raindrop' | 'sleet' | 'snow' | 'snowflake' | 'storm' | 'tornado' | 'wind' | 'default'
@@ -74,7 +75,7 @@ function getIconProps (iconName: IconName, adjustForDayNight: boolean): IconProp
   return iconMap[iconName as keyof typeof iconMap] || iconMap.default
 }
 
-interface WeatherIconProps extends Partial<FontAwesomeIconProps> {
+export interface WeatherIconProps extends Partial<FontAwesomeIconProps> {
   adjustForTime?: boolean
   iconName: IconName
 }
