@@ -6,7 +6,7 @@ import eventBus from '../lib/event-bus'
 import { locationStore } from '../lib/location-store'
 import { weatherStore } from '../lib/weather-store'
 
-import { DebugLogs } from './debug'
+import { DebugLogs, debugStore } from './debug'
 import { Footer } from './footer'
 import { Header } from './header'
 import { Weather } from './weather'
@@ -21,6 +21,8 @@ export const App = ({ isStandalone }: AppProps) => {
   const { lat, lng } = useParams() as { lat: string, lng: string }
 
   useEffect(() => {
+    debugStore.log('url:', window.location.href)
+
     setLocationAndWeather(Queue.create(), { lat: Number(lat), lng: Number(lng) }, false)
   }, [lat, lng])
 
