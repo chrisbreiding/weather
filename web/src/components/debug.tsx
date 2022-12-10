@@ -105,8 +105,12 @@ export const debugStore = new DebugStore({
   logs: fetch('debugLogs') || [] as DebugLogProps[],
 })
 
-function datetimeDisplay (datetime: string) {
-  return datetime
+export function stringify (nonString: any) {
+  return JSON.stringify(nonString, null, 2)
+}
+
+function datetimeDisplay (datetime?: string) {
+  return (datetime || '<unknown>')
   .replace(/^\d{4}-\d{2}-\d{2}T/, '')
   .replace(/\.\d+Z$/, '')
 }

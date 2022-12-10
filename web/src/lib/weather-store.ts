@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx'
 
-import { debugStore } from '../components/debug'
+import { debugStore, stringify } from '../components/debug'
 import { Alert } from './alert-model'
 import { CurrentWeather } from './current-weather-model'
 import { DailyWeather } from './daily-weather-model'
@@ -8,8 +8,6 @@ import { HourlyWeather } from './hourly-weather-model'
 import { fetch } from './persistence'
 import type { SourceWeather } from './types'
 import * as util from './util'
-
-const str = (value: any) => JSON.stringify(value, null, 2)
 
 export class WeatherStore {
   alerts: Alert[] = []
@@ -42,10 +40,10 @@ export class WeatherStore {
   }
 
   update ({ currently, hourly, daily, alerts = [] }: SourceWeather) {
-    debugStore.log('currently:', str(currently))
-    debugStore.log('hourly:', str(hourly))
-    debugStore.log('daily:', str(daily))
-    debugStore.log('alerts:', str(alerts))
+    debugStore.log('currently:', stringify(currently))
+    debugStore.log('hourly:', stringify(hourly))
+    debugStore.log('daily:', stringify(daily))
+    debugStore.log('alerts:', stringify(alerts))
 
     this.currently = new CurrentWeather(currently)
     this.hourly = new HourlyWeather({ hours: hourly.data })
