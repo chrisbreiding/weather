@@ -14,8 +14,8 @@ interface RadarProps {
   zoom?: number
 }
 
-export const Radar = ({ location, onOpen, onClose, updatedTimestamp = 0, controls = false, zoom = 6 }: RadarProps) => {
-  const src = `https://maps.darksky.net/@radar,${location},${zoom}?fieldControl=${controls}&domain=${encodeURI(window.location.href)}&auth=1538703242_bbabefdbd4a3f1aa368ac46db3499950&embed=true&timeControl=false&defaultField=radar&__t=${updatedTimestamp}`
+export const Radar = ({ location, onOpen, onClose, updatedTimestamp = 0, controls = false, zoom = 7 }: RadarProps) => {
+  const src = `https://openweathermap.org/weathermap?basemap=map&cities=false&layer=radar&lat=${location.lat}&lon=${location.lng}&zoom=${zoom}&__t=${updatedTimestamp}`
 
   return (
     <div className={cs('radar', { 'with-controls': controls })}>
