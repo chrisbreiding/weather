@@ -5,19 +5,19 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 import { chartState } from '../lib/chart-state'
-import type { DailyWeather, Day as DayModel } from '../lib/daily-weather-model'
+import type { DailyWeather, Day as DayModel, NullDailyWeather, NullDay } from '../lib/daily-weather-model'
 import { getShortDisplayDateFromTimestamp, isToday, toTenth } from '../lib/util'
 
 import { WeatherIcon } from './weather-icon'
 
-const precipDetail = (day: DayModel) => {
+const precipDetail = (day: DayModel | NullDay) => {
   return day.precipType === 'snow' ?
-    `${toTenth(day.precipAccumulation)} in` :
+    `${day.precipAccumulation} in` :
     `${day.precipProbabilityPercent}%`
 }
 
 interface DayProps {
-  day: DayModel
+  day: DayModel | NullDay
 }
 
 const Day = observer(({ day }: DayProps) => {
@@ -34,9 +34,9 @@ const Day = observer(({ day }: DayProps) => {
         {getShortDisplayDateFromTimestamp(day.time)}
       </div>
       <div className='details'>
-        <span className='temp-min'>{Math.round(day.temperatureLow)}°</span>
+        <span className='temp-min'>{day.temperatureLow}°</span>
         {' '}|{' '}
-        <span className='temp-max'>{Math.round(day.temperatureHigh)}°</span>
+        <span className='temp-max'>{day.temperatureHigh}°</span>
       </div>
       <div className='icon'>
         <WeatherIcon iconName={day.icon} adjustForTime={isToday(day.time)} size='3x' />
@@ -50,7 +50,7 @@ const Day = observer(({ day }: DayProps) => {
 })
 
 interface DailyProps {
-  dailyWeather: DailyWeather
+  dailyWeather: DailyWeather | NullDailyWeather
 }
 
 const DaysList = observer(({ dailyWeather }: DailyProps) => (

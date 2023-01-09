@@ -17,7 +17,7 @@ interface FooterProps {
 }
 
 export const Footer = observer(({ weatherStore }: FooterProps) => {
-  if (!isStandalone() || weatherStore.isLoading) return null
+  if (!isStandalone()) return null
 
   return (
     <div className='footer'>

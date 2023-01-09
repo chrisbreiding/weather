@@ -5,6 +5,7 @@
   "$cloud": "#b0b0b0",
   "$cold": "#a98dc5",
   "$hot": "#f7b58d",
+  "$lightest": "#fff",
   "$nowLine": "#3b6ea7",
   "$precip": "#9bd7eb",
   "$precipBorder": "#059ac7",

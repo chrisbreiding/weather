@@ -14,14 +14,14 @@ import {
 
 import colors from '../lib/colors.json'
 import { chartAnimationProps, chartHeight, chartLineProps, chartMinWidth } from '../lib/constants'
-import type { HourlyWeather } from '../lib/hourly-weather-model'
+import type { HourlyWeather, NullHourlyWeather } from '../lib/hourly-weather-model'
 import { currentTimestamp, toHundredth } from '../lib/util'
 import { LegendContent } from './legend-content'
 import { TooltipContent } from './tooltip-content'
 import { YLabel } from './y-label'
 
 interface WindChartProps {
-  hourlyWeather: HourlyWeather
+  hourlyWeather: HourlyWeather | NullHourlyWeather
 }
 
 export const WindChart = observer(({ hourlyWeather }: WindChartProps) => {

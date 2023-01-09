@@ -88,7 +88,7 @@ header {
     background: $alert;
     border-radius: 50%;
     border: none;
-    color: #fff;
+    color: $lightest;
     display: flex;
     font-size: 1em;
     height: 2em;
@@ -97,10 +97,6 @@ header {
 
     &:hover {
       background: darken($alert, 10%);
-    }
-
-    .is-standalone &:hover {
-      background: $alert;
     }
   }
 }
@@ -123,7 +119,7 @@ header {
     align-items: center;
     background: #666;
     border: none;
-    color: #fff;
+    color: $lightest;
     display: flex;
     font-size: 1em;
     outline: none;
@@ -209,7 +205,7 @@ header {
   }
 
   ul {
-    background: #fff;
+    background: $lightest;
     border: solid 1px $border;
     border-top: none;
     box-shadow: 0 0 0.4em rgba(0, 0, 0, 0.1);
@@ -329,6 +325,7 @@ header {
     position: absolute;
     right: 0;
     top: 100%;
+    z-index: 10;
   }
 
   &.has-error .location-error {
@@ -359,7 +356,7 @@ header {
 
   .alert-title {
     background: $alert;
-    color: #fff;
+    color: $lightest;
     align-items: stretch;
     display: flex;
 
@@ -382,7 +379,7 @@ header {
       background: none;
       border: none;
       border-left: solid 1px darken($alert, 20%);
-      color: #fff;
+      color: $lightest;
       font-size: 1em;
       outline: none;
 
@@ -548,6 +545,7 @@ header {
   position: relative;
 
   .radar-container {
+    background: $windy;
     height: 10em;
     overflow: hidden;
     position: relative;
@@ -564,8 +562,9 @@ header {
   }
 
   .radar-cover {
-    border: solid 1em #fff;
+    border: solid 1em $lightest;
     border-radius: 1.5em;
+    box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.3);
     bottom: -0.7em;
     cursor: pointer;
     left: -0.7em;
@@ -574,14 +573,14 @@ header {
     top: -0.7em;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.6);
     }
   }
 
   button {
     align-items: center;
     background: #333;
-    border: solid 2px #fff;;
+    border: solid 2px $lightest;;
     border-radius: 50%;
     display: none;
     height: 3.5em;
@@ -596,7 +595,7 @@ header {
     }
 
     .icon {
-      color: #fff;
+      color: $lightest;
       font-size: 2em;
     }
   }
@@ -813,7 +812,7 @@ header {
 }
 
 .tooltip {
-  background: #FFF;
+  background: $lightest;
   border-radius: 3px;
   border: solid 1px #d3d3d3;
   font-size: 0.8em;

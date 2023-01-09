@@ -1,6 +1,6 @@
 import cs from 'classnames'
 import React from 'react'
-import type { CurrentWeather as CurrentWeatherModel } from '../lib/current-weather-model'
+import type { CurrentWeather as CurrentWeatherModel, NullCurrentWeather } from '../lib/current-weather-model'
 
 import { refreshWeather } from '../lib/data'
 import type { Location } from '../lib/location-store'
@@ -8,8 +8,8 @@ import { Radar } from './radar'
 import { WeatherIcon } from './weather-icon'
 
 interface CurrentWeatherProps {
-  currentLocation: Location
-  currentWeather: CurrentWeatherModel
+  currentLocation?: Location
+  currentWeather: CurrentWeatherModel | NullCurrentWeather
   onShowRadar: () => void
   updatedTimestamp: number
 }
@@ -25,13 +25,12 @@ export const CurrentWeather = ({ currentLocation, currentWeather, onShowRadar, u
       <div>
         <div className='row'>
           <p className='temp'>
-            {Math.round(temperature)}
-            <span className='degrees'>°F</span>
+            {temperature}<span className='degrees'>°F</span>
           </p>
           <WeatherIcon iconName={icon} size='4x' onClick={() => refreshWeather()} />
         </div>
         <div className='row'>
-          <p className='apparent-temp'>Feels like {Math.round(apparentTemperature)}°F</p>
+          <p className='apparent-temp'>Feels like {apparentTemperature}°F</p>
         </div>
         <p className='precip'>{precipProbabilityPercent}% chance of precip.</p>
       </div>

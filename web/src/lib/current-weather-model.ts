@@ -1,6 +1,13 @@
 import { computed, makeObservable, observable } from 'mobx'
 import type { IconName } from '../components/weather-icon'
 
+export class NullCurrentWeather {
+  apparentTemperature = '--'
+  icon = 'default' as const
+  temperature = '--'
+  precipProbabilityPercent = '--'
+}
+
 export interface CurrentWeatherProps {
   apparentTemperature: number
   icon: IconName
@@ -15,10 +22,10 @@ export class CurrentWeather {
   temperature: number
 
   constructor (props: CurrentWeatherProps) {
-    this.apparentTemperature = props.apparentTemperature
+    this.apparentTemperature = Math.round(props.apparentTemperature)
     this.icon = props.icon
     this.precipProbability = props.precipProbability
-    this.temperature = props.temperature
+    this.temperature = Math.round(props.temperature)
 
     makeObservable(this, {
       apparentTemperature: observable,

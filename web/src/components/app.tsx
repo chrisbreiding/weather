@@ -12,12 +12,9 @@ import { Header } from './header'
 import { Weather } from './weather'
 import { Queue } from '../lib/queue'
 import { setLocationAndWeather } from '../lib/data'
+import { isStandalone } from '../lib/util'
 
-interface AppProps {
-  isStandalone: boolean
-}
-
-export const App = ({ isStandalone }: AppProps) => {
+export const App = () => {
   const { lat, lng } = useParams() as { lat: string, lng: string }
 
   useEffect(() => {
@@ -28,7 +25,7 @@ export const App = ({ isStandalone }: AppProps) => {
 
   return (
     <div
-      className={cs('app', { 'is-standalone': isStandalone })}
+      className={cs('app', { 'is-standalone': isStandalone() })}
       onClick={() => eventBus.emit('global:click')}
     >
       <Header locationStore={locationStore} weatherStore={weatherStore} />

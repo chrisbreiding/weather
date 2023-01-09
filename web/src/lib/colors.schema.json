@@ -3,9 +3,10 @@
   "properties": {
     "$alert": { "format": "color-hex" },
     "$border": { "format": "color-hex" },
-    "$cold": { "format": "color-hex" },
     "$cloud": { "format": "color-hex" },
+    "$cold": { "format": "color-hex" },
     "$hot": { "format": "color-hex" },
+    "$lightest": { "format": "color-hex" },
     "$nowLine": { "format": "color-hex" },
     "$precip": { "format": "color-hex" },
     "$precipBorder": { "format": "color-hex" },

@@ -1,39 +1,38 @@
 import { action, makeObservable, observable } from 'mobx'
 
-import { debugStore, stringify } from '../components/debug'
+import { debugStore } from '../components/debug'
 import { Alert } from './alert-model'
-import { CurrentWeather } from './current-weather-model'
-import { DailyWeather } from './daily-weather-model'
-import { HourlyWeather } from './hourly-weather-model'
+import { CurrentWeather, NullCurrentWeather } from './current-weather-model'
+import { DailyWeather, NullDailyWeather } from './daily-weather-model'
+import { HourlyWeather, NullHourlyWeather } from './hourly-weather-model'
 import { fetch } from './persistence'
 import type { SourceWeather } from './types'
-import * as util from './util'
+import { isStandalone } from './util'
 
 export class WeatherStore {
   alerts: Alert[] = []
-  currently?: CurrentWeather
-  daily?: DailyWeather
-  hourly?: HourlyWeather
-  updatedTimestamp = 0
-  isLoading = true
-
-  // TODO: move to chartState? new uiState?
+  currently: CurrentWeather | NullCurrentWeather
+  daily: DailyWeather | NullDailyWeather
   error?: string
+  hourly: HourlyWeather | NullHourlyWeather
   isShowingRadar = false
+  updatedTimestamp = 0
 
   constructor () {
+    this.currently = new NullCurrentWeather()
+    this.daily = new NullDailyWeather()
+    this.hourly = new NullHourlyWeather()
+
     makeObservable(this, {
       alerts: observable,
       currently: observable,
       daily: observable,
       hourly: observable,
       updatedTimestamp: observable,
-      isLoading: observable,
       error: observable,
       isShowingRadar: observable,
 
       update: action,
-      setLoading: action,
       setShowingRadar: action,
       setError: action,
     })
@@ -44,11 +43,14 @@ export class WeatherStore {
     debugStore.log('hourly:', stringify(hourly))
     debugStore.log('daily:', stringify(daily))
     debugStore.log('alerts:', stringify(alerts))
+    // debugStore.log('currently:', stringify(currently))
+    // debugStore.log('hourly:', stringify(hourly))
+    // debugStore.log('daily:', stringify(daily))
+    // debugStore.log('alerts:', stringify(alerts))
 
     this.currently = new CurrentWeather(currently)
     this.hourly = new HourlyWeather({ hours: hourly.data })
     this.daily = new DailyWeather({ days: daily.data })
-    this.isLoading = false
 
     const alertIds: { [key: string]: boolean } = {}
 
@@ -66,10 +68,6 @@ export class WeatherStore {
     this.updatedTimestamp = Date.now()
   }
 
-  setLoading (isLoading: boolean) {
-    this.isLoading = isLoading
-  }
-
   setShowingRadar (isShowingRadar: boolean) {
     this.isShowingRadar = isShowingRadar
   }
@@ -82,7 +80,7 @@ export class WeatherStore {
 export const weatherStore = new WeatherStore()
 const lastLoadedWeather = fetch('lastLoadedWeather')
 
-if (util.isStandalone() && lastLoadedWeather) {
+if (isStandalone() && lastLoadedWeather) {
   debugStore.log('load last weather')
   weatherStore.update(lastLoadedWeather)
 }

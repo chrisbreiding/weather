@@ -6,7 +6,6 @@ import { chartState } from '../lib/chart-state'
 
 import { CurrentWeather } from './current-weather'
 import { Days } from './days'
-import { Loader } from './loader'
 import { PrecipChart } from './precip-chart'
 import { Radar } from './radar'
 import { TempChart } from './temp-chart'
@@ -20,8 +19,6 @@ interface WeatherProps {
 }
 
 export const Weather = observer(({ locationStore, weatherStore }: WeatherProps) => {
-  if (!locationStore.hasCurrent) return null
-
   if (weatherStore.error) {
     return (
       <div className='weather-error'>
@@ -29,10 +26,6 @@ export const Weather = observer(({ locationStore, weatherStore }: WeatherProps) 
         <pre className='error-message'>{weatherStore.error}</pre>
       </div>
     )
-  }
-
-  if (weatherStore.isLoading) {
-    return <Loader />
   }
 
   const setShowingRadar = (showingRadar: boolean) => () => {
@@ -48,16 +41,16 @@ export const Weather = observer(({ locationStore, weatherStore }: WeatherProps) 
       'is-loading': chartState.isLoading,
     })}>
       <CurrentWeather
-        currentLocation={locationStore.current!}
-        currentWeather={weatherStore.currently!}
+        currentLocation={locationStore.current}
+        currentWeather={weatherStore.currently}
         updatedTimestamp={weatherStore.updatedTimestamp}
         onShowRadar={setShowingRadar(true)}
       />
       <div className='charts'>
-        <Days dailyWeather={weatherStore.daily!} />
-        <TempChart hourlyWeather={weatherStore.hourly!} />
-        <PrecipChart hourlyWeather={weatherStore.hourly!} />
-        <WindChart hourlyWeather={weatherStore.hourly!} />
+        <Days dailyWeather={weatherStore.daily} />
+        <TempChart hourlyWeather={weatherStore.hourly} />
+        <PrecipChart hourlyWeather={weatherStore.hourly} />
+        <WindChart hourlyWeather={weatherStore.hourly} />
       </div>
       <Radar
         controls={true}

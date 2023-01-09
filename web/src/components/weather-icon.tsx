@@ -1,7 +1,6 @@
 import {
   faCircle,
   faCircleMinus,
-  faCircleQuestion,
   faCloud,
   faCloudBolt,
   faCloudMoon,

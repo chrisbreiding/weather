@@ -26,9 +26,9 @@ const Main = () => (
     <Routes>
       <Route path='/icons' element={<IconPreview />} />
       <Route path='/standalone' element={<Standalone />}>
-        <Route path=':lat/:lng' element={<App isStandalone={isStandalone} />} />
+        <Route path=':lat/:lng' element={<App />} />
       </Route>
-      <Route path='/forecast/:lat/:lng' element={<App isStandalone={isStandalone} />} />
+      <Route path='/forecast/:lat/:lng' element={<App />} />
       <Route path='*' element={<NoLocation />} />
     </Routes>
   </Router>

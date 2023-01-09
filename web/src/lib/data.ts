@@ -1,4 +1,4 @@
-import { debugStore } from '../components/debug'
+import { debugStore, stringify } from '../components/debug'
 import {
   getLocationDetails as getRemoteLocationDetails,
   getWeather,
@@ -56,13 +56,19 @@ export async function setLocationAndWeather (queue: Queue, placeIdOrLatLng?: Pla
     locationStore.setLoadingLocationDetails(false)
   }
 
-  debugStore.log('get location details')
+  debugStore.log('get location details for:', stringify(placeIdOrLatLng))
 
   try {
     const location = await getLocationDetails(placeIdOrLatLng)
 
-    if (!location || queue.canceled) {
-      debugStore.log(location ? 'got location details, but queue canceled' : 'no location details found')
+    if (!location) {
+      debugStore.log('no location details found')
+
+      return
+    }
+
+    if (queue.canceled) {
+      debugStore.log('got location details, but queue canceled')
 
       return
     }
@@ -139,12 +145,6 @@ export const getAndSetUserLocation = (queue: Queue) => {
 }
 
 export const getAndSetWeather = async (queue: Queue, location: Location, final = true) => {
-  const reset = () => {
-    weatherStore.setLoading(false)
-  }
-
-  queue.once('cancel', reset)
-
   debugStore.log('get weather for', location.toString())
 
   weatherStore.setError(undefined)
@@ -178,8 +178,6 @@ export const getAndSetWeather = async (queue: Queue, location: Location, final =
       queue.finish()
       weatherStore.setError(error)
     }
-  } finally {
-    if (!queue.canceled) reset()
   }
 }
 

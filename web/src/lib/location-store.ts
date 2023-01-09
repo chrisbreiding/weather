@@ -4,7 +4,7 @@ import { action, computed, makeObservable, observable } from 'mobx'
 import type { LocationCache, LocationProps, PlaceIdOrLatLng } from './types'
 
 export class Location {
-  description = ''
+  description = '---'
   isGeolocated = false
   lat: number
   lng: number

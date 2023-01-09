@@ -7,7 +7,7 @@ import type { Location } from '../lib/location-store'
 
 interface RadarProps {
   controls?: boolean
-  location: Location
+  location?: Location
   onClose?: () => void
   onOpen?: () => void
   updatedTimestamp?: number
@@ -15,6 +15,15 @@ interface RadarProps {
 }
 
 export const Radar = ({ location, onOpen, onClose, updatedTimestamp = 0, controls = false, zoom = 7 }: RadarProps) => {
+  if (!location) {
+    return (
+      <div className='radar empty'>
+        <div className='radar-container' />
+        <div className='radar-cover' />
+      </div>
+    )
+  }
+
   const src = `https://openweathermap.org/weathermap?basemap=map&cities=false&layer=radar&lat=${location.lat}&lon=${location.lng}&zoom=${zoom}&__t=${updatedTimestamp}`
 
   return (
@@ -23,7 +32,7 @@ export const Radar = ({ location, onOpen, onClose, updatedTimestamp = 0, control
         <iframe src={src} />
       </div>
       {onOpen && <div className='radar-cover' onClick={onOpen} />}
-      { onClose && (
+      {onClose && (
         <button className='radar-close' onClick={onClose}>
           <Icon className='icon' icon={faXmark} />
         </button>
