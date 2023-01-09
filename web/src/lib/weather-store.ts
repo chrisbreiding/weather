@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx'
 
-import { debugStore } from '../components/debug'
+import { debugStore, stringify } from '../components/debug'
 import { Alert } from './alert-model'
 import { CurrentWeather, NullCurrentWeather } from './current-weather-model'
 import { DailyWeather, NullDailyWeather } from './daily-weather-model'
