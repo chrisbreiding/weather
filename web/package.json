@@ -6,7 +6,7 @@
     "build": "rm -rf dist && vite build",
     "cypress:open": "cypress open --e2e --browser firefox",
     "cypress:run": "cypress run",
-    "deploy": "git push origin master:production",
+    "deploy": "echo 'Deploying via netlify' && git push origin $(git rev-parse --abbrev-ref HEAD):production",
     "lint-fix": "npm run lint -- --fix",
     "lint": "eslint 'src/*.+(ts|tsx)' 'src/**/*.+(ts|tsx)' 'cypress/**/*.+(ts|tsx)'",
     "preview": "vite preview --port 8088",

@@ -9,6 +9,7 @@ export class NullDay {
   precipProbability = '--'
   precipAccumulation = '--'
   precipType = '--'
+  snowAccumulation = '--'
   temperatureLow = '--'
   temperatureHigh = '--'
   precipProbabilityPercent = '--'
@@ -38,6 +39,7 @@ export interface DayProps {
   precipProbability: number
   precipAccumulation: number
   precipType: string
+  snowAccumulation: number
   temperatureLow: number
   temperatureHigh: number
 }
@@ -48,6 +50,7 @@ export class Day {
   precipProbability: number
   precipAccumulation: string
   precipType: string
+  snowAccumulation: string
   temperatureLow: number
   temperatureHigh: number
 
@@ -57,6 +60,7 @@ export class Day {
     this.precipProbability = props.precipProbability
     this.precipAccumulation = toTenth(props.precipAccumulation)
     this.precipType = props.precipType
+    this.snowAccumulation = toTenth(props.snowAccumulation)
     this.temperatureLow = Math.round(props.temperatureLow)
     this.temperatureHigh = Math.round(props.temperatureHigh)
 

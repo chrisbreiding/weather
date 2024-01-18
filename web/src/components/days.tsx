@@ -6,13 +6,13 @@ import React from 'react'
 
 import { chartState } from '../lib/chart-state'
 import type { DailyWeather, Day as DayModel, NullDailyWeather, NullDay } from '../lib/daily-weather-model'
-import { getShortDisplayDateFromTimestamp, isToday, toTenth } from '../lib/util'
+import { getShortDisplayDateFromTimestamp, isToday } from '../lib/util'
 
 import { WeatherIcon } from './weather-icon'
 
 const precipDetail = (day: DayModel | NullDay) => {
   return day.precipType === 'snow' ?
-    `${day.precipAccumulation} in` :
+    `${day.snowAccumulation} in` :
     `${day.precipProbabilityPercent}%`
 }
 
