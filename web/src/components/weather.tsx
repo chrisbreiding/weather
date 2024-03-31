@@ -32,11 +32,9 @@ export const Weather = observer(({ locationStore, weatherStore }: WeatherProps) 
     weatherStore.setShowingRadar(showingRadar)
   }
 
-  const focusedDay = chartState.focusedDay
-
   return (
     <div className={cs('weather', {
-      'has-focused-day': !!focusedDay,
+      'has-focused-day': chartState.hasFocusedDay,
       'showing-radar': weatherStore.isShowingRadar,
       'is-loading': chartState.isLoading,
     })}>

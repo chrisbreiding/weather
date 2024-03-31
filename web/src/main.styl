@@ -669,10 +669,6 @@ header {
   margin: 0 auto;
   padding-right: 2em;
   width: 100%;
-
-  .has-focused-day & {
-    overflow-x: auto;
-  }
 }
 
 .days-arrow {
@@ -697,11 +693,6 @@ header {
     .days-arrow {
       display: none;
     }
-  }
-
-  .has-focused-day & {
-    overflow-x: scroll;
-    overflow-y: hidden;
   }
 
   .days-scroll-container {
@@ -785,6 +776,10 @@ header {
     color: #9d9d9d;
     position: absolute;
     top: 0;
+
+    .has-focused-day & {
+      display: none;
+    }
 
     svg {
       transform: scaleY(1.5);

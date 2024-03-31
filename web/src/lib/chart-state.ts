@@ -128,6 +128,10 @@ class ChartState {
     this.focusedDay = day.time === this.focusedDay ? undefined : day.time
   }
 
+  get hasFocusedDay () {
+    return this.focusedDay !== undefined
+  }
+
   clearFocusedDay () {
     this.setFocusedDay({})
   }

@@ -43,10 +43,6 @@ export class WeatherStore {
     debugStore.log('hourly:', stringify(hourly))
     debugStore.log('daily:', stringify(daily))
     debugStore.log('alerts:', stringify(alerts))
-    // debugStore.log('currently:', stringify(currently))
-    // debugStore.log('hourly:', stringify(hourly))
-    // debugStore.log('daily:', stringify(daily))
-    // debugStore.log('alerts:', stringify(alerts))
 
     this.currently = new CurrentWeather(currently)
     this.hourly = new HourlyWeather({ hours: hourly.data })
