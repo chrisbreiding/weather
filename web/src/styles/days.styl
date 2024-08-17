@@ -1,0 +1,121 @@
+.days-arrow {
+  padding: 0.4em 2em;
+}
+
+.days {
+  border: solid 1px $border;
+  border-left: none;
+  margin-left: 50px;
+  font-size: 0.8em;
+  position: relative;
+
+  .is-loading & {
+    height: 130px;
+
+    .days-list,
+    .days-arrow {
+      display: none;
+    }
+  }
+
+  .days-scroll-container {
+    overflow: hidden;
+    position: relative;
+
+    // necessary for the days to line up correctly and to have a full border
+    // when the days are scrolling
+    .left-border {
+      background: $border;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 1px;
+    }
+  }
+
+  .days-list {
+    display: flex;
+    transition: all 1.5s ease-in-out;
+  }
+
+  .day-label-container {
+    overflow: visible;
+    position: relative;
+  }
+
+  .day {
+    border-left: solid 1px $border;
+    cursor: pointer;
+    padding: 0.4em 0;
+    text-align: center;
+
+    &:hover {
+      background: #f8f8f8;
+    }
+
+    &.is-focused {
+      background: #eee;
+    }
+
+    .date {
+      border-bottom: solid 1px $border;
+      padding-bottom: 0.4em;
+    }
+
+    .details {
+      color: #bfbfbf;
+      font-size: 0.9rem;
+      padding-top: 0.4em;
+    }
+
+    .temp-min {
+      color: $cold;
+    }
+
+    .temp-max {
+      color: $hot;
+    }
+
+    .icon {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: 5.2em;
+    }
+
+    .precip {
+      .weather-icon {
+        font-size: 0.8em;
+        margin-right: 0.3rem;
+      }
+    }
+  }
+
+  .days-arrow {
+    background: none;
+    border: none;
+    bottom: 0;
+    color: #9d9d9d;
+    position: absolute;
+    top: 0;
+
+    .has-focused-day & {
+      display: none;
+    }
+
+    svg {
+      transform: scaleY(1.5);
+    }
+  }
+
+  .days-arrow-left {
+    padding-right: 0.2em;
+    right: 100%;
+  }
+
+  .days-arrow-right {
+    left: 100%;
+    padding-left: 0.2em;
+  }
+}

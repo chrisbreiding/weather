@@ -1,0 +1,186 @@
+.current {
+  display: flex;
+  justify-content: center;
+  margin: 0.5em 0 1em;
+  text-align: center;
+
+  .row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+
+    &:first-of-type {
+      margin-top: 0.4em;
+      margin-bottom: 0.4em;
+    }
+
+    p {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      line-height: 1.2;
+    }
+  }
+
+  .apparent-temp {
+    font-size: 0.9em;
+  }
+
+  .temp {
+    font-size: 4em;
+    margin-right: 0.6rem;
+
+    .degrees {
+      font-size: 2rem;
+      position: relative;
+      top: 0.2em;
+      vertical-align: top;
+    }
+  }
+
+  .apparent-temp {
+    margin-right: 1rem;
+  }
+
+  &.lower-apparent .apparent-temp {
+    color: $cold;
+  }
+
+  &.higher-apparent .apparent-temp {
+    color: $hot;
+  }
+
+  .precip {
+    color: darken($precip, 10%);
+  }
+
+  .weather-icon {
+    cursor: pointer;
+    margin-bottom: 0.2em;
+  }
+}
+
+.radar {
+  margin-left: 1.2em;
+  position: relative;
+
+  .radar-container {
+    background: $windy;
+    height: 10em;
+    overflow: hidden;
+    position: relative;
+    width: 10em;
+  }
+
+  iframe {
+    border: none;
+    height: 50em;
+    left: -20em;
+    position: absolute;
+    top: -20em;
+    width: 50em;
+  }
+
+  .radar-cover {
+    border: solid 1em $lightest;
+    border-radius: 1.5em;
+    box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.3);
+    bottom: -0.7em;
+    cursor: pointer;
+    left: -0.7em;
+    position: absolute;
+    right: -0.7em;
+    top: -0.7em;
+
+    &:hover {
+      box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  button {
+    align-items: center;
+    background: #333;
+    border: solid 2px $lightest;;
+    border-radius: 50%;
+    display: none;
+    height: 3.5em;
+    justify-content: center;
+    position: absolute;
+    right: 0.6em;
+    top: 0.6em;
+    width: 3.7em;
+
+    &:hover {
+      background: lighten(#333, 20%);
+    }
+
+    .icon {
+      color: $lightest;
+      font-size: 2em;
+    }
+  }
+
+  &.with-controls {
+    display: none;
+    margin-left: 0;
+
+    &,
+    .radar-container,
+    iframe {
+      bottom: 0;
+      height: 100%;
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    .radar-cover {
+      display: none;
+    }
+
+    button {
+      display: flex;
+    }
+  }
+}
+
+.showing-radar .radar.with-controls {
+  display: block;
+}
+
+@media screen and (min-width: 450px) {
+  .current {
+    .temp {
+      margin-right: 1rem;
+    }
+
+    .icon {
+      font-size: 4em;
+      margin-top: 0.1em;
+    }
+
+    .row {
+      p {
+        width: 8rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .current {
+    margin: 2em 0;
+
+    .row {
+      &:first-of-type {
+        margin-top: 0.2em;
+      }
+    }
+
+    .precip {
+      margin-top: 2em;
+    }
+  }
+}

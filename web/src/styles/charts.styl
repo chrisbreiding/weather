@@ -1,0 +1,105 @@
+.charts {
+  margin: 0 auto;
+  padding-right: 2em;
+  width: 100%;
+}
+
+.recharts-wrapper {
+  margin-left: -15px; // compensate for too much padding on left
+}
+
+.precip-chart,
+.wind-chart {
+  margin-top: -20px;
+}
+
+.recharts-tooltip-wrapper {
+  transition: none !important;
+}
+
+.tooltip {
+  background: $lightest;
+  border-radius: 3px;
+  border: solid 1px #d3d3d3;
+  font-size: 0.8em;
+  padding: 0.4em;
+
+  .temp,
+  .apparent-temp,
+  .precip,
+  .wind {
+    margin-top: 0.4em;
+  }
+
+  .temp {
+    color: $temp;
+  }
+
+  .apparent-temp {
+    color: $cold;
+  }
+
+  .precip {
+    color: darken($precip, 20%);
+  }
+
+  .wind {
+    color: $wind;
+  }
+}
+
+.y-label {
+  font-size: 0.7em;
+}
+
+.recharts-legend-wrapper {
+  bottom: 25px !important;
+  font-size: 0.8em;
+  right: 0 !important;
+
+  .recharts-surface {
+    position: relative;
+    top: -2px;
+  }
+}
+
+.legend {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+
+  .legend-item {
+    align-items: center;
+    display: flex;
+    margin-left: 1em;
+  }
+
+  .box {
+    display: block;
+    height: 0.7em;
+    margin-right: 0.4em;
+    width: 1em;
+  }
+
+  .temp .box {
+    background: $temp;
+  }
+
+  .apparent-temp .box {
+    background: $cold;
+  }
+
+  .precip-probability .box {
+    background: alpha($precip, 0.2);
+    border: solid 1px $precipBorder;
+  }
+
+  .snow-probability .box {
+    background: alpha($cold, 0.4);
+    border: solid 1px $precipBorder;
+  }
+
+  .wind-speed .box {
+    background: $wind;
+  }
+}

@@ -1,0 +1,115 @@
+.location-alerts {
+  display: flex;
+  flex-grow: 2;
+  padding: 0.5em;
+}
+
+.alerts-badge {
+  align-items: center;
+  display: none;
+  margin-left: 0.5em;
+
+  .has-alerts & {
+    display: flex;
+  }
+
+  button {
+    align-items: center;
+    background: $alert;
+    border-radius: 50%;
+    border: none;
+    color: $lightest;
+    display: flex;
+    font-size: 1em;
+    height: 2em;
+    justify-content: center;
+    width: 2em;
+
+    &:hover {
+      background: darken($alert, 10%);
+    }
+  }
+}
+
+.showing-alerts .alerts-badge button {
+  border-bottom-left-radius: 0;
+}
+
+.alerts {
+  display: none;
+  justify-content: center;
+  padding: 0 0.5em;
+
+  .showing-alerts & {
+    display: flex;
+  }
+
+  ul {
+    max-width: 31em;
+    width: 100%;
+  }
+}
+
+.alert {
+  border: solid 1px $alert;
+  border-radius: 3px;
+  margin-bottom: 0.4em;
+  width: 100%;
+
+  .alert-title {
+    background: $alert;
+    color: $lightest;
+    align-items: stretch;
+    display: flex;
+
+    span,
+    button {
+      align-items: center;
+      display: flex;
+      padding: 0.4em 0.6em;
+    }
+
+    span {
+      flex-grow: 2;
+
+      svg {
+        margin-right: 0.8em;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      border-left: solid 1px darken($alert, 20%);
+      color: $lightest;
+      font-size: 1em;
+      outline: none;
+
+      &:first-of-type {
+        white-space: nowrap;
+      }
+
+      &:hover {
+        background: darken($alert, 20%);
+      }
+    }
+  }
+
+  p {
+    color: #333;
+    display: none;
+    padding: 0.4em 1em;
+
+    &:first-of-type {
+      padding-top: 0.8em;
+    }
+
+    &:last-of-type {
+      padding-bottom: 0.8em;
+    }
+  }
+
+  &.is-open p {
+    display: block;
+  }
+}
