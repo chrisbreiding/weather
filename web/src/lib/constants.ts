@@ -10,4 +10,4 @@ export const chartLineProps = {
 }
 export const chartMinWidth = 375
 export const chartHeight = 170
-export const totalDays = 10
+export const initialDays = 10

@@ -2,6 +2,7 @@ import { computed, makeObservable, observable } from 'mobx'
 import dayjs from 'dayjs'
 import { chartState } from './chart-state'
 import { isBetween } from './util'
+import { initialDays } from './constants'
 
 class NullHour {
   time: number
@@ -42,14 +43,14 @@ export class NullHourlyWeather {
     const secondsInAnHour = 60 * 60
     const secondsInADay = secondsInAnHour * 24
 
-    this.days = Array.from({ length: 10 }).map((_, i) => {
+    this.days = Array.from({ length: initialDays }).map((_, i) => {
       return start + i * secondsInADay
     })
-    this.chartData = Array.from({ length: 10 * 24 }).map((_, i) => {
+    this.chartData = Array.from({ length: initialDays * 24 }).map((_, i) => {
       return new NullHour(start + i * secondsInAnHour)
     })
     this.startTimestamp = start
-    this.endTimestamp = start + secondsInADay * 10
+    this.endTimestamp = start + secondsInADay * initialDays
   }
 }
 
@@ -149,19 +150,6 @@ export class HourlyWeather {
         precipSnowProbability: precipProbability,
         windSpeed: hour.windSpeed,
       }
-      return {
-        time: hour.time,
-        temp: Math.round(hour.temperature),
-        apparentTemp: Math.round(hour.apparentTemperature),
-        precipProbability: isSnow ? 0 : precipProbability,
-        lowPrecipProbability: isLowIntensity ? precipProbability : 0,
-        mediumPrecipProbability: isMediumIntensity ? precipProbability : 0,
-        highPrecipProbability: isHighIntensity ? precipProbability : 0,
-        veryHighPrecipProbability: isVeryHighIntensity ? precipProbability : 0,
-        snowProbability: isSnow ? precipProbability : 0,
-        precipSnowProbability: precipProbability,
-        windSpeed: hour.windSpeed,
-      }
     })
   }
 
@@ -184,12 +172,12 @@ export class HourlyWeather {
   get weekStartTimestamp () {
     const earliestTime = Math.min(...this.hours.map((hour) => hour.time))
 
-    return dayjs.unix(earliestTime).startOf('day').unix() + ((0 + chartState.startDayIndex) * 60 * 60 * 24)
+    return dayjs.unix(earliestTime).startOf('day').unix() + (chartState.startDayIndex * 60 * 60 * 24)
   }
 
   get weekEndTimestamp () {
     const latestTime = Math.max(...this.hours.map((hour) => hour.time))
 
-    return dayjs.unix(latestTime).startOf('day').unix() - ((10 - chartState.endDayIndex) * 60 * 60 * 24)
+    return dayjs.unix(latestTime).startOf('day').unix() - ((chartState.totalDays - chartState.endDayIndex) * 60 * 60 * 24)
   }
 }

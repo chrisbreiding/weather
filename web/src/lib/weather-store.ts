@@ -2,6 +2,7 @@ import { action, makeObservable, observable } from 'mobx'
 
 import { debugStore, stringify } from '../components/debug'
 import { Alert } from './alert-model'
+import { chartState } from './chart-state'
 import { CurrentWeather, NullCurrentWeather } from './current-weather-model'
 import { DailyWeather, NullDailyWeather } from './daily-weather-model'
 import { HourlyWeather, NullHourlyWeather } from './hourly-weather-model'
@@ -44,9 +45,15 @@ export class WeatherStore {
     debugStore.log('daily:', stringify(daily))
     debugStore.log('alerts:', stringify(alerts))
 
+    // hourly and daily can come back with different lengths of days. take the
+    // minimum of the two
+    const numDays = Math.min(daily.data.length, Math.floor(hourly.data.length / 24))
+
     this.currently = new CurrentWeather(currently)
-    this.hourly = new HourlyWeather({ hours: hourly.data })
-    this.daily = new DailyWeather({ days: daily.data })
+    this.hourly = new HourlyWeather({ hours: hourly.data.slice(0, numDays * 24 + 1) })
+    this.daily = new DailyWeather({ days: daily.data.slice(0, numDays) })
+
+    chartState.setTotalDays(numDays)
 
     const alertIds: { [key: string]: boolean } = {}
 

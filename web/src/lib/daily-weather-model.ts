@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import { computed, makeObservable, observable } from 'mobx'
 import type { IconName } from '../components/weather-icon'
 import { toTenth } from './util'
+import { initialDays } from './constants'
 
 export class NullDay {
   time: number
@@ -21,13 +22,13 @@ export class NullDay {
 
 export class NullDailyWeather {
   days: NullDay[]
-  lastDayIndex = 10
+  lastDayIndex = initialDays
 
   constructor () {
     const start = dayjs().startOf('day').unix()
     const secondsInADay = 60 * 60 * 24
 
-    this.days = Array.from({ length: 10 }).map((_, i) => {
+    this.days = Array.from({ length: initialDays }).map((_, i) => {
       return new NullDay(start + i * secondsInADay)
     })
   }
